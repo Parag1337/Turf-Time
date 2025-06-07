@@ -1,0 +1,1410 @@
+/* ===============================================
+   Global Styles & Variables
+   =============================================== */
+:root {
+  --primary: #4CAF50;
+  --primary-dark: #388E3C;
+  --primary-light: #A5D6A7; 
+  --secondary: #212832;
+  --accent: #F1A501;
+  --light-gray: #f8f9fa;
+  --white: #ffffff;
+  --black: #000000;
+  --text-primary: #5E6282;
+  --text-secondary: #212832;
+  --shadow-sm: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  --shadow-md: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 1rem 2rem rgba(0, 0, 0, 0.15);
+  --border-radius-sm: 0.5rem;
+  --border-radius-md: 1rem;
+  --border-radius-lg: 1.5rem;
+  --transition: all 0.3s ease;
+  
+  /* Add letter spacing variables */
+  --letter-spacing-tight: -0.5px;
+  --letter-spacing-normal: 0px;
+  --letter-spacing-wide: 0.5px;
+  
+  /* Add line height variables */
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.6;
+  --line-height-loose: 1.8;
+  
+  /* More breathing room in spacing */
+  --section-spacing: 7rem;
+  --element-spacing: 2rem;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  color: var(--text-primary);
+  line-height: var(--line-height-normal);
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: var(--letter-spacing-normal);
+  overflow-x: hidden;
+  background-color: #FFFEFE;
+}
+
+/* ============================================== */
+/* CRITICAL CSS FIXES                             */
+/* ============================================== */
+
+/* Fix CSS cascade order issues */
+body {
+  overflow-x: hidden;
+}
+
+/* Reset any problematic properties */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Fix container alignment */
+.container {
+  position: relative;
+}
+
+/* Ensure icons display properly */
+i.fa, i.fas, i.far, i.fab {
+  display: inline-block !important;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  font-style: normal;
+}
+
+/* Fix flexbox issues */
+.d-flex {
+  display: flex !important;
+}
+
+/* Make sure all sections have proper spacing */
+section {
+  overflow: hidden;
+  position: relative;
+}
+
+/* Improved section spacing */
+section {
+  padding: 5rem 0;
+}
+
+section + section {
+  padding-top: 2rem;
+}
+
+/* ===============================================
+   Typography Enhancements
+   =============================================== */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+  letter-spacing: var(--letter-spacing-tight);
+  line-height: var(--line-height-tight);
+}
+
+h1, .h1 {
+  font-size: 3.5rem;
+}
+
+h2, .h2 {
+  font-size: 2.5rem;
+}
+
+h3, .h3 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+h4, .h4 {
+  font-size: 1.5rem;
+}
+
+h5, .h5 {
+  font-size: 1.25rem;
+  letter-spacing: var(--letter-spacing-wide);
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 0.75rem;
+}
+
+p {
+  margin-bottom: 1.5rem;
+  line-height: var(--line-height-loose);
+  color: rgba(94, 98, 130, 0.85); /* Slightly lighter than the main text color */
+}
+
+/* Card text improvements */
+.card p {
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+/* Section heading spacing */
+.mb-7 {
+  margin-bottom: 4rem !important;
+}
+
+/* ===============================================
+   3D Effects & Animations
+   =============================================== */
+.hero-3d-element {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.card-3d {
+  transition: var(--transition);
+  transform-style: preserve-3d;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);
+}
+
+.card-3d:hover {
+  transform: translateY(-10px) rotateX(5deg);
+  box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1), 0 15px 25px rgba(0, 0, 0, 0.07);
+}
+
+.floating {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0px); }
+}
+
+.pulse {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* ===============================================
+   Navigation Bar
+   =============================================== */
+.navbar {
+  background: rgba(255, 255, 255, 0.95) !important; 
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  padding: 0.8rem 0;
+  transition: var(--transition);
+}
+
+.navbar-brand {
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+}
+
+.navbar-brand img {
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+  transition: var(--transition);
+}
+
+.navbar-brand:hover img {
+  transform: scale(1.05) rotate(-5deg);
+}
+
+.nav-link {
+  position: relative;
+  font-weight: 500;
+  padding: 0.5rem 1rem !important;
+  color: var(--secondary) !important;
+  transition: var(--transition);
+}
+
+.nav-link:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 1rem;
+  right: 1rem;
+  height: 2px;
+  background-color: var(--primary);
+  transform: scaleX(0);
+  transition: var(--transition);
+}
+
+.nav-link:hover:after {
+  transform: scaleX(1);
+}
+
+.btn-outline-success {
+  border-width: 2px;
+  font-weight: 600;
+  border-radius: var(--border-radius-sm);
+  transition: var(--transition);
+  box-shadow: 0 4px 8px rgba(76, 175, 80, 0.15);
+}
+
+.btn-outline-success:hover {
+  box-shadow: 0 6px 12px rgba(76, 175, 80, 0.25);
+  transform: translateY(-2px);
+}
+
+/* ===============================================
+   Hero Section
+   =============================================== */
+.bg-turf-hero {
+  position: relative;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(../img/hero/turf-hero-bg.jpg);
+  background-size: cover;
+  background-position: center;
+  color: white;
+  overflow: hidden;
+}
+
+.min-vh-100 {
+  min-height: 100vh;
+}
+
+.text-shadow {
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.hero-content {
+  max-width: 900px;
+  padding: 3rem;
+}
+
+.hero-title {
+  font-size: 4rem;
+  line-height: 1.1;
+}
+
+.text-gradient {
+  background: linear-gradient(45deg, #4CAF50, #8BC34A);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-fill-color: transparent;
+  display: inline-block;
+  position: relative;
+}
+
+.letter-spacing-3 {
+  letter-spacing: 3px;
+}
+
+.hero-buttons .btn {
+  border-radius: 50px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.hero-buttons .btn-success {
+  background: linear-gradient(45deg, #388E3C, #4CAF50);
+  border: none;
+}
+
+.hero-buttons .btn-success:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(76, 175, 80, 0.4);
+}
+
+.hero-buttons .btn-outline-light {
+  border-width: 2px;
+}
+
+.hero-buttons .btn-outline-light:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(255, 255, 255, 0.2);
+}
+
+.hero-stats-container {
+  padding-top: 2rem;
+  position: relative;
+}
+
+.hero-stats-container:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.hero-stats {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.hero-stats h3 {
+  font-size: 3.5rem;
+  background: linear-gradient(45deg, #ffffff, #e0e0e0);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-fill-color: transparent;
+}
+
+.lead {
+  max-width: 700px;
+}
+
+/* Hero responsive styles */
+@media (max-width: 1199.98px) {
+  .hero-title {
+    font-size: 3rem;
+  }
+  
+  .hero-image-container {
+    right: -15%;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .hero-title {
+    font-size: 3.5rem;
+  }
+  
+  .hero-stats h3 {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .hero-title {
+    font-size: 3rem;
+  }
+  
+  .py-8 {
+    padding-top: 5rem !important;
+    padding-bottom: 5rem !important;
+  }
+  
+  .hero-stats h3 {
+    font-size: 2.8rem;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  
+  .hero-stats h3 {
+    font-size: 2.5rem;
+  }
+  
+  .hero-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .hero-buttons .btn {
+    width: 100%;
+  }
+}
+
+/* New utility class for extra padding */
+.py-8 {
+  padding-top: 8rem !important;
+  padding-bottom: 8rem !important;
+}
+
+/* ===============================================
+   Features Section
+   =============================================== */
+
+/* COMPLETE FIX FOR FEATURE CARDS                 */
+.service-card {
+  border-radius: 1rem;
+  overflow: hidden;
+  border: none;
+  background: linear-gradient(145deg, #ffffff, #f5f5f5);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 1;
+  height: 100%;
+}
+
+.service-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(76, 175, 80, 0.2);
+}
+
+.service-card:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom right, var(--primary-light), var(--primary));
+  opacity: 0;
+  z-index: 1;
+  transition: opacity 0.3s ease;
+  border-radius: 1rem;
+}
+
+.service-card:hover:before {
+  opacity: 1;
+}
+
+.service-card .card-body {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  z-index: 2;
+  min-height: 100%;
+}
+
+.service-card:hover .card-body h4,
+.service-card:hover .card-body p {
+  color: #fff !important;
+}
+
+.service-card .rounded-circle {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background-color: rgba(76, 175, 80, 0.1);
+  margin-bottom: 1.5rem;
+  z-index: 1;
+}
+
+/* Direct fix for feature section icons */
+.service-card .card-body .rounded-circle i.fas,
+.service-card .card-body .rounded-circle i.far,
+.service-card .card-body .rounded-circle i.fab,
+.service-card .card-body .rounded-circle i {
+  position: relative;
+  display: inline-block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  color: #4CAF50 !important;
+  z-index: 2;
+  font-size: 1.5rem !important;
+}
+
+/* Also let's make sure the FontAwesome font family is applied correctly */
+.fa, .fas, .far, .fab {
+  font-family: "Font Awesome 5 Free" !important;
+  font-style: normal !important;
+  display: inline-block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.fas {
+  font-weight: 900 !important;
+}
+
+.far {
+  font-weight: 400 !important;
+}
+
+.fab {
+  font-family: "Font Awesome 5 Brands" !important;
+}
+
+/* Make sure the container is properly displayed */
+.service-card .card-body .rounded-circle {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Maintain hover effect */
+.service-card:hover .card-body .rounded-circle {
+  background-color: #4CAF50;
+}
+
+.service-card:hover .card-body .rounded-circle i {
+  color: #ffffff !important;
+}
+
+/* ===============================================
+   Turf Listings Section
+   =============================================== */
+.turf-card {
+  border-radius: var(--border-radius-md);
+  overflow: hidden;
+  transition: var(--transition);
+  border: none;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transform-style: preserve-3d;
+}
+
+.turf-card:hover {
+  transform: translateY(-15px) scale(1.01);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.turf-card .card-body {
+  padding: 1.75rem !important;
+}
+
+.turf-card h4 {
+  font-size: 1.4rem;
+  margin-bottom: 0.75rem !important;
+}
+
+.turf-card .card-img-top {
+  transition: var(--transition);
+  height: 230px !important;
+  object-fit: cover;
+}
+
+.turf-card:hover .card-img-top {
+  transform: scale(1.05);
+}
+
+.rating-stars {
+  color: var(--accent);
+}
+
+.card-footer {
+  border: none;
+  background: transparent;
+  padding-top: 0;
+}
+
+.btn-success {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  border-radius: var(--border-radius-sm);
+  font-weight: 600;
+  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+  transition: var(--transition);
+}
+
+.btn-success:hover {
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
+  box-shadow: 0 8px 20px rgba(76, 175, 80, 0.4);
+  transform: translateY(-3px);
+}
+
+/* ===============================================
+   Booking Section
+   =============================================== */
+.booking-step-icon {
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  transition: var(--transition);
+}
+
+.d-flex:hover .booking-step-icon {
+  transform: scale(1.1);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+.booking-form-card {
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.05);
+  transform-style: preserve-3d;
+  transition: var(--transition);
+}
+
+.booking-form-card:hover {
+  transform: translateY(-5px) rotateX(2deg);
+}
+
+.booking-form-card .card-header {
+  background: linear-gradient(45deg, var(--primary), var(--primary-dark));
+  border: none;
+  padding: 1.5rem !important;
+}
+
+.form-select,
+.form-control {
+  border-radius: var(--border-radius-sm);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 0.75rem 1rem;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: var(--transition);
+}
+
+.form-select:focus,
+.form-control:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+}
+
+
+.testimonial-card {
+  border-radius: var(--border-radius-md);
+  border: none;
+  background: linear-gradient(145deg, #ffffff, #f8f9fa);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  transition: var(--transition);
+  transform: translateZ(0);
+}
+
+.testimonial-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+}
+
+.testimonial-author {
+  border: 4px solid var(--white);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  object-fit: cover;
+}
+
+.carousel-navigation button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+  padding: 0;
+}
+
+.carousel-navigation button:hover {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: var(--white);
+  transform: translateY(-3px);
+}
+
+/* Fixed carousel indicators */
+.carousel-indicators {
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+}
+
+.carousel-indicators li {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--primary-light);
+  opacity: 0.5;
+  cursor: pointer;
+  transition: var(--transition);
+  border: none;
+  margin: 0 4px;
+}
+
+.carousel-indicators li.active {
+  opacity: 1;
+  background-color: var(--primary);
+  width: 12px;
+  height: 12px;
+}
+
+/* Additional effect for the static testimonial card */
+.card-3d {
+  transition: var(--transition);
+  transform: translateZ(0);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+}
+
+.card-3d:hover {
+  transform: translateY(-5px) rotateX(5deg);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* ===============================================
+   Partners Section
+   =============================================== */
+.partner-card {
+  border-radius: var(--border-radius-sm);
+  border: none;
+  background: var(--white);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  transition: var(--transition);
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.partner-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.partner-card img {
+  max-width: 80%;
+  max-height: 60px;
+  filter: grayscale(100%);
+  opacity: 0.7;
+  transition: var(--transition);
+}
+
+.partner-card:hover img {
+  filter: grayscale(0);
+  opacity: 1;
+}
+
+/* ===============================================
+   Newsletter Section
+   =============================================== */
+.newsletter-container {
+  background-color: rgba(76, 175, 80, 0.08);
+  border-radius: 8rem 2rem 2rem 2rem;
+  padding: 4rem 3rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.newsletter-container:before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(76, 175, 80, 0.2) 0%, rgba(255,255,255,0) 70%);
+  border-radius: 50%;
+}
+
+.newsletter-container:after {
+  content: '';
+  position: absolute;
+  bottom: -50px;
+  left: -50px;
+  width: 150px;
+  height: 150px;
+  background: radial-gradient(circle, rgba(241, 165, 1, 0.2) 0%, rgba(255,255,255,0) 70%);
+  border-radius: 50%;
+}
+
+.form-little-squirrel-control {
+  border-radius: 2rem;
+  padding: 1rem 1rem 1rem 3rem;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  font-size: 1rem;
+  transition: var(--transition);
+}
+
+.form-little-squirrel-control:focus {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  border-color: var(--primary);
+}
+
+.input-box-icon {
+  filter: invert(62%) sepia(87%) saturate(378%) hue-rotate(83deg) brightness(91%) contrast(85%);
+}
+
+.orange-gradient-btn {
+  background-image: linear-gradient(45deg, var(--primary-dark), var(--primary));
+  border: none;
+  border-radius: 2rem;
+  padding: 1rem 2rem;
+  font-weight: 600;
+  box-shadow: 0 8px 20px rgba(76, 175, 80, 0.3);
+  transition: var(--transition);
+}
+
+.orange-gradient-btn:hover {
+  background-image: linear-gradient(45deg, var(--primary), var(--primary-dark));
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(76, 175, 80, 0.4);
+}
+
+/* ===============================================
+   Footer Section
+   =============================================== */
+.footer-section {
+  background-color: var(--light-gray);
+  padding-top: 5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.footer-section:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(to right, var(--primary-light), var(--primary), var(--primary-light));
+}
+
+.footer-heading-color {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.5px;
+}
+
+.footer-heading-color:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  width: 40px;
+  height: 2px;
+  background: var(--primary);
+}
+
+.list-unstyled li {
+  margin-bottom: 0.75rem;
+}
+
+.link-900 {
+  color: var(--text-primary);
+  transition: var(--transition);
+  font-size: 0.95rem !important;
+  letter-spacing: 0.25px;
+}
+
+.link-900:hover {
+  color: var(--primary);
+  text-decoration: none;
+  transform: translateX(5px);
+}
+
+.icon-item {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--white);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  margin-right: 1rem;
+  transition: var(--transition);
+}
+
+.icon-item:hover {
+  transform: translateY(-5px);
+}
+
+.icon-item#facebook:hover {
+  background-color: #3b5998;
+  color: var(--white);
+}
+
+.icon-item#instagram:hover {
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+  color: var(--white);
+}
+
+.icon-item#twitter:hover {
+  background-color: #1da1f2;
+  color: var(--white);
+}
+
+.app-store-badge {
+  transition: var(--transition);
+}
+
+.app-store-badge:hover {
+  transform: scale(1.05);
+  filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.1));
+}
+
+/* ===============================================
+   Responsive Styles
+   =============================================== */
+@media (max-width: 991.98px) {
+  .hero-title {
+    font-size: 2.75rem;
+  }
+  
+  h1, .h1 {
+    font-size: 2.75rem;
+  }
+  
+  h2, .h2 {
+    font-size: 2.25rem;
+  }
+  
+  h3, .h3 {
+    font-size: 1.75rem;
+  }
+  
+  section {
+    padding: 4rem 0;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .hero-title {
+    font-size: 2.25rem;
+  }
+  
+  h1, .h1 {
+    font-size: 2.25rem;
+  }
+  
+  h2, .h2 {
+    font-size: 2rem;
+  }
+  
+  h3, .h3 {
+    font-size: 1.5rem;
+  }
+  
+  section {
+    padding: 3.5rem 0;
+  }
+  
+  .mb-7 {
+    margin-bottom: 2.5rem !important;
+  }
+  
+  p {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .hero-title {
+    font-size: 1.75rem;
+  }
+  
+  .section-title {
+    font-size: 1.5rem;
+  }
+  
+  .booking-form-card {
+    margin: 2rem 0;
+  }
+}
+
+/* ===============================================
+   Additional 3D Elements & Effects
+   =============================================== */
+.parallax-bg {
+  transform: translateZ(-10px) scale(2);
+  z-index: -1;
+}
+
+.depth-1 {
+  transform: translateZ(50px);
+}
+
+.depth-2 {
+  transform: translateZ(100px);
+}
+
+.depth-3 {
+  transform: translateZ(150px);
+}
+
+.tilt-effect {
+  transform-style: preserve-3d;
+  transition: var(--transition);
+}
+
+.tilt-effect:hover {
+  transform: perspective(1000px) rotateX(5deg) rotateY(5deg);
+}
+
+.glow-on-hover {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.glow-on-hover:after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+  opacity: 0;
+  transition: var(--transition);
+  z-index: -1;
+  transform: translate(-100%, -100%);
+}
+
+.glow-on-hover:hover:after {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+/* Add a subtle hover effect to buttons */
+.btn {
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+}
+
+.btn-success, .btn-primary {
+  box-shadow: 0 8px 15px rgba(76, 175, 80, 0.2);
+}
+
+.btn-success:hover, .btn-primary:hover {
+  box-shadow: 0 10px 20px rgba(76, 175, 80, 0.3);
+}
+
+.btn-lg {
+  padding: 0.8rem 2rem;
+}
+
+/* Visual breathing space for text */
+.fs-xl-10 {
+  font-size: 2.5rem !important;
+  line-height: 1.3;
+}
+
+/* Better visual dividers between sections */
+section:not(:last-child)::after {
+  content: '';
+  display: block;
+  height: 1px;
+  background: linear-gradient(to right, rgba(238, 238, 238, 0.1), rgba(238, 238, 238, 1), rgba(238, 238, 238, 0.1));
+  width: 90%;
+  margin: 0 auto;
+  margin-top: 6rem;
+}
+
+/* Media queries for responsive typography */
+@media (max-width: 991.98px) {
+  .hero-title {
+    font-size: 2.75rem;
+  }
+  
+  h1, .h1 {
+    font-size: 2.75rem;
+  }
+  
+  h2, .h2 {
+    font-size: 2.25rem;
+  }
+  
+  h3, .h3 {
+    font-size: 1.75rem;
+  }
+  
+  section {
+    padding: 4rem 0;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .hero-title {
+    font-size: 2.25rem;
+  }
+  
+  h1, .h1 {
+    font-size: 2.25rem;
+  }
+  
+  h2, .h2 {
+    font-size: 2rem;
+  }
+  
+  h3, .h3 {
+    font-size: 1.5rem;
+  }
+  
+  section {
+    padding: 3.5rem 0;
+  }
+  
+  .mb-7 {
+    margin-bottom: 2.5rem !important;
+  }
+  
+  p {
+    font-size: 0.95rem;
+  }
+}
+
+/* Add more white space to container padding */
+.container {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+/* Add subtle transitions for better visual flow */
+a, button, .card {
+  transition: all 0.25s ease-in-out;
+}
+
+/* ===============================================
+   Modern Testimonial Section - Complete Redesign
+   =============================================== */
+.testimonial-carousel {
+  overflow: hidden;
+  border-radius: 1.5rem;
+  background: white;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+/* Fix carousel display issues */
+.testimonial-carousel .carousel-item {
+  display: none !important;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.testimonial-carousel .carousel-item.active {
+  display: block !important;
+  opacity: 1;
+}
+
+/* Modern testimonial card design */
+.testimonial-card {
+  padding: 2rem !important;
+  border-radius: 1rem !important;
+  background: linear-gradient(145deg, #ffffff, #f8f9fa);
+  border: none !important;
+  box-shadow: none !important;
+  transform: translateY(30px);
+  opacity: 0;
+  animation: testimonial-fade-in 0.7s forwards;
+}
+
+@keyframes testimonial-fade-in {
+  0% {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.testimonial-author {
+  width: 75px !important;
+  height: 75px !important;
+  border: 4px solid white;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  object-fit: cover;
+}
+
+/* Modern testimonial navigation */
+.testimonial-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  margin-top: 1.5rem;
+}
+
+.carousel-navigation {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.carousel-navigation button {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: var(--primary);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+
+.carousel-navigation button:hover {
+  transform: translateY(-3px);
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: white;
+  box-shadow: 0 10px 20px rgba(76, 175, 80, 0.3);
+}
+
+.testimonial-carousel .carousel-indicators {
+  position: static;
+  margin: 0;
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.testimonial-carousel .carousel-indicators [data-bs-target] {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #e0e0e0;
+  border: none;
+  margin: 0;
+  opacity: 0.5;
+  transition: all 0.3s ease;
+}
+
+.testimonial-carousel .carousel-indicators .active {
+  background-color: var(--primary);
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+/* Rating stars */
+.rating-stars {
+  font-size: 1rem;
+  letter-spacing: 2px;
+  margin-right: 0.5rem;
+}
+
+/* Quote design */
+.static-testimonial {
+  position: relative;
+  background: linear-gradient(145deg, #ffffff, #f0f7f0);
+  border-radius: 1.5rem;
+  padding: 2.5rem;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  border-left: 5px solid var(--primary);
+  transition: all 0.3s ease;
+}
+
+.static-testimonial:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.quote-icon {
+  position: absolute;
+  top: -20px;
+  left: 20px;
+  width: 50px;
+  box-shadow: 0 10px 20px rgba(76, 175, 80, 0.3);
+} display: flex;
+  align-items: center;
+/* Animation for cards */;
+.testimonial-animation {--primary);
+  animation: testimonial-pulse 2s infinite alternate;
+} border-radius: 50%;
+  box-shadow: 0 10px 20px rgba(76, 175, 80, 0.3);
+@keyframes testimonial-pulse {
+  0% {
+    transform: scale(1);/
+  }stimonial-animation {
+  100% {ion: testimonial-pulse 2s infinite alternate;
+    transform: scale(1.02);
+  }
+}keyframes testimonial-pulse {
+  0% {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}  font-family: "Font Awesome 5 Brands" !important;.fab {}  font-weight: 400 !important;.far {}  font-weight: 900 !important;.fas {}  opacity: 1 !important;  visibility: visible !important;  display: inline-block !important;  font-style: normal !important;  font-family: "Font Awesome 5 Free" !important;.fa, .fas, .far, .fab {/* Make FontAwesome properly visible */}  font-size: 1.5rem !important;  z-index: 2;  color: #4CAF50 !important;  opacity: 1 !important;  visibility: visible !important;  display: inline-block !important;  position: relative;.service-card .card-body .rounded-circle i {}  z-index: 1;  margin-bottom: 1.5rem;  background-color: rgba(76, 175, 80, 0.1);  justify-content: center !important;  align-items: center !important;  display: flex !important;  height: 80px;  width: 80px;  position: relative;.service-card .card-body .rounded-circle {/* Feature icons fix */    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.02);
+  }
+}
+
+/* Add this at the end of your custom.css file */
+
+/* Feature icons fix */
+.service-card .card-body .rounded-circle {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background-color: rgba(76, 175, 80, 0.1);
+  margin-bottom: 1.5rem;
+  z-index: 1;
+}
+
+.service-card .card-body .rounded-circle i {
+  position: relative;
+  display: inline-block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  color: #4CAF50 !important;
+  z-index: 2;
+  font-size: 1.5rem !important;
+}
+
+/* Make FontAwesome properly visible */
+.fa, .fas, .far, .fab {
+  font-family: "Font Awesome 5 Free" !important;
+  font-style: normal !important;
+  display: inline-block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.fas {
+  font-weight: 900 !important;
+}
+
+.far {
+  font-weight: 400 !important;
+}
+
+.fab {
+  font-family: "Font Awesome 5 Brands" !important;
+}

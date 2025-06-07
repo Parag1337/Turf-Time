@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <!-- ===============================================-->
+    <!--    Document Title-->
+    <!-- ===============================================-->
+    <title>TurfTime | Book Your Perfect Playing Field</title>
+
+
+    <!-- ===============================================-->
+    <!--    Favicons-->
+    <!-- ===============================================-->
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicons/favicon-16x16.png">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicons/favicon.ico">
+    <link rel="manifest" href="assets/img/favicons/manifest.json">
+    <meta name="msapplication-TileImage" content="assets/img/favicons/mstile-150x150.png">
+    <meta name="theme-color" content="#ffffff">
+    <!-- First load theme.css -->
+    <link href="assets/css/main.css" rel="stylesheet" />
+    <!-- Then load your custom overrides -->
+    <link href="assets/css/custom.css" rel="stylesheet" />
+    <link href="assets/css/enhanced.css" rel="stylesheet" />
+
+    <!-- ===============================================-->
+    <!--    Stylesheets-->
+    <!-- ===============================================-->
+    <style>
+      .bg-turf-hero {
+        background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(assets/img/hero/turf-hero-bg.jpg);
+        background-size: cover;
+        background-position: center;
+        color: white;
+      }
+      .turf-card {
+        transition: transform 0.3s;
+      }
+      .turf-card:hover {
+        transform: translateY(-10px);
+      }
+      .rating-stars {
+        color: #F1A501;
+      }
+    </style>
+
+    <!-- Add this script right before the closing </head> tag -->
+<script>
+  // Ensure icons are visible
+  document.addEventListener('DOMContentLoaded', function() {
+    // Force icon visibility on all service cards
+    setTimeout(function() {
+      const icons = document.querySelectorAll('.service-card .rounded-circle i');
+      icons.forEach(function(icon) {
+        icon.style.display = 'inline-block';
+        icon.style.visibility = 'visible';
+        icon.style.opacity = '1';
+      });
+    }, 100);
+  });
+</script>
+  </head>
+
+
+  <body>
+
+    <!-- ===============================================-->
+    <!--    Main Content-->
+    <!-- ===============================================-->
+    <main class="main" id="top">
+      <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3 d-block bg-white shadow-sm" data-navbar-on-scroll="data-navbar-on-scroll">
+        <div class="container"><a class="navbar-brand" href="index.html"><img src="assets/img/logo.svg" height="34" alt="logo" /><span class="fw-bold fs-3 ms-2 text-primary">TurfTime</span></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"> </span></button>
+          <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto pt-2 pt-lg-0 font-base align-items-lg-center align-items-start">
+              <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" aria-current="page" href="#features">Features</a></li>
+              <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" aria-current="page" href="#turfs">Turfs</a></li>
+              <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" aria-current="page" href="#booking">Booking</a></li>
+              <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" aria-current="page" href="#testimonial">Testimonial</a></li>
+              <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" aria-current="page" href="#!">Login</a></li>
+              <li class="nav-item px-3 px-xl-4"><a class="btn btn-outline-success order-1 order-lg-0 fw-medium" href="#!">Sign Up</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      
+      <!-- Hero Section - Centered and More Impactful -->
+<section class="bg-turf-hero py-0" id="hero">
+  <div class="hero-container container-fluid px-0">
+    <div class="row g-0 min-vh-100">
+      <div class="col-12 d-flex align-items-center justify-content-center">
+        <div class="hero-content text-center py-8 px-4">
+          <h5 class="text-white fw-bold mb-3 text-uppercase letter-spacing-3 text-shadow">Welcome to TurfTime</h5>
+          <h1 class="hero-title display-3 fw-bold text-white mb-4 text-shadow">Find & Book <span class="text-success text-gradient">Sports Fields</span> in Seconds</h1>
+          <p class="lead text-white mb-5 text-shadow mx-auto">Discover and reserve the perfect turf for your game. No more hassle, just play.</p>
+          
+          <div class="hero-buttons d-flex flex-wrap justify-content-center gap-3 mb-5">
+            <button class="btn btn-success btn-lg primary-btn-shadow px-5 py-3" style="margin-left: 10px;">Find Turf Now</button>
+            <button class="btn btn-outline-light btn-lg px-4 py-3" style="margin-left: 20px;" >How It Works</button>
+          </div>
+          
+          <div class="hero-stats-container mt-5">
+            <div class="row hero-stats justify-content-center text-center">
+              <div class="col-md-4 col-sm-4 col-12 mb-4 mb-sm-0">
+                <h3 class="text-white mb-0 fw-bold display-5">500+</h3>
+                <p class="text-white-50 mb-0">Sports Fields</p>
+              </div>
+              <div class="col-md-4 col-sm-4 col-12 mb-4 mb-sm-0">
+                <h3 class="text-white mb-0 fw-bold display-5">10K+</h3>
+                <p class="text-white-50 mb-0">Happy Players</p>
+              </div>
+              <div class="col-md-4 col-sm-4 col-12">
+                <h3 class="text-white mb-0 fw-bold display-5">15+</h3>
+                <p class="text-white-50 mb-0">Sports Types</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+      <!-- Features Section -->
+      <section class="pt-5 pt-md-9" id="features">
+  <div class="container">
+    <div class="mb-7 text-center">
+      <h5 class="text-success">FEATURES</h5>
+      <h3 class="fs-xl-10 fs-lg-8 fs-7 fw-bold font-cursive text-capitalize">Why Choose TurfTime</h3>
+    </div>
+    <div class="row">
+      <!-- Feature 1 -->
+      <div class="col-lg-3 col-sm-6 mb-6">
+        <div class="card service-card shadow-hover rounded-3 text-center align-items-center h-100">
+          <div class="card-body p-xxl-5 p-4"> 
+            <div style="width:80px;height:80px;background:rgba(76,175,80,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:1.5rem;">
+              <i class="fas fa-calendar-alt" style="font-size:24px;color:#4CAF50;"></i>
+            </div>
+            <h4 class="mb-3">Easy Booking</h4>
+            <p class="mb-0 fw-medium">Book your favorite turf in seconds with our simple online reservation system.</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Feature 2 -->
+      <div class="col-lg-3 col-sm-6 mb-6">
+        <div class="card service-card shadow-hover rounded-3 text-center align-items-center h-100">
+          <div class="card-body p-xxl-5 p-4"> 
+            <div style="width:80px;height:80px;background:rgba(76,175,80,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:1.5rem;">
+              <i class="fas fa-clock" style="font-size:24px;color:#4CAF50;"></i>
+            </div>
+            <h4 class="mb-3">Flexible Timings</h4>
+            <p class="mb-0 fw-medium">Early morning or late night, weekday or weekend - find slots that match your schedule.</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Feature 3 -->
+      <div class="col-lg-3 col-sm-6 mb-6">
+        <div class="card service-card shadow-hover rounded-3 text-center align-items-center h-100">
+          <div class="card-body p-xxl-5 p-4"> 
+            <div style="width:80px;height:80px;background:rgba(76,175,80,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:1.5rem;">
+              <i class="fas fa-futbol" style="font-size:24px;color:#4CAF50;"></i>
+            </div>
+            <h4 class="mb-3">Quality Turfs</h4>
+            <p class="mb-0 fw-medium">Play on the best maintained artificial and natural turfs with excellent facilities.</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Feature 4 -->
+      <div class="col-lg-3 col-sm-6 mb-6">
+        <div class="card service-card shadow-hover rounded-3 text-center align-items-center h-100">
+          <div class="card-body p-xxl-5 p-4"> 
+            <div style="width:80px;height:80px;background:rgba(76,175,80,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:1.5rem;">
+              <i class="fas fa-users" style="font-size:24px;color:#4CAF50;"></i>
+            </div>
+            <h4 class="mb-3">Team Management</h4>
+            <p class="mb-0 fw-medium">Invite friends, organize teams, and manage your sports events all in one place.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+      <!-- Turf Listings Section -->
+      <section class="pt-5" id="turfs">
+        <div class="container">
+          <div class="position-absolute start-100 bottom-0 translate-middle-x d-none d-xl-block ms-xl-n4"><img src="assets/img/dest/shape.svg" alt="destination" /></div>
+          <div class="mb-7 text-center">
+            <h5 class="text-success">AVAILABLE TURFS</h5>
+            <h3 class="fs-xl-10 fs-lg-8 fs-7 fw-bold font-cursive text-capitalize">Find Your Perfect Playing Ground</h3>
+          </div>
+          <div class="row">
+            <div class="col-md-4 mb-4">
+              <div class="card turf-card overflow-hidden shadow"> 
+                <img class="card-img-top" src="assets/img/dest/turf1.jpg" alt="Football Turf" style="height: 200px; object-fit: cover;" />
+                <div class="card-body py-4 px-3">
+                  <div class="d-flex flex-column flex-lg-row justify-content-between mb-2">
+                    <h4 class="text-secondary fw-medium"><a class="link-dark text-decoration-none stretched-link" href="#!">Green Field Football</a></h4>
+                    <span class="fs-1 fw-medium text-success">$30/hr</span>
+                  </div>
+                  <div class="rating-stars mb-2">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                    <span class="text-muted ms-2">(4.5)</span>
+                  </div>
+                  <div class="d-flex align-items-center mb-3"> 
+                    <i class="fas fa-map-marker-alt text-success me-2"></i>
+                    <span class="fs-0 fw-medium">Downtown Sports Complex</span>
+                  </div>
+                  <div class="d-flex align-items-center">
+                    <i class="fas fa-futbol text-success me-2"></i>
+                    <span class="fs-0 fw-medium">Football, 5-a-side</span>
+                  </div>
+                </div>
+                <div class="card-footer bg-white border-top-0 text-center p-3">
+                  <a href="#booking" class="btn btn-success w-100">Book Now</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 mb-4">
+              <div class="card turf-card overflow-hidden shadow"> 
+                <img class="card-img-top" src="assets/img/dest/turf2.jpg" alt="Cricket Pitch" style="height: 200px; object-fit: cover;" />
+                <div class="card-body py-4 px-3">
+                  <div class="d-flex flex-column flex-lg-row justify-content-between mb-2">
+                    <h4 class="text-secondary fw-medium"><a class="link-dark text-decoration-none stretched-link" href="#!">Premier Cricket Turf</a></h4>
+                    <span class="fs-1 fw-medium text-success">$45/hr</span>
+                  </div>
+                  <div class="rating-stars mb-2">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <span class="text-muted ms-2">(4.9)</span>
+                  </div>
+                  <div class="d-flex align-items-center mb-3"> 
+                    <i class="fas fa-map-marker-alt text-success me-2"></i>
+                    <span class="fs-0 fw-medium">East Valley Sports Center</span>
+                  </div>
+                  <div class="d-flex align-items-center">
+                    <i class="fas fa-cricket text-success me-2"></i>
+                    <span class="fs-0 fw-medium">Cricket</span>
+                  </div>
+                </div>
+                <div class="card-footer bg-white border-top-0 text-center p-3">
+                  <a href="#booking" class="btn btn-success w-100">Book Now</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 mb-4">
+              <div class="card turf-card overflow-hidden shadow"> 
+                <img class="card-img-top" src="assets/img/dest/turf3.jpg" alt="Tennis Court" style="height: 200px; object-fit: cover;" />
+                <div class="card-body py-4 px-3">
+                  <div class="d-flex flex-column flex-lg-row justify-content-between mb-2">
+                    <h4 class="text-secondary fw-medium"><a class="link-dark text-decoration-none stretched-link" href="#!">Ace Tennis Courts</a></h4>
+                    <span class="fs-1 fw-medium text-success">$25/hr</span>
+                  </div>
+                  <div class="rating-stars mb-2">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <span class="text-muted ms-2">(4.0)</span>
+                  </div>
+                  <div class="d-flex align-items-center mb-3"> 
+                    <i class="fas fa-map-marker-alt text-success me-2"></i>
+                    <span class="fs-0 fw-medium">Westside Recreation Center</span>
+                  </div>
+                  <div class="d-flex align-items-center">
+                    <i class="fas fa-table-tennis text-success me-2"></i>
+                    <span class="fs-0 fw-medium">Tennis, Badminton</span>
+                  </div>
+                </div>
+                <div class="card-footer bg-white border-top-0 text-center p-3">
+                  <a href="#booking" class="btn btn-success w-100">Book Now</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="text-center mt-4">
+            <a href="#!" class="btn btn-outline-success btn-lg">View All Turfs</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Booking Section -->
+      <section id="booking" class="pt-7 pb-5">
+        <div class="container">
+          <div class="row align-items-center">
+            <div class="col-lg-6">
+              <div class="mb-4 text-start">
+                <h5 class="text-success">Quick and Easy</h5>
+                <h3 class="fs-xl-10 fs-lg-8 fs-7 fw-bold font-cursive text-capitalize">Book Your Turf in 3 Simple Steps</h3>
+              </div>
+              <div class="d-flex align-items-start mb-5">
+                <div class="bg-success me-sm-4 me-3 p-3" style="border-radius: 13px"> 
+                  <i class="fas fa-search text-white fa-lg"></i>
+                </div>
+                <div class="flex-1">
+                  <h5 class="text-secondary fw-bold fs-0">Search Available Turfs</h5>
+                  <p>Find turfs near you by location, sport type,<br class="d-none d-sm-block">or availability on your preferred date and time.</p>
+                </div>
+              </div>
+              <div class="d-flex align-items-start mb-5">
+                <div class="bg-danger me-sm-4 me-3 p-3" style="border-radius: 13px">
+                  <i class="fas fa-calendar-check text-white fa-lg"></i>
+                </div>
+                <div class="flex-1">
+                  <h5 class="text-secondary fw-bold fs-0">Select and Pay</h5>
+                  <p>Choose your perfect turf, select a time slot, <br class="d-none d-sm-block">and make a secure online payment to confirm.</p>
+                </div>
+              </div>
+              <div class="d-flex align-items-start mb-5">
+                <div class="bg-info me-sm-4 me-3 p-3" style="border-radius: 13px">
+                  <i class="fas fa-play-circle text-white fa-lg"></i>
+                </div>
+                <div class="flex-1">
+                  <h5 class="text-secondary fw-bold fs-0">Play and Enjoy</h5>
+                  <p>Receive your booking confirmation by email <br class="d-none d-sm-block">and show up at the turf ready to play!</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 d-flex justify-content-center align-items-start">
+              <div class="card position-relative shadow" style="max-width: 420px; border-radius: 15px;">
+                <div class="card-header bg-success text-white p-4 rounded-top">
+                  <h4 class="mb-0">Book Your Turf Now</h4>
+                </div>
+                <div class="card-body p-4">
+                  <form>
+                    <div class="mb-3">
+                      <label for="sportType" class="form-label fw-medium">Sport Type</label>
+                      <select class="form-select" id="sportType">
+                        <option selected>Select Sport</option>
+                        <option value="1">Football</option>
+                        <option value="2">Cricket</option>
+                        <option value="3">Tennis</option>
+                        <option value="4">Basketball</option>
+                        <option value="5">Badminton</option>
+                      </select>
+                    </div>
+                    <div class="mb-3">
+                      <label for="location" class="form-label fw-medium">Location</label>
+                      <select class="form-select" id="location">
+                        <option selected>Select Location</option>
+                        <option value="1">Downtown</option>
+                        <option value="2">East Valley</option>
+                        <option value="3">Westside</option>
+                        <option value="4">North District</option>
+                      </select>
+                    </div>
+                    <div class="mb-3">
+                      <label for="bookingDate" class="form-label fw-medium">Date</label>
+                      <input type="date" class="form-control" id="bookingDate">
+                    </div>
+                    <div class="mb-4">
+                      <label for="bookingTime" class="form-label fw-medium">Time</label>
+                      <select class="form-select" id="bookingTime">
+                        <option selected>Select Time Slot</option>
+                        <option value="1">6:00 AM - 7:00 AM</option>
+                        <option value="2">7:00 AM - 8:00 AM</option>
+                        <option value="3">8:00 AM - 9:00 AM</option>
+                        <option value="4">5:00 PM - 6:00 PM</option>
+                        <option value="5">6:00 PM - 7:00 PM</option>
+                        <option value="6">7:00 PM - 8:00 PM</option>
+                        <option value="7">8:00 PM - 9:00 PM</option>
+                        <option value="8">9:00 PM - 10:00 PM</option>
+                      </select>
+                    </div>
+                    <button type="submit" class="btn btn-success btn-lg w-100">Check Availability</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Testimonial Section -->
+      <section id="testimonial" class="pt-7 pb-5">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-5 mb-5 mb-lg-0">
+              <div class="mb-5 text-start">
+                <h5 class="text-success">TESTIMONIALS</h5>
+                <h3 class="fs-xl-10 fs-lg-8 fs-7 fw-bold font-cursive text-capitalize">What Players Say About Us</h3>
+                <p class="mt-4">Don't just take our word for it. See what sports enthusiasts and teams think about the TurfTime experience.</p>
+              </div>
+              <!-- Static testimonial with modern design -->
+              <div class="d-none d-lg-block">
+                <div class="static-testimonial">
+                  <div class="quote-icon">
+                    <i class="fas fa-quote-left"></i>
+                  </div>
+                  <p class="fst-italic mb-3">"Our turf booking experience has never been smoother. The app is intuitive, and customer service is excellent. Highly recommended for all sports teams!"</p>
+                  <div class="d-flex align-items-center">
+                    <img src="assets/img/testimonial/team.jpg" alt="Sports Club" class="rounded-circle me-3" style="width: 50px; height: 50px; object-fit: cover;">
+                    <div>
+                      <p class="fw-bold mb-0">Sports Club Association</p>
+                      <div class="rating-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-lg-7">
+              <!-- Modernized testimonial carousel -->
+              <div class="testimonial-carousel" id="testimonialIndicator" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                  <!-- Testimonial 1 -->
+                  <div class="carousel-item active">
+                    <div class="testimonial-card">
+                      <div class="d-flex mb-4 align-items-center">
+                        <img class="rounded-circle testimonial-author" src="assets/img/testimonial/author.png" alt="David Rodriguez" />
+                        <div class="ms-3">
+                          <h5 class="mb-0 text-secondary">David Rodriguez</h5>
+                          <p class="mb-0 text-muted fs--1">Amateur Football Team Captain</p>
+                        </div>
+                        <div class="ms-auto">
+                          <span class="rating-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                          </span>
+                        </div>
+                      </div>
+                      <p class="fw-medium mb-0">"TurfTime has completely changed how our football team practices. Booking is super easy, and the turfs are always in perfect condition. No more time wasted looking for places to play!"</p>
+                    </div>
+                  </div>
+                  
+                  <!-- Testimonial 2 -->
+                  <div class="carousel-item">
+                    <div class="testimonial-card">
+                      <div class="d-flex mb-4 align-items-center">
+                        <img class="rounded-circle testimonial-author" src="assets/img/testimonial/author2.png" alt="Sarah Williams" />
+                        <div class="ms-3">
+                          <h5 class="mb-0 text-secondary">Sarah Williams</h5>
+                          <p class="mb-0 text-muted fs--1">Cricket Coach</p>
+                        </div>
+                        <div class="ms-auto">
+                          <span class="rating-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                          </span>
+                        </div>
+                      </div>
+                      <p class="fw-medium mb-0">"As a cricket coach, finding good practice facilities used to be a challenge. TurfTime has made it incredibly simple to book quality pitches for my team at convenient times."</p>
+                    </div>
+                  </div>
+                  
+                  <!-- Testimonial 3 -->
+                  <div class="carousel-item">
+                    <div class="testimonial-card">
+                      <div class="d-flex mb-4 align-items-center">
+                        <img class="rounded-circle testimonial-author" src="assets/img/testimonial/author3.png" alt="Michael Chen" />
+                        <div class="ms-3">
+                          <h5 class="mb-0 text-secondary">Michael Chen</h5>
+                          <p class="mb-0 text-muted fs--1">Tennis Enthusiast</p>
+                        </div>
+                        <div class="ms-auto">
+                          <span class="rating-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                          </span>
+                        </div>
+                      </div>
+                      <p class="fw-medium mb-0">"I organize weekly tennis matches with friends, and TurfTime has made the booking process seamless. The app reminds us about our bookings and even helps find players when someone drops out."</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Modern controls wrapper -->
+                <div class="testimonial-controls mt-4">
+                  <!-- Navigation controls -->
+                  <div class="carousel-navigation">
+                    <button class="btn-nav" type="button" data-bs-target="#testimonialIndicator" data-bs-slide="prev">
+                      <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <button class="btn-nav" type="button" data-bs-target="#testimonialIndicator" data-bs-slide="next">
+                      <i class="fas fa-arrow-right"></i>
+                    </button>
+                  </div>
+                  
+                  <!-- Carousel Indicators -->
+                  <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#testimonialIndicator" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Testimonial 1"></button>
+                    <button type="button" data-bs-target="#testimonialIndicator" data-bs-slide-to="1" aria-label="Testimonial 2"></button>
+                    <button type="button" data-bs-target="#testimonialIndicator" data-bs-slide-to="2" aria-label="Testimonial 3"></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Partners Section -->
+      <div class="position-relative pt-7 pt-lg-6 pb-5 pb-lg-7">
+        <div class="container">
+          <div class="row row-cols-lg-5 row-cols-md-3 row-cols-2 flex-center">
+            <div class="col">
+              <div class="card shadow-hover mb-4" style="border-radius:10px;">
+                <div class="card-body text-center"> <img class="img-fluid" src="assets/img/partner/1.png" alt="" /></div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card shadow-hover mb-4" style="border-radius:10px;">
+                <div class="card-body text-center"> <img class="img-fluid" src="assets/img/partner/2.png" alt="" /></div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card shadow-hover mb-4" style="border-radius:10px;">
+                <div class="card-body text-center"> <img class="img-fluid" src="assets/img/partner/3.png" alt="" /></div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card shadow-hover mb-4" style="border-radius:10px;">
+                <div class="card-body text-center"> <img class="img-fluid" src="assets/img/partner/4.png" alt="" /></div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card shadow-hover mb-4" style="border-radius:10px;">
+                <div class="card-body text-center"> <img class="img-fluid" src="assets/img/partner/5.png" alt="" /></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Newsletter Section -->
+      <section class="pt-6">
+        <div class="container">
+          <div class="py-8 px-5 position-relative text-center" style="background-color: rgba(76, 175, 80, 0.1);border-radius: 129px 20px 20px 20px;">
+            <div class="row justify-content-center">
+              <div class="col-lg-8 col-md-10">
+                <h2 class="text-secondary lh-1-7 mb-7">Subscribe to get updates about new turfs, special offers and exclusive discounts</h2>
+                <form class="row g-3 align-items-center w-lg-75 mx-auto">
+                  <div class="col-sm">
+                    <div class="input-group-icon">
+                      <input class="form-control form-little-squirrel-control" type="email" placeholder="Enter email" aria-label="email" />
+                      <img class="input-box-icon" src="assets/img/cta/mail.png" width="17" alt="mail" />
+                    </div>
+                  </div>
+                  <div class="col-sm-auto">
+                    <button class="btn btn-success orange-gradient-btn fs--1">Subscribe</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <section class="pb-0 pb-lg-4">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-3 col-md-7 col-12 mb-4 mb-md-6 mb-lg-0 order-0"> 
+              <div class="d-flex align-items-center mb-3">
+                <img class="me-2" src="assets/img/logo.svg" width="30" alt="logo" />
+                <h4 class="mb-0 text-success fw-bold">TurfTime</h4>
+              </div>
+              <p class="fs--1 text-secondary mb-0 fw-medium">Book your favorite sports turf in minutes, manage your team, and enjoy quality playing time.</p>
+            </div>
+            <div class="col-lg-2 col-md-4 mb-4 mb-lg-0 order-lg-1 order-md-2">
+              <h4 class="footer-heading-color fw-bold font-sans-serif mb-3 mb-lg-4">Company</h4>
+              <ul class="list-unstyled mb-0">
+                <li class="mb-2"><a class="link-900 fs-1 fw-medium text-decoration-none" href="#!">About</a></li>
+                <li class="mb-2"><a class="link-900 fs-1 fw-medium text-decoration-none" href="#!">Careers</a></li>
+                <li class="mb-2"><a class="link-900 fs-1 fw-medium text-decoration-none" href="#!">Mobile App</a></li>
+              </ul>
+            </div>
+            <div class="col-lg-2 col-md-4 mb-4 mb-lg-0 order-lg-2 order-md-3">
+              <h4 class="footer-heading-color fw-bold font-sans-serif mb-3 mb-lg-4">Contact</h4>
+              <ul class="list-unstyled mb-0">
+                <li class="mb-2"><a class="link-900 fs-1 fw-medium text-decoration-none" href="#!">Help/FAQ</a></li>
+                <li class="mb-2"><a class="link-900 fs-1 fw-medium text-decoration-none" href="#!">Press</a></li>
+                <li class="mb-2"><a class="link-900 fs-1 fw-medium text-decoration-none" href="#!">Partners</a></li>
+              </ul>
+            </div>
+            <div class="col-lg-2 col-md-4 mb-4 mb-lg-0 order-lg-3 order-md-4">
+              <h4 class="footer-heading-color fw-bold font-sans-serif mb-3 mb-lg-4">Services</h4>
+              <ul class="list-unstyled mb-0">
+                <li class="mb-2"><a class="link-900 fs-1 fw-medium text-decoration-none" href="#!">Turf Booking</a></li>
+                <li class="mb-2"><a class="link-900 fs-1 fw-medium text-decoration-none" href="#!">Team Management</a></li>
+                <li class="mb-2"><a class="link-900 fs-1 fw-medium text-decoration-none" href="#!">Tournament Hosting</a></li>
+              </ul>
+            </div>
+            <div class="col-lg-3 col-md-5 col-12 mb-4 mb-md-6 mb-lg-0 order-lg-4 order-md-1">
+              <div class="icon-group mb-4"> 
+                <a class="text-decoration-none icon-item shadow-social" id="facebook" href="#!"><i class="fab fa-facebook-f"> </i></a>
+                <a class="text-decoration-none icon-item shadow-social" id="instagram" href="#!"><i class="fab fa-instagram"> </i></a>
+                <a class="text-decoration-none icon-item shadow-social" id="twitter" href="#!"><i class="fab fa-twitter"> </i></a>
+              </div>
+              <h4 class="fw-medium font-sans-serif text-secondary mb-3">Download our app</h4>
+              <div class="d-flex align-items-center"> 
+                <a href="#!"> <img class="me-2" src="assets/img/play-store.png" alt="play store" /></a>
+                <a href="#!"> <img src="assets/img/apple-store.png" alt="apple store" /></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="py-5 text-center">
+        <p class="mb-0 text-secondary fs--1 fw-medium">© 2025 TurfTime. All rights reserved.</p>
+      </div>
+    </main>
+
+    <!-- JavaScripts -->
+    <script src="vendors/@popperjs/popper.min.js"></script>
+    <script src="vendors/bootstrap/bootstrap.min.js"></script>
+    <script src="vendors/is/is.min.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
+    <script src="vendors/fontawesome/all.min.js"></script>
+    <script src="assets/js/theme.js"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;family=Volkhov:wght@700&amp;display=swap" rel="stylesheet">
+    
+    <!-- Add this right before the closing </body> tag to ensure FontAwesome loads properly -->
+<script>
+  // Check if FontAwesome is loaded properly
+  document.addEventListener('DOMContentLoaded', function() {
+    // Force refresh of FontAwesome icons
+    if (window.FontAwesome) {
+      window.FontAwesome.dom.i2svg();
+    }
+  });
+</script>
+  </body>
+</html>
