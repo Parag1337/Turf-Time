@@ -16,25 +16,25 @@
     <!-- ===============================================-->
     <!--    Favicons-->
     <!-- ===============================================-->
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicons/favicon-16x16.png">
-    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicons/favicon.ico">
-    <link rel="manifest" href="assets/img/favicons/manifest.json">
-    <meta name="msapplication-TileImage" content="assets/img/favicons/mstile-150x150.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='img/favicons/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='img/favicons/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='img/favicons/favicon-16x16.png') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='img/favicons/favicon.ico') }}">
+    <link rel="manifest" href="{{ url_for('static', filename='img/favicons/manifest.json') }}">
+    <meta name="msapplication-TileImage" content="{{ url_for('static', filename='img/favicons/mstile-150x150.png') }}">
     <meta name="theme-color" content="#ffffff">
     <!-- First load theme.css -->
-    <link href="..\static\css\main.css" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet" />
     <!-- Then load your custom overrides -->
-    <link href="static/css/custom.css" rel="stylesheet" />
-    <link href="static/css/enhanced.css" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='css/custom.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='css/enhanced.css') }}" rel="stylesheet" />
 
     <!-- ===============================================-->
     <!--    Stylesheets-->
     <!-- ===============================================-->
     <style>
       .bg-turf-hero {
-        background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(assets/img/hero/turf-hero-bg.jpg);
+        background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url({{ url_for('static', filename='img/hero/turf-hero-bg.jpg') }});
         background-size: cover;
         background-position: center;
         color: white;
@@ -83,8 +83,8 @@
               <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" aria-current="page" href="#turfs">Turfs</a></li>
               <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" aria-current="page" href="#booking">Booking</a></li>
               <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" aria-current="page" href="#testimonial">Testimonial</a></li>
-              <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" aria-current="page" href="#!">Login</a></li>
-              <li class="nav-item px-3 px-xl-4"><a class="btn btn-outline-success order-1 order-lg-0 fw-medium" href="#!">Sign Up</a></li>
+              <li class="nav-item px-3 px-xl-4"><a class="nav-link fw-medium" aria-current="page" href="{{ url_for('auth.login') }}">Login</a></li>
+              <li class="nav-item px-3 px-xl-4"><a class="btn btn-outline-success order-1 order-lg-0 fw-medium" href="{{ url_for('auth.register') }}">Sign Up</a></li>
             </ul>
           </div>
         </div>
@@ -201,7 +201,7 @@
           <div class="row">
             <div class="col-md-4 mb-4">
               <div class="card turf-card overflow-hidden shadow"> 
-                <img class="card-img-top" src="assets/img/dest/turf1.jpg" alt="Football Turf" style="height: 200px; object-fit: cover;" />
+                <img class="card-img-top" src="{{ url_for('static', filename='img/dest/turf1.jpg') }}" alt="Football Turf" style="height: 200px; object-fit: cover;" />
                 <div class="card-body py-4 px-3">
                   <div class="d-flex flex-column flex-lg-row justify-content-between mb-2">
                     <h4 class="text-secondary fw-medium"><a class="link-dark text-decoration-none stretched-link" href="#!">Green Field Football</a></h4>

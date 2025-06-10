@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}My Turfs{% endblock %}
+
+{% block content %}
+<div class="page-header text-center">
+  <div class="container">
+    <h1 class="text-white display-4 fw-bold">My Turfs</h1>
+  </div>
+</div>
+
+<div class="container mb-7">
+  <div class="d-flex justify-content-end mb-4">
+    <a href="{{ url_for('owner.add_turf') }}" class="btn btn-success">
+      <i class="fas fa-plus me-2"></i>Add New Turf
+    </a>
+  </div>
+  
+  <div class="row">
+    {% if turfs %}
+      {% for turf in turfs %}
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="card shadow h-100">
+            <img src="{{ turf.image_url or url_for('static', filename='img/dest/turf1.jpg') }}" 
+                  class="card-img-top" alt="{{ turf.name }}" style="height: 200px; object-fit: cover;">
+            <div class="card-body p-4">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <h5 class="card-title mb-0">{{ turf.name }}</h5>
+                <span class="badge bg-success">₹{{ turf.price_per_hour }}/hr</span>
+              </div>
+              <p class="card-text small text-muted mb-2">
+                <i class="fas fa-map-marker-alt me-2"></i>{{ turf.location }}
+              </p>
+              <p class="card-text mb-3">{{ turf.description|truncate(100) }}</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="text-muted small">{{ turf.bookings|length }} bookings</span>
+                <a href="#" class="btn btn-outline-success btn-sm">Edit</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <div class="col-12">
+        <div class="card shadow text-center p-5">
+          <i class="fas fa-exclamation-circle text-muted mb-3" style="font-size: 3rem;"></i>
+          <h4 class="mb-3">No Turfs Found</h4>
+          <p class="mb-4">You haven't added any turfs yet. Start by adding your first turf.</p>
+          <div class="d-flex justify-content-center">
+            <a href="{{ url_for('owner.add_turf') }}" class="btn btn-success">
+              <i class="fas fa-plus me-2"></i>Add New Turf
+            </a>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

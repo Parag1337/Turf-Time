@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block title %}My Bookings{% endblock %}
+
+{% block content %}
+<div class="page-header text-center">
+  <div class="container">
+    <h1 class="text-white display-4 fw-bold">My Bookings</h1>
+  </div>
+</div>
+
+<div class="container mb-7">
+  <div class="card shadow">
+    <div class="card-body p-4">
+      <ul class="nav nav-tabs mb-4" id="bookingTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="upcoming-tab" data-bs-toggle="tab" data-bs-target="#upcoming" type="button" role="tab" aria-controls="upcoming" aria-selected="true">Upcoming</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="past-tab" data-bs-toggle="tab" data-bs-target="#past" type="button" role="tab" aria-controls="past" aria-selected="false">Past</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="cancelled-tab" data-bs-toggle="tab" data-bs-target="#cancelled" type="button" role="tab" aria-controls="cancelled" aria-selected="false">Cancelled</button>
+        </li>
+      </ul>
+      
+      <div class="tab-content" id="bookingTabContent">
+        <div class="tab-pane fade show active" id="upcoming" role="tabpanel" aria-labelledby="upcoming-tab">
+          {% if bookings|selectattr('status', 'eq', 'confirmed')|selectattr('booking_date', 'ge', now().date())|list %}
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>Turf Name</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Duration</th>
+                    <th>Total Price</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for booking in bookings %}
+                    {% if booking.status == 'confirmed' and booking.booking_date >= now().date() %}
+                      <tr>
+                        <td>
+                          <div class="d-flex align-items-center">
+                            <img src="{{ booking.turf.image_url or url_for('static', filename='img/dest/turf1.jpg') }}" class="rounded me-3" width="50" height="50" style="object-fit: cover;">
+                            <div>
+                              <h6 class="mb-0">{{ booking.turf.name }}</h6>
+                              <small class="text-muted">{{ booking.turf.location }}</small>
+                            </div>
+                          </div>
+                        </td>
+                        <td>{{ booking.booking_date.strftime('%d %b, %Y') }}</td>
+                        <td>{{ booking.start_time.strftime('%I:%M %p') }} - {{ booking.end_time.strftime('%I:%M %p') }}</td>
+                        <td>
+                          {% set duration = ((booking.end_time.hour * 60 + booking.end_time.minute) - (booking.start_time.hour * 60 + booking.start_time.minute)) / 60 %}
+                          {{ duration }} hour(s)
+                        </td>
+                        <td>₹{{ booking.total_price }}</td>
+                        <td>
+                          <form method="POST" action="{{ url_for('user.cancel_booking', booking_id=booking.id) }}" style="display:inline;">
+                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to cancel this booking?')">Cancel</button>
+                          </form>
+                        </td>
+                      </tr>
+                    {% endif %}
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          {% else %}
+            <div class="text-center py-4">
+              <i class="fas fa-calendar-times fa-3x text-muted mb-3"></i>
+              <p class="lead">You don't have any upcoming bookings.</p>
+              <a href="{{ url_for('user.view_turfs') }}" class="btn btn-success">Book a Turf Now</a>
+            </div>
+          {% endif %}
+        </div>
+        
+        <div class="tab-pane fade" id="past" role="tabpanel" aria-labelledby="past-tab">
+          <!-- Similar structure as above but for past bookings -->
+        </div>
+        
+        <div class="tab-pane fade" id="cancelled" role="tabpanel" aria-labelledby="cancelled-tab">
+          <!-- Similar structure as above but for cancelled bookings -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

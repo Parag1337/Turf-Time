@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block title %}Book Turf{% endblock %}
+
+{% block content %}
+<div class="page-header text-center">
+  <div class="container">
+    <h1 class="text-white display-4 fw-bold">Book {{ turf.name }}</h1>
+  </div>
+</div>
+
+<div class="container mb-7">
+  <div class="row">
+    <div class="col-lg-8">
+      <div class="card shadow mb-4">
+        <img src="{{ turf.image_url or url_for('static', filename='img/dest/turf1.jpg') }}" class="card-img-top" alt="{{ turf.name }}" style="height: 300px; object-fit: cover;">
+        <div class="card-body p-4">
+          <div class="d-flex flex-column flex-lg-row justify-content-between mb-3">
+            <h3 class="text-secondary fw-medium">{{ turf.name }}</h3>
+            <span class="fs-4 fw-medium text-success">₹{{ turf.price_per_hour }}/hr</span>
+          </div>
+          
+          <div class="d-flex align-items-center mb-3"> 
+            <i class="fas fa-map-marker-alt text-success me-2"></i>
+            <span class="fs-0 fw-medium">{{ turf.location }}</span>
+          </div>
+          
+          <p class="mb-4">{{ turf.description }}</p>
+          
+          <h4 class="mb-3">Facilities</h4>
+          <div class="row mb-4">
+            <div class="col-md-4 mb-2">
+              <div class="d-flex align-items-center">
+                <i class="fas fa-shower text-success me-2"></i>
+                <span>Changing Rooms</span>
+              </div>
+            </div>
+            <div class="col-md-4 mb-2">
+              <div class="d-flex align-items-center">
+                <i class="fas fa-parking text-success me-2"></i>
+                <span>Parking</span>
+              </div>
+            </div>
+            <div class="col-md-4 mb-2">
+              <div class="d-flex align-items-center">
+                <i class="fas fa-lightbulb text-success me-2"></i>
+                <span>Floodlights</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-lg-4">
+      <div class="card shadow">
+        <div class="card-header bg-success text-white p-3">
+          <h4 class="mb-0">Book Now</h4>
+        </div>
+        <div class="card-body p-4">
+          <form method="POST" action="{{ url_for('user.book_turf', turf_id=turf.id) }}">
+            {{ form.hidden_tag() }}
+            
+            <div class="mb-3">
+              {{ form.booking_date.label(class="form-label fw-medium") }}
+              {{ form.booking_date(class="form-control" + (" is-invalid" if form.booking_date.errors else "")) }}
+              {% for error in form.booking_date.errors %}
+                <div class="invalid-feedback">{{ error }}</div>
+              {% endfor %}
+            </div>
+            
+            <div class="mb-3">
+              {{ form.start_time.label(class="form-label fw-medium") }}
+              {{ form.start_time(class="form-control" + (" is-invalid" if form.start_time.errors else "")) }}
+              {% for error in form.start_time.errors %}
+                <div class="invalid-feedback">{{ error }}</div>
+              {% endfor %}
+            </div>
+            
+            <div class="mb-4">
+              {{ form.end_time.label(class="form-label fw-medium") }}
+              {{ form.end_time(class="form-control" + (" is-invalid" if form.end_time.errors else "")) }}
+              {% for error in form.end_time.errors %}
+                <div class="invalid-feedback">{{ error }}</div>
+              {% endfor %}
+            </div>
+            
+            <div class="alert alert-info">
+              <div class="d-flex align-items-center">
+                <i class="fas fa-info-circle me-2"></i>
+                <span>Hourly rate: ₹{{ turf.price_per_hour }}</span>
+              </div>
+            </div>
+            
+            <div class="d-grid">
+              {{ form.submit(class="btn btn-success btn-lg") }}
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

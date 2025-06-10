@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block title %}User Dashboard{% endblock %}
+
+{% block content %}
+<div class="page-header text-center">
+  <div class="container">
+    <h1 class="text-white display-4 fw-bold">Welcome, {{ current_user.username }}</h1>
+  </div>
+</div>
+
+<div class="container mb-7">
+  <div class="row mb-5">
+    <div class="col-md-4 mb-4">
+      <div class="card service-card shadow-hover rounded-3 text-center h-100">
+        <div class="card-body p-4">
+          <div style="width:80px;height:80px;background:rgba(76,175,80,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;">
+            <i class="fas fa-calendar-alt" style="font-size:24px;color:#4CAF50;"></i>
+          </div>
+          <h4 class="mb-3">New Booking</h4>
+          <p class="mb-4 fw-medium">Looking for a place to play? Book a turf now!</p>
+          <a href="{{ url_for('user.view_turfs') }}" class="btn btn-success">Find Turf</a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-4 mb-4">
+      <div class="card service-card shadow-hover rounded-3 text-center h-100">
+        <div class="card-body p-4">
+          <div style="width:80px;height:80px;background:rgba(76,175,80,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;">
+            <i class="fas fa-list-alt" style="font-size:24px;color:#4CAF50;"></i>
+          </div>
+          <h4 class="mb-3">My Bookings</h4>
+          <p class="mb-4 fw-medium">View and manage all your bookings in one place.</p>
+          <a href="{{ url_for('user.my_bookings') }}" class="btn btn-success">View Bookings</a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-4 mb-4">
+      <div class="card service-card shadow-hover rounded-3 text-center h-100">
+        <div class="card-body p-4">
+          <div style="width:80px;height:80px;background:rgba(76,175,80,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;">
+            <i class="fas fa-user-cog" style="font-size:24px;color:#4CAF50;"></i>
+          </div>
+          <h4 class="mb-3">Account Settings</h4>
+          <p class="mb-4 fw-medium">Update your profile and preferences.</p>
+          <a href="#" class="btn btn-success">Manage Profile</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card shadow mb-5">
+    <div class="card-header bg-success text-white p-3">
+      <h4 class="mb-0">Recent Bookings</h4>
+    </div>
+    <div class="card-body p-4">
+      {% if bookings %}
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Turf Name</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for booking in bookings %}
+              <tr>
+                <td>{{ booking.turf.name }}</td>
+                <td>{{ booking.booking_date.strftime('%d %b, %Y') }}</td>
+                <td>{{ booking.start_time.strftime('%I:%M %p') }} - {{ booking.end_time.strftime('%I:%M %p') }}</td>
+                <td>
+                  {% if booking.status == 'confirmed' %}
+                    <span class="badge bg-success">Confirmed</span>
+                  {% elif booking.status == 'cancelled' %}
+                    <span class="badge bg-danger">Cancelled</span>
+                  {% elif booking.status == 'completed' %}
+                    <span class="badge bg-info">Completed</span>
+                  {% endif %}
+                </td>
+                <td>
+                  {% if booking.status == 'confirmed' and booking.booking_date >= now().date() %}
+                    <form method="POST" action="{{ url_for('user.cancel_booking', booking_id=booking.id) }}" style="display:inline;">
+                      <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to cancel this booking?')">Cancel</button>
+                    </form>
+                  {% endif %}
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% else %}
+        <div class="text-center py-4">
+          <i class="fas fa-calendar-times fa-3x text-muted mb-3"></i>
+          <p class="lead">You don't have any bookings yet.</p>
+          <a href="{{ url_for('user.view_turfs') }}" class="btn btn-success">Book a Turf Now</a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

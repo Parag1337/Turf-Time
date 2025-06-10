@@ -1,0 +1,219 @@
+{% extends "base.html" %}
+
+{% block title %}Owner Dashboard{% endblock %}
+
+{% block additional_css %}
+<link href="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="page-header text-center">
+  <div class="container">
+    <h1 class="text-white display-4 fw-bold">Owner Dashboard</h1>
+    <p class="text-white-50 lead">Manage your turfs and bookings</p>
+  </div>
+</div>
+
+<div class="container mb-7">
+  <!-- Statistics Cards -->
+  <div class="row mb-5">
+    <div class="col-md-3 mb-4">
+      <div class="card shadow text-center h-100">
+        <div class="card-body">
+          <div style="width:70px;height:70px;background:rgba(76,175,80,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;">
+            <i class="fas fa-futbol" style="font-size:24px;color:#4CAF50;"></i>
+          </div>
+          <h5 class="fw-bold text-secondary">Total Turfs</h5>
+          <h2 class="display-4 fw-bold text-success">{{ turfs|length }}</h2>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-3 mb-4">
+      <div class="card shadow text-center h-100">
+        <div class="card-body">
+          <div style="width:70px;height:70px;background:rgba(76,175,80,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;">
+            <i class="fas fa-calendar-check" style="font-size:24px;color:#4CAF50;"></i>
+          </div>
+          <h5 class="fw-bold text-secondary">Total Bookings</h5>
+          <h2 class="display-4 fw-bold text-success">{{ total_bookings }}</h2>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-3 mb-4">
+      <div class="card shadow text-center h-100">
+        <div class="card-body">
+          <div style="width:70px;height:70px;background:rgba(76,175,80,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;">
+            <i class="fas fa-clock" style="font-size:24px;color:#4CAF50;"></i>
+          </div>
+          <h5 class="fw-bold text-secondary">Upcoming</h5>
+          <h2 class="display-4 fw-bold text-success">{{ upcoming_bookings }}</h2>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-3 mb-4">
+      <div class="card shadow text-center h-100">
+        <div class="card-body">
+          <div style="width:70px;height:70px;background:rgba(76,175,80,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;">
+            <i class="fas fa-rupee-sign" style="font-size:24px;color:#4CAF50;"></i>
+          </div>
+          <h5 class="fw-bold text-secondary">Monthly Earnings</h5>
+          <h2 class="display-4 fw-bold text-success">₹{{ monthly_earnings }}</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-5">
+    <div class="col-md-8 mb-4">
+      <div class="card shadow">
+        <div class="card-header bg-success text-white d-flex justify-content-between align-items-center p-3">
+          <h4 class="mb-0">Earnings Overview</h4>
+          <div class="dropdown">
+            <button class="btn btn-sm btn-light dropdown-toggle" type="button" id="earningsDropdown" data-bs-toggle="dropdown">
+              This Month
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">This Week</a></li>
+              <li><a class="dropdown-item" href="#">This Month</a></li>
+              <li><a class="dropdown-item" href="#">Last 3 Months</a></li>
+              <li><a class="dropdown-item" href="#">This Year</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="card-body">
+          <canvas id="earningsChart" height="300"></canvas>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-4 mb-4">
+      <div class="card shadow">
+        <div class="card-header bg-success text-white p-3">
+          <h4 class="mb-0">Quick Actions</h4>
+        </div>
+        <div class="card-body p-0">
+          <div class="list-group list-group-flush">
+            <a href="{{ url_for('owner.add_turf') }}" class="list-group-item list-group-item-action d-flex align-items-center p-3">
+              <i class="fas fa-plus-circle text-success me-3"></i>
+              <div>
+                <h5 class="mb-1">Add New Turf</h5>
+                <p class="mb-0 text-muted small">List a new sports field</p>
+              </div>
+            </a>
+            <a href="{{ url_for('owner.my_turfs') }}" class="list-group-item list-group-item-action d-flex align-items-center p-3">
+              <i class="fas fa-tasks text-success me-3"></i>
+              <div>
+                <h5 class="mb-1">Manage Turfs</h5>
+                <p class="mb-0 text-muted small">Update details, pricing, etc.</p>
+              </div>
+            </a>
+            <a href="{{ url_for('owner.view_bookings') }}" class="list-group-item list-group-item-action d-flex align-items-center p-3">
+              <i class="fas fa-calendar-alt text-success me-3"></i>
+              <div>
+                <h5 class="mb-1">View All Bookings</h5>
+                <p class="mb-0 text-muted small">Check upcoming and past bookings</p>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card shadow">
+    <div class="card-header bg-success text-white p-3">
+      <h4 class="mb-0">Upcoming Bookings</h4>
+    </div>
+    <div class="card-body">
+      {% if bookings %}
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Turf Name</th>
+                <th>Booked By</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Amount</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for booking in bookings %}
+              <tr>
+                <td>{{ booking.turf.name }}</td>
+                <td>{{ booking.user.username }}</td>
+                <td>{{ booking.booking_date.strftime('%d %b, %Y') }}</td>
+                <td>{{ booking.start_time.strftime('%I:%M %p') }} - {{ booking.end_time.strftime('%I:%M %p') }}</td>
+                <td>₹{{ booking.total_price }}</td>
+                <td>
+                  {% if booking.status == 'confirmed' %}
+                    <span class="badge bg-success">Confirmed</span>
+                  {% elif booking.status == 'cancelled' %}
+                    <span class="badge bg-danger">Cancelled</span>
+                  {% elif booking.status == 'completed' %}
+                    <span class="badge bg-info">Completed</span>
+                  {% endif %}
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% else %}
+        <div class="text-center py-4">
+          <i class="fas fa-calendar-times fa-3x text-muted mb-3"></i>
+          <p class="lead">No upcoming bookings found.</p>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block additional_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Sample data for the earnings chart
+  const ctx = document.getElementById('earningsChart').getContext('2d');
+  const earningsChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+      datasets: [{
+        label: 'Earnings',
+        data: [12000, 19000, 15000, {{ monthly_earnings }}],
+        backgroundColor: 'rgba(76, 175, 80, 0.2)',
+        borderColor: '#4CAF50',
+        borderWidth: 2,
+        tension: 0.4,
+        fill: true
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          display: false
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            callback: function(value) {
+              return '₹' + value;
+            }
+          }
+        }
+      }
+    }
+  });
+});
+</script>
+{% endblock %}

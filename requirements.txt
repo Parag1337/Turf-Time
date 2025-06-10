@@ -6,4 +6,4 @@ Werkzeug==3.0.3
 email_validator==2.2.0
 python-dotenv==1.1.0
 mysqlclient==2.2.1
-PyMySQL==1.1.0
+PyMySQL==1.1.1

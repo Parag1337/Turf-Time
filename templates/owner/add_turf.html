@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}Add New Turf{% endblock %}
+
+{% block content %}
+<div class="page-header text-center">
+  <div class="container">
+    <h1 class="text-white display-4 fw-bold">Add New Turf</h1>
+  </div>
+</div>
+
+<div class="container mb-7">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow">
+        <div class="card-header bg-success text-white p-3">
+          <h4 class="mb-0">Turf Details</h4>
+        </div>
+        <div class="card-body p-5">
+          <form method="POST" action="{{ url_for('owner.add_turf') }}" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            
+            <div class="row">
+              <div class="col-md-6 mb-4">
+                {{ form.name.label(class="form-label fw-medium") }}
+                {{ form.name(class="form-control" + (" is-invalid" if form.name.errors else "")) }}
+                {% for error in form.name.errors %}
+                  <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %}
+              </div>
+              
+              <div class="col-md-6 mb-4">
+                {{ form.price_per_hour.label(class="form-label fw-medium") }}
+                {{ form.price_per_hour(class="form-control" + (" is-invalid" if form.price_per_hour.errors else "")) }}
+                {% for error in form.price_per_hour.errors %}
+                  <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %}
+              </div>
+            </div>
+            
+            <div class="mb-4">
+              {{ form.location.label(class="form-label fw-medium") }}
+              {{ form.location(class="form-control" + (" is-invalid" if form.location.errors else "")) }}
+              {% for error in form.location.errors %}
+                <div class="invalid-feedback">{{ error }}</div>
+              {% endfor %}
+            </div>
+            
+            <div class="mb-4">
+              {{ form.description.label(class="form-label fw-medium") }}
+              {{ form.description(class="form-control" + (" is-invalid" if form.description.errors else ""), rows="4") }}
+              {% for error in form.description.errors %}
+                <div class="invalid-feedback">{{ error }}</div>
+              {% endfor %}
+            </div>
+            
+            <div class="mb-4">
+              {{ form.image.label(class="form-label fw-medium") }}
+              {{ form.image(class="form-control" + (" is-invalid" if form.image.errors else "")) }}
+              {% for error in form.image.errors %}
+                <div class="invalid-feedback">{{ error }}</div>
+              {% endfor %}
+              <small class="form-text text-muted">Upload an image of your turf (optional)</small>
+            </div>
+            
+            <div class="d-grid gap-2 mt-4">
+              {{ form.submit(class="btn btn-success btn-lg") }}
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
