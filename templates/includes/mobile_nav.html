@@ -1,0 +1,43 @@
+<div class="d-block d-md-none fixed-bottom bg-white shadow-lg">
+  <div class="row g-0 text-center py-2">
+    <div class="col">
+      <a href="{{ url_for('home') }}" class="d-flex flex-column align-items-center text-decoration-none text-dark">
+        <i class="fas fa-home"></i>
+        <small>Home</small>
+      </a>
+    </div>
+    <div class="col">
+      <a href="{{ url_for('turfs') }}" class="d-flex flex-column align-items-center text-decoration-none text-dark">
+        <i class="fas fa-futbol"></i>
+        <small>Turfs</small>
+      </a>
+    </div>
+    <div class="col">
+      <a href="{{ url_for('bookings') }}" class="d-flex flex-column align-items-center text-decoration-none text-dark">
+        <i class="fas fa-calendar"></i>
+        <small>Bookings</small>
+      </a>
+    </div>
+    <div class="col">
+      <a href="{{ url_for('profile') }}" class="d-flex flex-column align-items-center text-decoration-none text-dark">
+        <i class="fas fa-user"></i>
+        <small>Profile</small>
+      </a>
+    </div>
+    {% if current_user.is_authenticated %}
+    <div class="col">
+      <a href="{{ url_for('logout') }}" class="d-flex flex-column align-items-center text-decoration-none text-danger">
+        <i class="fas fa-sign-out-alt"></i>
+        <small>Logout</small>
+      </a>
+    </div>
+    {% else %}
+    <div class="col">
+      <a href="{{ url_for('login') }}" class="d-flex flex-column align-items-center text-decoration-none text-dark">
+        <i class="fas fa-sign-in-alt"></i>
+        <small>Login</small>
+      </a>
+    </div>
+    {% endif %}
+  </div>
+</div>

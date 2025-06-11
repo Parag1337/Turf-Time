@@ -71,10 +71,9 @@ def my_turfs():
 def add_turf():
     form = TurfForm()
     
-    if form.validate_on_submit():
-        # Handle image upload if provided
+    if form.validate_on_submit():        # Handle image upload if provided
         image_url = None
-        if form.image.data:
+        if form.image.data and form.image.data.filename:
             filename = secure_filename(form.image.data.filename)
             # Create uploads folder if it doesn't exist
             upload_folder = os.path.join('static', 'uploads', 'turfs')
@@ -83,7 +82,11 @@ def add_turf():
             # Save the file
             filepath = os.path.join(upload_folder, filename)
             form.image.data.save(filepath)
-            image_url = os.path.join('uploads', 'turfs', filename)
+            
+            # Store the path relative to static folder using forward slashes for URL compatibility
+            image_url = 'uploads/turfs/' + filename
+            
+            print(f"Saved image to {filepath}, DB will store: {image_url}")
         
         # Create new turf
         turf = Turf(

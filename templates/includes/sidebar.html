@@ -1,0 +1,32 @@
+<!-- or wherever your sidebar is defined -->
+
+<div class="sidebar d-flex flex-column bg-light py-4 px-3 min-vh-100">
+  <h5 class="sidebar-heading mb-3 px-3">Dashboard</h5>
+  
+  <!-- Sidebar navigation -->
+  <ul class="nav flex-column mb-auto">
+    <li class="nav-item">
+      <a class="nav-link {% if active_page == 'dashboard' %}active{% endif %}" href="{{ url_for('dashboard') }}">
+        <i class="fas fa-tachometer-alt me-2"></i> Dashboard
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link {% if active_page == 'bookings' %}active{% endif %}" href="{{ url_for('bookings') }}">
+        <i class="fas fa-calendar-check me-2"></i> My Bookings
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link {% if active_page == 'profile' %}active{% endif %}" href="{{ url_for('profile') }}">
+        <i class="fas fa-user me-2"></i> Profile
+      </a>
+    </li>
+    <!-- More sidebar items -->
+  </ul>
+  
+  <!-- Logout button at bottom of sidebar -->
+  <div class="mt-4">
+    <a href="{{ url_for('logout') }}" class="btn btn-logout w-100 text-start">
+      <i class="fas fa-sign-out-alt me-2"></i> Logout
+    </a>
+  </div>
+</div>

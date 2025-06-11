@@ -1,3 +1,4 @@
+# filepath: app_fixed.py
 from flask import Flask, render_template, redirect, url_for
 from flask_login import LoginManager, current_user
 from datetime import datetime
@@ -50,6 +51,18 @@ def create_app(config_class=Config):
     @app.errorhandler(404)
     def page_not_found(e):
         return render_template('404.html'), 404
+    
+    @app.route('/debug_static')
+    def debug_static():
+        from database.models import Turf
+        turfs = Turf.query.all()
+        return render_template('debug_static.html', turfs=turfs)
+        
+    @app.route('/image_debug')
+    def image_debug():
+        from database.models import Turf
+        turfs = Turf.query.all()
+        return render_template('image_debug.html', turfs=turfs)
     
     # Inject current_time into templates (but use Flask-Login's current_user)
     @app.context_processor
