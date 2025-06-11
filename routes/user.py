@@ -1,8 +1,15 @@
-from flask import Blueprint, render_template, flash, redirect, url_for, request
+from flask import Blueprint, render_template, flash, redirect, url_for, request, current_app
 from flask_login import login_required, current_user
 from datetime import datetime, timedelta
 from database.models import db, Turf, Booking
 from forms import BookingForm
+from utils.email_utils import (
+    send_booking_confirmation_email,
+    send_booking_notification_to_owner,
+    send_cancellation_notification_to_user,
+    send_cancellation_notification_to_owner
+)
+import logging
 
 user_bp = Blueprint('user', __name__, url_prefix='/user')
 
@@ -69,8 +76,7 @@ def book_turf(turf_id):
         
         if conflicting_bookings:
             flash('This time slot is already booked. Please choose a different time.', 'danger')
-        else:
-            # Create the booking
+        else:            # Create the booking
             booking = Booking(
                 turf_id=turf.id,
                 user_id=current_user.id,
@@ -80,11 +86,51 @@ def book_turf(turf_id):
                 total_price=total_price,
                 status='confirmed'
             )
-            
             db.session.add(booking)
             db.session.commit()
+              # Send confirmation emails with improved error handling
+            email_status = "sent"
+            try:
+                # Log detailed information about the booking and emails
+                print(f"\n----- BOOKING EMAIL ATTEMPT -----")
+                print(f"Attempting to send booking confirmation emails...")
+                print(f"User ID: {booking.user.id}, Username: {booking.user.username}")
+                print(f"User email: {booking.user.email}")
+                print(f"Turf ID: {booking.turf.id}, Turf name: {booking.turf.name}")
+                print(f"Owner ID: {booking.turf.owner.id}, Owner name: {booking.turf.owner.username}")
+                print(f"Owner email: {booking.turf.owner.email}")
+                  # Log mail configuration from current_app
+                print(f"Mail server: {current_app.config['MAIL_SERVER']}")
+                print(f"Mail port: {current_app.config['MAIL_PORT']}")
+                print(f"Mail username: {current_app.config['MAIL_USERNAME']}")
+                
+                # Validate user and owner emails
+                if not booking.user.email:
+                    print("WARNING: User has no email address!")
+                if not booking.turf.owner.email:
+                    print("WARNING: Turf owner has no email address!")
+                
+                # Send emails with success tracking
+                print("Sending confirmation email to user...")
+                user_email_success = send_booking_confirmation_email(booking)
+                
+                print("Sending notification email to owner...")
+                owner_email_success = send_booking_notification_to_owner(booking)
+                
+                if user_email_success and owner_email_success:
+                    print("✅ All emails sent successfully")
+                    email_status = "success"
+                else:
+                    print("⚠️ Some emails failed to send")
+                    email_status = "partial"
+            except Exception as e:
+                # Log the error but don't prevent the booking confirmation
+                import traceback
+                email_status = "failed"
+                print(f"Error sending email: {str(e)}")
+                traceback.print_exc()
             
-            flash(f'Booking confirmed for {turf.name}!', 'success')
+            flash(f'Booking confirmed for {turf.name}! A confirmation email has been {email_status} to your registered email address.', 'success')
             return redirect(url_for('user.my_bookings'))
     
     return render_template('user/book_turf.html', 
@@ -111,10 +157,17 @@ def cancel_booking(booking_id):
     if booking.booking_date < datetime.now().date():
         flash('Cannot cancel past bookings.', 'danger')
         return redirect(url_for('user.my_bookings'))
-    
-    # Cancel the booking
+      # Cancel the booking
     booking.status = 'cancelled'
     db.session.commit()
     
-    flash('Your booking has been cancelled successfully.', 'success')
+    # Send cancellation emails
+    try:
+        send_cancellation_notification_to_user(booking)
+        send_cancellation_notification_to_owner(booking)
+    except Exception as e:
+        # Log the error but don't prevent the cancellation confirmation
+        print(f"Error sending cancellation email: {str(e)}")
+    
+    flash('Your booking has been cancelled successfully. A cancellation confirmation has been sent to your email.', 'success')
     return redirect(url_for('user.my_bookings'))

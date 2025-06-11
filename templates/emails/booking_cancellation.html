@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Cancellation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background-color: #dc3545;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 5px 5px 0 0;
+        }
+        .content {
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-top: none;
+            border-radius: 0 0 5px 5px;
+        }
+        .booking-details {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .detail-row {
+            display: flex;
+            margin-bottom: 10px;
+        }
+        .detail-label {
+            font-weight: bold;
+            width: 140px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #777;
+        }
+        .button {
+            display: inline-block;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Booking Cancelled</h1>
+    </div>
+    
+    <div class="content">
+        <p>Dear {{ user.username }},</p>
+        
+        <p>Your booking for <strong>{{ turf.name }}</strong> has been cancelled as requested.</p>
+        
+        <div class="booking-details">
+            <h2>Booking Details:</h2>
+            
+            <div class="detail-row">
+                <span class="detail-label">Booking ID:</span>
+                <span>{{ booking.id }}</span>
+            </div>
+            
+            <div class="detail-row">
+                <span class="detail-label">Turf:</span>
+                <span>{{ turf.name }}</span>
+            </div>
+            
+            <div class="detail-row">
+                <span class="detail-label">Date:</span>
+                <span>{{ booking_date }}</span>
+            </div>
+            
+            <div class="detail-row">
+                <span class="detail-label">Time:</span>
+                <span>{{ start_time }} to {{ end_time }}</span>
+            </div>
+            
+            <div class="detail-row">
+                <span class="detail-label">Amount:</span>
+                <span>₹{{ booking.total_price }}</span>
+            </div>
+        </div>
+        
+        <p>If you wish to make a new booking, please visit our platform anytime.</p>
+        
+        <p>Thank you for using Turf Time.</p>
+        
+        <a href="{{ url_for('user.view_turfs', _external=True) }}" class="button">Book Another Turf</a>
+    </div>
+    
+    <div class="footer">
+        <p>© {{ now().year }} Turf Time. All rights reserved.</p>
+        <p>This is an automated email. Please do not reply to this email.</p>
+    </div>
+</body>
+</html>

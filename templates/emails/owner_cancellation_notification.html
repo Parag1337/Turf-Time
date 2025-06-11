@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Cancellation Notification</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background-color: #dc3545;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 5px 5px 0 0;
+        }
+        .content {
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-top: none;
+            border-radius: 0 0 5px 5px;
+        }
+        .booking-details {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .detail-row {
+            display: flex;
+            margin-bottom: 10px;
+        }
+        .detail-label {
+            font-weight: bold;
+            width: 140px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #777;
+        }
+        .button {
+            display: inline-block;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        .customer-info {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px dashed #ccc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Booking Cancelled</h1>
+    </div>
+    
+    <div class="content">
+        <p>Dear {{ turf.owner.username }},</p>
+        
+        <p>A booking for your turf <strong>{{ turf.name }}</strong> has been cancelled by the user.</p>
+        
+        <div class="booking-details">
+            <h2>Booking Details:</h2>
+            
+            <div class="detail-row">
+                <span class="detail-label">Booking ID:</span>
+                <span>{{ booking.id }}</span>
+            </div>
+            
+            <div class="detail-row">
+                <span class="detail-label">Turf:</span>
+                <span>{{ turf.name }}</span>
+            </div>
+            
+            <div class="detail-row">
+                <span class="detail-label">Date:</span>
+                <span>{{ booking_date }}</span>
+            </div>
+            
+            <div class="detail-row">
+                <span class="detail-label">Time:</span>
+                <span>{{ start_time }} to {{ end_time }}</span>
+            </div>
+            
+            <div class="detail-row">
+                <span class="detail-label">Amount:</span>
+                <span>₹{{ booking.total_price }}</span>
+            </div>
+        </div>
+        
+        <div class="customer-info">
+            <h3>Customer Information:</h3>
+            
+            <div class="detail-row">
+                <span class="detail-label">Name:</span>
+                <span>{{ user.username }}</span>
+            </div>
+            
+            <div class="detail-row">
+                <span class="detail-label">Email:</span>
+                <span>{{ user.email }}</span>
+            </div>
+        </div>
+        
+        <p>The time slot is now available for other bookings.</p>
+        
+        <p>Thank you for your partnership with Turf Time.</p>
+    </div>
+    
+    <div class="footer">
+        <p>© {{ now().year }} Turf Time. All rights reserved.</p>
+        <p>This is an automated email. Please do not reply to this email.</p>
+    </div>
+</body>
+</html>

@@ -1,3 +1,4 @@
+﻿<!-- filepath: c:\Users\panza\College SEM2\Turf-Time\templates\user\book_turf.html -->
 {% extends "base.html" %}
 
 {% block title %}Book Turf{% endblock %}
@@ -13,7 +14,14 @@
   <div class="row">
     <div class="col-lg-8">
       <div class="card shadow mb-4">
-        <img src="{{ turf.image_url or url_for('static', filename='img/dest/turf1.jpg') }}" class="card-img-top" alt="{{ turf.name }}" style="height: 300px; object-fit: cover;">
+        {% if turf.image_url %}
+          <img src="{{ url_for('static', filename=turf.image_url.replace('\\', '/')) }}" 
+               class="card-img-top" alt="{{ turf.name }}" style="height: 300px; object-fit: cover;"
+               onerror="this.onerror=null; this.src='{{ url_for('static', filename='img/hero/turf-soccer.jpeg') }}'">
+        {% else %}
+          <img src="{{ url_for('static', filename='img/hero/turf-soccer.jpeg') }}"
+               class="card-img-top" alt="{{ turf.name }}" style="height: 300px; object-fit: cover;">
+        {% endif %}
         <div class="card-body p-4">
           <div class="d-flex flex-column flex-lg-row justify-content-between mb-3">
             <h3 class="text-secondary fw-medium">{{ turf.name }}</h3>

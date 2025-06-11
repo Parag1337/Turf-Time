@@ -1,0 +1,84 @@
+<!-- filepath: updated_view_turfs.html -->
+{% extends "base.html" %}
+
+{% block title %}Available Turfs{% endblock %}
+
+{% block content %}
+<div class="page-header text-center">
+  <div class="container">
+    <h1 class="text-white display-4 fw-bold">Available Turfs</h1>
+    <p class="text-white-50 lead">Find and book the perfect turf for your game</p>
+  </div>
+</div>
+
+<div class="container mb-7">
+  <div class="card shadow mb-5">
+    <div class="card-body p-4">
+      <form method="GET" action="{{ url_for('user.view_turfs') }}">
+        <div class="row">
+          <div class="col-md-4 mb-3 mb-md-0">
+            <div class="input-group">
+              <span class="input-group-text bg-light border-0"><i class="fas fa-search"></i></span>
+              <input type="text" name="search" class="form-control" placeholder="Search by name or location">
+            </div>
+          </div>
+          <div class="col-md-3 mb-3 mb-md-0">
+            <select name="price" class="form-select">
+              <option value="">All Price Ranges</option>
+              <option value="0-500">₹0 - ₹500</option>
+              <option value="500-1000">₹500 - ₹1000</option>
+              <option value="1000+">₹1000+</option>
+            </select>
+          </div>
+          <div class="col-md-3 mb-3 mb-md-0">
+            <input type="date" name="date" class="form-control">
+          </div>
+          <div class="col-md-2">
+            <button type="submit" class="btn btn-success w-100">Filter</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="row">
+    {% if turfs %}
+      {% for turf in turfs %}
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="card shadow h-100">
+            {% if turf.image_url %}
+              <img src="{{ url_for('static', filename=turf.image_url.replace('\\', '/')) }}" 
+                   class="card-img-top" alt="{{ turf.name }}" style="height: 200px; object-fit: cover;"
+                   onerror="this.onerror=null; this.src='{{ url_for('static', filename='img/hero/turf-soccer.jpeg') }}'">
+            {% else %}
+              <img src="{{ url_for('static', filename='img/hero/turf-soccer.jpeg') }}"
+                   class="card-img-top" alt="{{ turf.name }}" style="height: 200px; object-fit: cover;">
+            {% endif %}
+            <div class="card-body p-4">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <h5 class="card-title mb-0">{{ turf.name }}</h5>
+                <span class="badge bg-success">₹{{ turf.price_per_hour }}/hr</span>
+              </div>
+              <p class="card-text small text-muted mb-2">
+                <i class="fas fa-map-marker-alt me-2"></i>{{ turf.location }}
+              </p>
+              <p class="card-text mb-3">{{ turf.description|truncate(100) }}</p>
+              <div class="d-grid">
+                <a href="{{ url_for('user.book_turf', turf_id=turf.id) }}" class="btn btn-success">Book Now</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <div class="col-12">
+        <div class="card shadow text-center p-5">
+          <i class="fas fa-exclamation-circle text-muted mb-3" style="font-size: 3rem;"></i>
+          <h4 class="mb-3">No Turfs Found</h4>
+          <p class="mb-4">There are no turfs available at the moment. Please check back later.</p>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
