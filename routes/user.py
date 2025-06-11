@@ -91,3 +91,30 @@ def book_turf(turf_id):
                           title=f'Book {turf.name}', 
                           turf=turf, 
                           form=form)
+
+@user_bp.route('/cancel_booking/<int:booking_id>', methods=['POST'])
+@login_required
+def cancel_booking(booking_id):
+    booking = Booking.query.get_or_404(booking_id)
+    
+    # Check if the booking belongs to current user
+    if booking.user_id != current_user.id:
+        flash('You do not have permission to cancel this booking.', 'danger')
+        return redirect(url_for('user.my_bookings'))
+    
+    # Check if the booking is already cancelled
+    if booking.status == 'cancelled':
+        flash('This booking is already cancelled.', 'info')
+        return redirect(url_for('user.my_bookings'))
+    
+    # Check if the booking date is in the past
+    if booking.booking_date < datetime.now().date():
+        flash('Cannot cancel past bookings.', 'danger')
+        return redirect(url_for('user.my_bookings'))
+    
+    # Cancel the booking
+    booking.status = 'cancelled'
+    db.session.commit()
+    
+    flash('Your booking has been cancelled successfully.', 'success')
+    return redirect(url_for('user.my_bookings'))

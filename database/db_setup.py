@@ -35,7 +35,7 @@ TABLES['turfs'] = (
     "  `id` int NOT NULL AUTO_INCREMENT,"
     "  `name` varchar(100) NOT NULL,"
     "  `location` varchar(255) NOT NULL,"
-    "  `description` text,"
+    "  `description` text,"s
     "  `price_per_hour` decimal(10,2) NOT NULL,"
     "  `image_url` varchar(255),"
     "  `owner_id` int NOT NULL,"

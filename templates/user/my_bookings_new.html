@@ -1,0 +1,226 @@
+{% extends "base.html" %}
+
+{% block title %}My Bookings{% endblock %}
+
+{% block additional_css %}
+<link href="{{ url_for('static', filename='css/booking-styles.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="page-header text-center">
+  <div class="container">
+    <h1 class="text-white display-4 fw-bold">My Bookings</h1>
+  </div>
+</div>
+
+<div class="container mb-7 content-container">
+  <div class="card shadow">
+    <div class="card-body p-4">
+      <div class="booking-tabs">
+        <ul class="nav nav-tabs" id="bookingTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="upcoming-tab" data-bs-toggle="tab" data-bs-target="#upcoming" type="button" role="tab" aria-controls="upcoming" aria-selected="true">
+              <i class="fas fa-calendar-day me-2"></i>Upcoming
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="past-tab" data-bs-toggle="tab" data-bs-target="#past" type="button" role="tab" aria-controls="past" aria-selected="false">
+              <i class="fas fa-history me-2"></i>Past
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="cancelled-tab" data-bs-toggle="tab" data-bs-target="#cancelled" type="button" role="tab" aria-controls="cancelled" aria-selected="false">
+              <i class="fas fa-ban me-2"></i>Cancelled
+            </button>
+          </li>
+        </ul>
+      </div>
+      
+      <div class="tab-content mt-4" id="bookingTabContent">
+        <!-- Upcoming Bookings Tab -->
+        <div class="tab-pane fade show active" id="upcoming" role="tabpanel" aria-labelledby="upcoming-tab">
+          {% if bookings|selectattr('status', 'eq', 'confirmed')|selectattr('booking_date', 'ge', now().date())|list %}
+            <div class="row">
+              {% for booking in bookings %}
+                {% if booking.status == 'confirmed' and booking.booking_date >= now().date() %}
+                  <div class="col-lg-6 mb-4">
+                    <div class="booking-card">
+                      <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">{{ booking.turf.name }}</h5>
+                        <span class="booking-status status-confirmed">Confirmed</span>
+                      </div>
+                      <img src="{{ booking.turf.image_url or url_for('static', filename='img/dest/turf1.jpg') }}" 
+                           class="turf-image" alt="{{ booking.turf.name }}">
+                      <div class="card-body">
+                        <div class="booking-meta">
+                          <i class="fas fa-calendar"></i>
+                          <span>{{ booking.booking_date.strftime('%A, %d %b, %Y') }}</span>
+                        </div>
+                        <div class="booking-meta">
+                          <i class="fas fa-clock"></i>
+                          <span>{{ booking.start_time.strftime('%I:%M %p') }} - {{ booking.end_time.strftime('%I:%M %p') }}</span>
+                        </div>
+                        <div class="booking-meta">
+                          <i class="fas fa-map-marker-alt"></i>
+                          <span>{{ booking.turf.location }}</span>
+                        </div>
+                        
+                        {% set duration = ((booking.end_time.hour * 60 + booking.end_time.minute) - (booking.start_time.hour * 60 + booking.start_time.minute)) / 60 %}
+                        <div class="booking-meta">
+                          <i class="fas fa-hourglass-half"></i>
+                          <span>{{ duration }} hour(s)</span>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between align-items-center mt-4">
+                          <div class="price-display">₹{{ booking.total_price }}</div>
+                          <form method="POST" action="{{ url_for('user.cancel_booking', booking_id=booking.id) }}">
+                            <button type="submit" class="btn btn-cancel booking-action-btn" 
+                                    onclick="return confirm('Are you sure you want to cancel this booking?')">
+                              <i class="fas fa-times-circle me-1"></i>Cancel Booking
+                            </button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                {% endif %}
+              {% endfor %}
+            </div>
+          {% else %}
+            <div class="empty-state">
+              <div class="empty-state-icon">
+                <i class="fas fa-calendar-times"></i>
+              </div>
+              <h4 class="mb-3">No Upcoming Bookings</h4>
+              <p class="text-muted mb-4">You don't have any upcoming bookings. Book a turf to play!</p>
+              <a href="{{ url_for('user.view_turfs') }}" class="btn btn-success btn-lg">
+                <i class="fas fa-search me-2"></i>Find Available Turfs
+              </a>
+            </div>
+          {% endif %}
+        </div>
+        
+        <!-- Past Bookings Tab -->
+        <div class="tab-pane fade" id="past" role="tabpanel" aria-labelledby="past-tab">
+          {% if bookings|selectattr('booking_date', 'lt', now().date())|selectattr('status', 'ne', 'cancelled')|list %}
+            <div class="row">
+              {% for booking in bookings %}
+                {% if booking.status != 'cancelled' and booking.booking_date < now().date() %}
+                  <div class="col-lg-6 mb-4">
+                    <div class="booking-card">
+                      <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">{{ booking.turf.name }}</h5>
+                        <span class="booking-status status-completed">Completed</span>
+                      </div>
+                      <img src="{{ booking.turf.image_url or url_for('static', filename='img/dest/turf1.jpg') }}" 
+                           class="turf-image" alt="{{ booking.turf.name }}">
+                      <div class="card-body">
+                        <div class="booking-meta">
+                          <i class="fas fa-calendar"></i>
+                          <span>{{ booking.booking_date.strftime('%A, %d %b, %Y') }}</span>
+                        </div>
+                        <div class="booking-meta">
+                          <i class="fas fa-clock"></i>
+                          <span>{{ booking.start_time.strftime('%I:%M %p') }} - {{ booking.end_time.strftime('%I:%M %p') }}</span>
+                        </div>
+                        <div class="booking-meta">
+                          <i class="fas fa-map-marker-alt"></i>
+                          <span>{{ booking.turf.location }}</span>
+                        </div>
+                        
+                        {% set duration = ((booking.end_time.hour * 60 + booking.end_time.minute) - (booking.start_time.hour * 60 + booking.start_time.minute)) / 60 %}
+                        <div class="booking-meta">
+                          <i class="fas fa-hourglass-half"></i>
+                          <span>{{ duration }} hour(s)</span>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between align-items-center mt-4">
+                          <div class="price-display">₹{{ booking.total_price }}</div>
+                          <button class="btn btn-view-details booking-action-btn">
+                            <i class="fas fa-redo me-1"></i>Book Again
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                {% endif %}
+              {% endfor %}
+            </div>
+          {% else %}
+            <div class="empty-state">
+              <div class="empty-state-icon">
+                <i class="fas fa-history"></i>
+              </div>
+              <h4 class="mb-3">No Past Bookings</h4>
+              <p class="text-muted mb-4">You don't have any past booking history.</p>
+              <a href="{{ url_for('user.view_turfs') }}" class="btn btn-success btn-lg">
+                <i class="fas fa-search me-2"></i>Find Available Turfs
+              </a>
+            </div>
+          {% endif %}
+        </div>
+        
+        <!-- Cancelled Bookings Tab -->
+        <div class="tab-pane fade" id="cancelled" role="tabpanel" aria-labelledby="cancelled-tab">
+          {% if bookings|selectattr('status', 'eq', 'cancelled')|list %}
+            <div class="row">
+              {% for booking in bookings %}
+                {% if booking.status == 'cancelled' %}
+                  <div class="col-lg-6 mb-4">
+                    <div class="booking-card">
+                      <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">{{ booking.turf.name }}</h5>
+                        <span class="booking-status status-cancelled">Cancelled</span>
+                      </div>
+                      <img src="{{ booking.turf.image_url or url_for('static', filename='img/dest/turf1.jpg') }}" 
+                           class="turf-image" alt="{{ booking.turf.name }}">
+                      <div class="card-body">
+                        <div class="booking-meta">
+                          <i class="fas fa-calendar"></i>
+                          <span>{{ booking.booking_date.strftime('%A, %d %b, %Y') }}</span>
+                        </div>
+                        <div class="booking-meta">
+                          <i class="fas fa-clock"></i>
+                          <span>{{ booking.start_time.strftime('%I:%M %p') }} - {{ booking.end_time.strftime('%I:%M %p') }}</span>
+                        </div>
+                        <div class="booking-meta">
+                          <i class="fas fa-map-marker-alt"></i>
+                          <span>{{ booking.turf.location }}</span>
+                        </div>
+                        
+                        {% set duration = ((booking.end_time.hour * 60 + booking.end_time.minute) - (booking.start_time.hour * 60 + booking.start_time.minute)) / 60 %}
+                        <div class="booking-meta">
+                          <i class="fas fa-hourglass-half"></i>
+                          <span>{{ duration }} hour(s)</span>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between align-items-center mt-4">
+                          <div class="price-display">₹{{ booking.total_price }}</div>
+                          <a href="{{ url_for('user.book_turf', turf_id=booking.turf.id) }}" class="btn btn-success booking-action-btn">
+                            <i class="fas fa-redo me-1"></i>Book Again
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                {% endif %}
+              {% endfor %}
+            </div>
+          {% else %}
+            <div class="empty-state">
+              <div class="empty-state-icon">
+                <i class="fas fa-ban"></i>
+              </div>
+              <h4 class="mb-3">No Cancelled Bookings</h4>
+              <p class="text-muted mb-4">You don't have any cancelled bookings.</p>
+              <a href="{{ url_for('user.view_turfs') }}" class="btn btn-success btn-lg">
+                <i class="fas fa-search me-2"></i>Find Available Turfs
+              </a>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

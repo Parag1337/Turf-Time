@@ -6,12 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-
     <!-- ===============================================-->
     <!--    Document Title-->
     <!-- ===============================================-->
     <title>TurfTime | Book Your Perfect Playing Field</title>
-
 
     <!-- ===============================================-->
     <!--    Favicons-->
@@ -23,53 +21,76 @@
     <link rel="manifest" href="{{ url_for('static', filename='img/favicons/manifest.json') }}">
     <meta name="msapplication-TileImage" content="{{ url_for('static', filename='img/favicons/mstile-150x150.png') }}">
     <meta name="theme-color" content="#ffffff">
-    <!-- First load theme.css -->
+    
+    <!-- CSS Files - Load order is important -->
     <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet" />
-    <!-- Then load your custom overrides -->
     <link href="{{ url_for('static', filename='css/custom.css') }}" rel="stylesheet" />
     <link href="{{ url_for('static', filename='css/enhanced.css') }}" rel="stylesheet" />
+    <!-- Add the new improved CSS with better styling -->
+    <link href="{{ url_for('static', filename='css/improved.css') }}" rel="stylesheet" />
 
     <!-- ===============================================-->
     <!--    Stylesheets-->
     <!-- ===============================================-->
     <style>
+      /* This can be moved to the improved.css file */
       .bg-turf-hero {
         background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url({{ url_for('static', filename='img/hero/turf-hero-bg.jpg') }});
         background-size: cover;
         background-position: center;
         color: white;
       }
-      .turf-card {
-        transition: transform 0.3s;
-      }
-      .turf-card:hover {
-        transform: translateY(-10px);
-      }
-      .rating-stars {
-        color: #F1A501;
-      }
     </style>
 
-    <!-- Add this script right before the closing </head> tag -->
-<script>
-  // Ensure icons are visible
-  document.addEventListener('DOMContentLoaded', function() {
-    // Force icon visibility on all service cards
-    setTimeout(function() {
-      const icons = document.querySelectorAll('.service-card .rounded-circle i');
-      icons.forEach(function(icon) {
-        icon.style.display = 'inline-block';
-        icon.style.visibility = 'visible';
-        icon.style.opacity = '1';
+    <!-- Preload important assets -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Add FontAwesome preload to ensure icons load quickly -->
+    <link rel="preload" href="{{ url_for('static', filename='vendors/fontawesome/all.min.js') }}" as="script">
+    
+    <!-- Ensure icons are visible -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Force icon visibility on all service cards
+        setTimeout(function() {
+          const icons = document.querySelectorAll('.service-card .rounded-circle i');
+          icons.forEach(function(icon) {
+            icon.style.display = 'inline-block';
+            icon.style.visibility = 'visible';
+            icon.style.opacity = '1';
+          });
+        }, 100);
+        
+        // Add scroll listener for navbar effects
+        const navbar = document.querySelector('.navbar');
+        window.addEventListener('scroll', function() {
+          if (window.scrollY > 50) {
+            navbar.classList.add('navbar-scrolled');
+          } else {
+            navbar.classList.remove('navbar-scrolled');
+          }
+        });
+        
+        // Add animation classes to elements as they come into view
+        const animateOnScroll = function() {
+          const animatedElements = document.querySelectorAll('.animate-on-scroll');
+          animatedElements.forEach(element => {
+            const elementPosition = element.getBoundingClientRect().top;
+            const windowHeight = window.innerHeight;
+            if (elementPosition < windowHeight - 100) {
+              element.classList.add('animate-fade-in');
+            }
+          });
+        };
+        
+        window.addEventListener('scroll', animateOnScroll);
+        animateOnScroll(); // Run once on page load
       });
-    }, 100);
-  });
-</script>
+    </script>
   </head>
 
-
   <body>
-
     <!-- ===============================================-->
     <!--    Main Content-->
     <!-- ===============================================-->
@@ -91,41 +112,41 @@
       </nav>
       
       <!-- Hero Section - Centered and More Impactful -->
-<section class="bg-turf-hero py-0" id="hero">
-  <div class="hero-container container-fluid px-0">
-    <div class="row g-0 min-vh-100">
-      <div class="col-12 d-flex align-items-center justify-content-center">
-        <div class="hero-content text-center py-8 px-4">
-          <h5 class="text-white fw-bold mb-3 text-uppercase letter-spacing-3 text-shadow">Welcome to TurfTime</h5>
-          <h1 class="hero-title display-3 fw-bold text-white mb-4 text-shadow">Find & Book <span class="text-success text-gradient">Sports Fields</span> in Seconds</h1>
-          <p class="lead text-white mb-5 text-shadow mx-auto">Discover and reserve the perfect turf for your game. No more hassle, just play.</p>
-          
-          <div class="hero-buttons d-flex flex-wrap justify-content-center gap-3 mb-5">
-            <button class="btn btn-success btn-lg primary-btn-shadow px-5 py-3" style="margin-left: 10px;">Find Turf Now</button>
-            <button class="btn btn-outline-light btn-lg px-4 py-3" style="margin-left: 20px;" >How It Works</button>
-          </div>
-          
-          <div class="hero-stats-container mt-5">
-            <div class="row hero-stats justify-content-center text-center">
-              <div class="col-md-4 col-sm-4 col-12 mb-4 mb-sm-0">
-                <h3 class="text-white mb-0 fw-bold display-5">500+</h3>
-                <p class="text-white-50 mb-0">Sports Fields</p>
-              </div>
-              <div class="col-md-4 col-sm-4 col-12 mb-4 mb-sm-0">
-                <h3 class="text-white mb-0 fw-bold display-5">10K+</h3>
-                <p class="text-white-50 mb-0">Happy Players</p>
-              </div>
-              <div class="col-md-4 col-sm-4 col-12">
-                <h3 class="text-white mb-0 fw-bold display-5">15+</h3>
-                <p class="text-white-50 mb-0">Sports Types</p>
+      <section class="bg-turf-hero py-0" id="hero">
+        <div class="hero-container container-fluid px-0">
+          <div class="row g-0 min-vh-100">
+            <div class="col-12 d-flex align-items-center justify-content-center">
+              <div class="hero-content text-center py-8 px-4">
+                <h5 class="text-white fw-bold mb-3 text-uppercase letter-spacing-3 text-shadow animate-on-scroll">Welcome to TurfTime</h5>
+                <h1 class="hero-title display-3 fw-bold text-white mb-4 text-shadow animate-on-scroll animate-delay-1">Find & Book <span class="text-success text-gradient">Sports Fields</span> in Seconds</h1>
+                <p class="lead text-white mb-5 text-shadow mx-auto animate-on-scroll animate-delay-2">Discover and reserve the perfect turf for your game. No more hassle, just play.</p>
+                
+                <div class="hero-buttons d-flex flex-wrap justify-content-center gap-3 mb-5 animate-on-scroll animate-delay-3">
+                  <button class="btn btn-success btn-lg primary-btn-shadow px-5 py-3">Find Turf Now</button>
+                  <button class="btn btn-outline-light btn-lg px-4 py-3">How It Works</button>
+                </div>
+                
+                <div class="hero-stats-container mt-5 animate-on-scroll">
+                  <div class="row hero-stats justify-content-center text-center">
+                    <div class="col-md-4 col-sm-4 col-12 mb-4 mb-sm-0">
+                      <h3 class="text-white mb-0 fw-bold display-5">500+</h3>
+                      <p class="text-white-50 mb-0">Sports Fields</p>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-12 mb-4 mb-sm-0">
+                      <h3 class="text-white mb-0 fw-bold display-5">10K+</h3>
+                      <p class="text-white-50 mb-0">Happy Players</p>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-12">
+                      <h3 class="text-white mb-0 fw-bold display-5">15+</h3>
+                      <p class="text-white-50 mb-0">Sports Types</p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
+      </section>
 
       <!-- Features Section -->
       <section class="pt-5 pt-md-9" id="features">
@@ -634,25 +655,24 @@
       </div>
     </main>
 
-    <!-- JavaScripts -->
-    <script src="vendors/@popperjs/popper.min.js"></script>
-    <script src="vendors/bootstrap/bootstrap.min.js"></script>
-    <script src="vendors/is/is.min.js"></script>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
-    <script src="vendors/fontawesome/all.min.js"></script>
-    <script src="assets/js/theme.js"></script>
+    <!-- JavaScripts - Add defer attribute for performance -->
+    <script src="{{ url_for('static', filename='vendors/@popperjs/popper.min.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='vendors/bootstrap/bootstrap.min.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='vendors/is/is.min.js') }}" defer></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll" defer></script>
+    <script src="{{ url_for('static', filename='vendors/fontawesome/all.min.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/theme.js') }}" defer></script>
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;family=Volkhov:wght@700&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Volkhov:wght@700&display=swap" rel="stylesheet">
     
-    <!-- Add this right before the closing </body> tag to ensure FontAwesome loads properly -->
-<script>
-  // Check if FontAwesome is loaded properly
-  document.addEventListener('DOMContentLoaded', function() {
-    // Force refresh of FontAwesome icons
-    if (window.FontAwesome) {
-      window.FontAwesome.dom.i2svg();
-    }
-  });
-</script>
+    <!-- FontAwesome fix -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Force refresh of FontAwesome icons
+        if (window.FontAwesome) {
+          window.FontAwesome.dom.i2svg();
+        }
+      });
+    </script>
   </body>
 </html>
