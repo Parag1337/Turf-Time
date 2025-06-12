@@ -35,27 +35,27 @@ def send_email(subject, recipients, template, **kwargs):
             return True
         except Exception as flask_mail_error:
             print(f"Flask-Mail error: {str(flask_mail_error)}")
-            print("Trying fallback with direct SMTP...")
             
-            # Get email config from app for direct SMTP
-            smtp_server = app.config['MAIL_SERVER']
-            port = app.config['MAIL_PORT']
-            username = app.config['MAIL_USERNAME']
-            password = app.config['MAIL_PASSWORD']
-            use_ssl = app.config.get('MAIL_USE_SSL', False)
-            sender = app.config['MAIL_DEFAULT_SENDER']
-            
-            # Create MIME message
-            mime_msg = MIMEMultipart()
-            mime_msg['Subject'] = subject
-            mime_msg['From'] = sender
-            mime_msg['To'] = ", ".join(recipients)
-            
-            # Attach HTML content
-            mime_msg.attach(MIMEText(msg.html, 'html'))
-            
-            # Connect to SMTP server
+            # Try fallback with direct SMTP
             try:
+                # Get email config from app for direct SMTP
+                smtp_server = app.config['MAIL_SERVER']
+                port = app.config['MAIL_PORT']
+                username = app.config['MAIL_USERNAME']
+                password = app.config['MAIL_PASSWORD']
+                use_ssl = app.config.get('MAIL_USE_SSL', False)
+                sender = app.config['MAIL_DEFAULT_SENDER']
+                
+                # Create MIME message
+                mime_msg = MIMEMultipart()
+                mime_msg['Subject'] = subject
+                mime_msg['From'] = sender
+                mime_msg['To'] = ", ".join(recipients)
+                
+                # Attach HTML content
+                mime_msg.attach(MIMEText(msg.html, 'html'))
+                
+                # Connect to SMTP server
                 if use_ssl:
                     smtp = smtplib.SMTP_SSL(smtp_server, port)
                 else:
@@ -76,7 +76,6 @@ def send_email(subject, recipients, template, **kwargs):
                 print(f"Direct SMTP error: {str(smtp_error)}")
                 traceback.print_exc()
                 return False
-                
     except Exception as e:
         print(f"Failed to send email: {str(e)}")
         traceback.print_exc()
@@ -85,13 +84,11 @@ def send_email(subject, recipients, template, **kwargs):
 def send_booking_confirmation_email(booking):
     """Send booking confirmation email to user"""
     if not booking.user.email:
-        print("ERROR: Cannot send email - User has no email address!")
+        print("Cannot send email - User has no email address")
         return False
         
     subject = f"Booking Confirmation - {booking.turf.name}"
     recipients = [booking.user.email]
-    
-    print(f"Preparing booking confirmation email for {booking.user.email}")
     
     # Format the date and time for email
     booking_date = booking.booking_date.strftime('%A, %d %B %Y')
@@ -110,23 +107,19 @@ def send_booking_confirmation_email(booking):
         turf=booking.turf
     )
     
-    if success:
-        print(f" Booking confirmation email sent to {booking.user.email}")
-    else:
-        print(f" Failed to send booking confirmation email to {booking.user.email}")
+    if not success:
+        print(f"Failed to send booking confirmation email to {booking.user.email}")
     
     return success
 
 def send_booking_notification_to_owner(booking):
     """Send booking notification to turf owner"""
     if not booking.turf.owner.email:
-        print("ERROR: Cannot send email - Turf owner has no email address!")
+        print("Cannot send email - Turf owner has no email address")
         return False
         
     subject = f"New Booking - {booking.turf.name}"
     recipients = [booking.turf.owner.email]
-    
-    print(f"Preparing booking notification email for turf owner {booking.turf.owner.email}")
     
     # Format the date and time for email
     booking_date = booking.booking_date.strftime('%A, %d %B %Y')
@@ -145,23 +138,19 @@ def send_booking_notification_to_owner(booking):
         turf=booking.turf
     )
     
-    if success:
-        print(f" Booking notification email sent to owner {booking.turf.owner.email}")
-    else:
-        print(f" Failed to send booking notification email to owner {booking.turf.owner.email}")
+    if not success:
+        print(f"Failed to send booking notification email to owner {booking.turf.owner.email}")
     
     return success
 
 def send_cancellation_notification_to_user(booking):
     """Send booking cancellation email to user"""
     if not booking.user.email:
-        print("ERROR: Cannot send cancellation email - User has no email address!")
+        print("Cannot send cancellation email - User has no email address")
         return False
         
     subject = f"Booking Cancellation - {booking.turf.name}"
     recipients = [booking.user.email]
-    
-    print(f"Preparing cancellation email for user {booking.user.email}")
     
     # Format the date and time for email
     booking_date = booking.booking_date.strftime('%A, %d %B %Y')
@@ -180,15 +169,9 @@ def send_cancellation_notification_to_user(booking):
             user=booking.user,
             turf=booking.turf
         )
-        
-        if success:
-            print(f" Cancellation email sent to {booking.user.email}")
-        else:
-            print(f" Failed to send cancellation email to {booking.user.email}")
-        
         return success
     except Exception as e:
-        print(f" Error sending cancellation email: {str(e)}")
+        print(f"Error sending cancellation email: {str(e)}")
         import traceback
         traceback.print_exc()
         return False
@@ -196,13 +179,11 @@ def send_cancellation_notification_to_user(booking):
 def send_cancellation_notification_to_owner(booking):
     """Send booking cancellation notification to turf owner"""
     if not booking.turf.owner.email:
-        print("ERROR: Cannot send cancellation email - Turf owner has no email address!")
+        print("Cannot send cancellation email - Turf owner has no email address")
         return False
         
     subject = f"Booking Cancellation - {booking.turf.name}"
     recipients = [booking.turf.owner.email]
-    
-    print(f"Preparing cancellation notification email for owner {booking.turf.owner.email}")
     
     # Format the date and time for email
     booking_date = booking.booking_date.strftime('%A, %d %B %Y')
@@ -221,9 +202,7 @@ def send_cancellation_notification_to_owner(booking):
         turf=booking.turf
     )
     
-    if success:
-        print(f" Cancellation notification email sent to owner {booking.turf.owner.email}")
-    else:
-        print(f" Failed to send cancellation notification email to owner {booking.turf.owner.email}")
+    if not success:
+        print(f"Failed to send cancellation notification email to owner {booking.turf.owner.email}")
     
     return success

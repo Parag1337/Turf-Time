@@ -159,19 +159,16 @@ def cancel_booking(booking_id):
         return redirect(url_for('user.my_bookings'))
       # Cancel the booking
     booking.status = 'cancelled'
-    db.session.commit()
-      # Send cancellation emails
+    db.session.commit()    # Send cancellation emails
     try:
-        print("DEBUG: Attempting to send cancellation email to user...")
         user_email_success = send_cancellation_notification_to_user(booking)
-        print(f"DEBUG: User email sent successfully: {user_email_success}")
-        
-        print("DEBUG: Attempting to send cancellation email to owner...")
         owner_email_success = send_cancellation_notification_to_owner(booking)
-        print(f"DEBUG: Owner email sent successfully: {owner_email_success}")
+        
+        if not (user_email_success and owner_email_success):
+            print("Warning: Some cancellation emails failed to send")
     except Exception as e:
         # Log the error but don't prevent the cancellation confirmation
-        print(f"ERROR sending cancellation email: {str(e)}")
+        print(f"Error sending cancellation emails: {str(e)}")
         import traceback
         traceback.print_exc()
     

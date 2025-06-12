@@ -29,19 +29,8 @@ def create_app(config_class=Config):
     
     # Initialize extensions with app
     db.init_app(app)
-    login_manager.init_app(app)
-      # Initialize mail with debug information
-    print("Initializing Flask-Mail with the following configuration:")
-    print(f"MAIL_SERVER: {app.config['MAIL_SERVER']}")
-    print(f"MAIL_PORT: {app.config['MAIL_PORT']}")
-    print(f"MAIL_USE_SSL: {app.config.get('MAIL_USE_SSL', False)}")
-    print(f"MAIL_USE_TLS: {app.config['MAIL_USE_TLS']}")
-    print(f"MAIL_USERNAME: {app.config['MAIL_USERNAME']}")
-    print(f"MAIL_DEFAULT_SENDER: {app.config['MAIL_DEFAULT_SENDER']}")
-    
-    # Initialize Flask-Mail
+    login_manager.init_app(app)    # Initialize Flask-Mail
     mail.init_app(app)
-    print("Flask-Mail initialized successfully")
     
     # Register blueprints
     from routes.auth import auth_bp
@@ -70,12 +59,10 @@ def create_app(config_class=Config):
     @app.context_processor
     def inject_context():
         return {'now': datetime.now()}
-    
-    # Enable email debugging in development
-    if app.debug:
+      # Configure logging for production
+    if not app.debug:
         import logging
-        logging.basicConfig(level=logging.DEBUG)
-        logging.getLogger('flask_mail').setLevel(logging.DEBUG)
+        logging.basicConfig(level=logging.WARNING)
     
     return app
 
