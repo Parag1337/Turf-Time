@@ -50,6 +50,403 @@
       background-position: center;
       margin-bottom: 40px;
     }
+    
+    /* Enhanced Navigation Styles */
+    .navbar {
+      backdrop-filter: blur(10px);
+      background-color: rgba(255, 255, 255, 0.95) !important;
+      transition: all 0.3s ease;
+    }
+    
+    .navbar-nav {
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .navbar-nav .nav-item {
+      margin: 0;
+    }
+    
+    .navbar-nav .nav-link {
+      padding: 10px 16px !important;
+      border-radius: 8px;
+      font-weight: 500;
+      position: relative;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow: hidden;
+    }
+    
+    .navbar-nav .nav-link::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(25, 135, 84, 0.1), transparent);
+      transition: left 0.5s ease;
+    }
+    
+    .navbar-nav .nav-link:hover::before {
+      left: 100%;
+    }
+    
+    .navbar-nav .nav-link:hover {
+      background-color: rgba(25, 135, 84, 0.08);
+      color: #198754 !important;
+      transform: translateY(-1px);
+    }
+    
+    /* Modern Button Styles */
+    .btn {
+      padding: 12px 24px;
+      font-weight: 600;
+      border-radius: 12px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border: none;
+      text-transform: none;
+      letter-spacing: 0.5px;
+    }
+    
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.6s ease;
+    }
+    
+    .btn:hover::before {
+      left: 100%;
+    }
+    
+    .btn-success {
+      background: linear-gradient(135deg, #198754, #20c463);
+      box-shadow: 0 4px 15px rgba(25, 135, 84, 0.3);
+      border: 2px solid transparent;
+    }
+    
+    .btn-success:hover {
+      background: linear-gradient(135deg, #157347, #198754);
+      box-shadow: 0 8px 25px rgba(25, 135, 84, 0.4);
+      transform: translateY(-2px) scale(1.02);
+    }
+    
+    .btn-success:active {
+      transform: translateY(0) scale(1);
+      box-shadow: 0 2px 8px rgba(25, 135, 84, 0.3);
+    }
+    
+    .btn-outline-success {
+      background: transparent;
+      border: 2px solid #198754;
+      color: #198754;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .btn-outline-success::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #198754, #20c463);
+      transition: left 0.4s ease;
+      z-index: -1;
+    }
+    
+    .btn-outline-success:hover {
+      color: white;
+      border-color: #198754;
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 8px 25px rgba(25, 135, 84, 0.3);
+    }
+    
+    .btn-outline-success:hover::after {
+      left: 0;
+    }
+    
+    .btn-outline-success:active {
+      transform: translateY(0) scale(1);
+    }
+    
+    /* User Dropdown Button Styles */
+    .user-dropdown-btn {
+      background: linear-gradient(135deg, #198754, #20c463);
+      border: none;
+      border-radius: 12px;
+      padding: 10px 18px;
+      color: white;
+      font-weight: 600;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 15px rgba(25, 135, 84, 0.25);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .user-dropdown-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.6s ease;
+    }
+    
+    .user-dropdown-btn:hover::before {
+      left: 100%;
+    }
+    
+    .user-dropdown-btn:hover {
+      background: linear-gradient(135deg, #157347, #198754);
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 6px 20px rgba(25, 135, 84, 0.35);
+      color: white;
+    }
+    
+    .user-dropdown-btn:active {
+      transform: translateY(0) scale(1);
+    }
+    
+    /* Enhanced Dropdown Styles */
+    .dropdown-menu {
+      border: none;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+      border-radius: 16px;
+      padding: 12px 0;
+      margin-top: 12px;
+      backdrop-filter: blur(10px);
+      background-color: rgba(255, 255, 255, 0.95);
+      display: block;
+      visibility: hidden;
+    }
+    
+    .dropdown-item {
+      padding: 12px 24px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      border-radius: 0;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .dropdown-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(25, 135, 84, 0.1), transparent);
+      transition: left 0.4s ease;
+    }
+    
+    .dropdown-item:hover::before {
+      left: 100%;
+    }
+    
+    .dropdown-item:hover {
+      background-color: rgba(25, 135, 84, 0.08);
+      color: #198754;
+      transform: translateX(4px);
+    }
+    
+    .dropdown-item.text-danger:hover {
+      background-color: rgba(220, 53, 69, 0.08);
+      color: #dc3545;
+    }
+    
+    .dropdown-divider {
+      margin: 8px 16px;
+      border-color: rgba(0, 0, 0, 0.08);
+    }
+    
+    /* Navigation alignment fixes */
+    .navbar-nav.ms-auto {
+      display: flex;
+      align-items: center;
+      flex-wrap: nowrap;
+    }
+    
+    @media (min-width: 992px) {
+      .navbar-nav {
+        flex-direction: row;
+        align-items: center;
+      }
+      
+      .nav-item {
+        margin-bottom: 0 !important;
+      }
+      
+      .nav-item.ms-lg-3 {
+        margin-left: 1rem !important;
+      }
+    }
+    
+    @media (max-width: 991px) {
+      .navbar-nav {
+        align-items: flex-start;
+        gap: 0.25rem;
+      }
+      
+      .btn {
+        width: 100%;
+        text-align: center;
+        margin-top: 0.5rem;
+      }
+      
+      .nav-item.ms-lg-3 {
+        margin-left: 0 !important;
+        width: 100%;
+      }
+    }
+    
+    /* Icon animations */
+    .btn i, .dropdown-item i {
+      transition: transform 0.3s ease;
+    }
+    
+    .btn:hover i {
+      transform: scale(1.1);
+    }
+    
+    .dropdown-item:hover i {
+      transform: translateX(2px);
+    }
+    
+    /* Alert styling */
+    .alert {
+      border: none;
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      font-weight: 500;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Footer styling remains the same */
+    .footer-section {
+      padding: 60px 0 20px;
+    }
+    
+    .footer-heading-color {
+      margin-bottom: 24px !important;
+      font-size: 1.1rem;
+    }
+    
+    .footer-links li {
+      margin-bottom: 12px;
+    }
+    
+    .footer-links a {
+      padding: 4px 0;
+      display: inline-block;
+      transition: color 0.3s ease;
+    }
+    
+    .footer-links a:hover {
+      color: #198754 !important;
+    }
+    
+    .icon-group {
+      gap: 16px;
+      display: flex;
+      margin-bottom: 32px;
+    }
+    
+    .icon-item {
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+    }
+    
+    .icon-item:hover {
+      transform: translateY(-2px);
+    }
+    
+    .app-download-section {
+      margin-top: 24px;
+    }
+    
+    .app-download-section img {
+      height: 48px;
+      transition: transform 0.3s ease;
+    }
+    
+    .app-download-section img:hover {
+      transform: scale(1.05);
+    }
+    
+    .copyright-section {
+      padding: 32px 0;
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
+      margin-top: 40px;
+    }
+
+    /* Enhanced Navbar Dropdown Styles */
+    .navbar-nav .dropdown-menu {
+      min-width: 200px;
+    }
+    
+    .navbar-nav .dropdown-toggle::after {
+      margin-left: 8px;
+      transition: transform 0.3s ease;
+    }
+    
+    .navbar-nav .dropdown-toggle:hover::after {
+      transform: rotate(180deg);
+    }
+    
+    /* Ensure dropdowns are visible and positioned correctly */
+    .dropdown-menu {
+      display: block;
+      visibility: hidden;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: visibility 0s, opacity 0.3s, transform 0.3s;
+      z-index: 1030;
+    }
+    
+    .dropdown-menu.show {
+      visibility: visible;
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* Fix z-index issues */
+    .navbar {
+      z-index: 1020;
+    }
+    
+    /* Pulse animation for important buttons */
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 4px 15px rgba(25, 135, 84, 0.3);
+      }
+      50% {
+        box-shadow: 0 4px 25px rgba(25, 135, 84, 0.5);
+      }
+      100% {
+        box-shadow: 0 4px 15px rgba(25, 135, 84, 0.3);
+      }
+    }
+    
+    .btn-success:focus {
+      animation: pulse 2s infinite;
+    }
   </style>
 
   {% block additional_css %}{% endblock %}
@@ -62,67 +459,81 @@
   <main class="main" id="top">
     <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3 d-block bg-white shadow-sm" data-navbar-on-scroll="data-navbar-on-scroll">
       <div class="container">
-        <a class="navbar-brand" href="{{ url_for('index') }}">
-          <img src="{{ url_for('static', filename='img/logo.svg') }}" height="24" alt="logo" />
-          <span class="fw-bold fs-3 ms-2 text-primary">TurfTime</span>
+        <a class="navbar-brand py-2" href="{{ url_for('index') }}">
+          <img src="{{ url_for('static', filename='img/logo.svg') }}" height="28" alt="logo" />
+          <span class="fw-bold fs-3 ms-3 text-primary">TurfTime</span>
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        
+        <button class="navbar-toggler border-0 p-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent">
-          <ul class="navbar-nav ms-auto pt-2 pt-lg-0 font-base align-items-lg-center align-items-start">
-            <li class="nav-item px-3 px-xl-4">
+        
+        <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0 pt-3 pt-lg-0" id="navbarSupportedContent">
+          <ul class="navbar-nav ms-auto pt-2 pt-lg-0 font-base">
+            <li class="nav-item">
               <a class="nav-link fw-medium" aria-current="page" href="{{ url_for('index') }}">Home</a>
             </li>
+            
             {% if current_user.is_authenticated %}
               {% if current_user.role == 'user' %}
-                <li class="nav-item px-3 px-xl-4">
+                <li class="nav-item">
                   <a class="nav-link fw-medium" href="{{ url_for('user.dashboard') }}">Dashboard</a>
                 </li>
-                <li class="nav-item px-3 px-xl-4">
+                <li class="nav-item">
                   <a class="nav-link fw-medium" href="{{ url_for('user.view_turfs') }}">Find Turf</a>
                 </li>
-                <li class="nav-item px-3 px-xl-4">
+                <li class="nav-item">
                   <a class="nav-link fw-medium" href="{{ url_for('user.my_bookings') }}">My Bookings</a>
                 </li>
-                <li class="nav-item px-3 px-xl-4 dropdown">
+                <li class="nav-item dropdown">
                   <a class="nav-link fw-medium dropdown-toggle" href="#" id="teamDropdownMain" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Teams
                   </a>
                   <ul class="dropdown-menu" aria-labelledby="teamDropdownMain">
-                    <li><a class="dropdown-item" href="{{ url_for('user.find_teams') }}">Find Teams</a></li>
-                    <li><a class="dropdown-item" href="{{ url_for('user.my_team_requests') }}">My Team Requests</a></li>
+                    <li><a class="dropdown-item" href="{{ url_for('user.find_teams') }}">
+                      <i class="fas fa-search me-2"></i>Find Teams
+                    </a></li>
+                    <li><a class="dropdown-item" href="{{ url_for('user.my_team_requests') }}">
+                      <i class="fas fa-users me-2"></i>My Team Requests
+                    </a></li>
                   </ul>
                 </li>
               {% elif current_user.role == 'owner' %}
-                <li class="nav-item px-3 px-xl-4">
+                <li class="nav-item">
                   <a class="nav-link fw-medium" href="{{ url_for('owner.dashboard') }}">Dashboard</a>
                 </li>
-                <li class="nav-item px-3 px-xl-4">
+                <li class="nav-item">
                   <a class="nav-link fw-medium" href="{{ url_for('owner.my_turfs') }}">My Turfs</a>
                 </li>
-                <li class="nav-item px-3 px-xl-4">
+                <li class="nav-item">
                   <a class="nav-link fw-medium" href="{{ url_for('owner.view_bookings') }}">Bookings</a>
                 </li>
               {% endif %}
-              <li class="nav-item px-3 px-xl-4">
+              
+              <li class="nav-item ms-lg-3">
                 <div class="dropdown">
-                  <a class="btn btn-success dropdown-toggle" href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                  <button class="user-dropdown-btn dropdown-toggle border-0" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="fas fa-user me-2"></i>{{ current_user.username }}
-                  </a>
-                  <ul class="dropdown-menu" aria-labelledby="userDropdown">
-                    <li><a class="dropdown-item" href="#">Profile</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="{{ url_for('auth.logout') }}">Logout</a></li>
+                  </button>
+                  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                    <li><a class="dropdown-item" href="#">
+                      <i class="fas fa-user-circle me-2"></i>Profile
+                    </a></li>
+                    <li><hr class="dropdown-divider my-2"></li>
+                    <li><a class="dropdown-item text-danger" href="{{ url_for('auth.logout') }}">
+                      <i class="fas fa-sign-out-alt me-2"></i>Logout
+                    </a></li>
                   </ul>
                 </div>
               </li>
             {% else %}
-              <li class="nav-item px-3 px-xl-4">
+              <li class="nav-item">
                 <a class="nav-link fw-medium" aria-current="page" href="{{ url_for('auth.login') }}">Login</a>
               </li>
-              <li class="nav-item px-3 px-xl-4">
-                <a class="btn btn-outline-success order-1 order-lg-0 fw-medium" href="{{ url_for('auth.register') }}">Sign Up</a>
+              <li class="nav-item ms-lg-3">
+                <a class="btn btn-outline-success order-1 order-lg-0 fw-medium" href="{{ url_for('auth.register') }}">
+                  <i class="fas fa-user-plus me-2"></i>Sign Up
+                </a>
               </li>
             {% endif %}
           </ul>
@@ -132,9 +543,20 @@
 
     {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
-        <div class="container mt-5 pt-3">
+        <div class="container" style="margin-top: 100px; padding-top: 20px;">
           {% for category, message in messages %}
             <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+              <strong>
+                {% if category == 'success' %}
+                  <i class="fas fa-check-circle me-2"></i>
+                {% elif category == 'danger' %}
+                  <i class="fas fa-exclamation-circle me-2"></i>
+                {% elif category == 'warning' %}
+                  <i class="fas fa-exclamation-triangle me-2"></i>
+                {% else %}
+                  <i class="fas fa-info-circle me-2"></i>
+                {% endif %}
+              </strong>
               {{ message }}
               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
@@ -146,64 +568,95 @@
     {% block content %}{% endblock %}
 
     <!-- Footer -->
-    <section class="pb-0 pb-lg-4">
+    <section class="footer-section pb-0 pb-lg-4">
       <div class="container">
-        <div class="row">
-          <div class="col-lg-3 col-md-7 col-12 mb-4 mb-md-6 mb-lg-0 order-0"> 
-            <div class="d-flex align-items-center mb-3">
-              <img class="me-2" src="{{ url_for('static', filename='img/logo.svg') }}" width="30" alt="logo" />
-              <h4 class="mb-0 text-success fw-bold">TurfTime</h4>
+        <div class="row g-4">
+          <div class="col-lg-4 col-md-6 col-12 mb-4 mb-md-6 mb-lg-0 order-0"> 
+            <div class="d-flex align-items-center mb-4">
+              <img class="me-3" src="{{ url_for('static', filename='img/logo.svg') }}" width="32" alt="logo" />
+              <h4 class="mb-0 text-success fw-bold fs-4">TurfTime</h4>
             </div>
-            <p class="fs--1 text-secondary mb-0 fw-medium">Book your favorite sports turf in minutes, manage your team, and enjoy quality playing time.</p>
+            <p class="fs-6 text-secondary mb-0 fw-medium lh-lg pe-lg-4">Book your favorite sports turf in minutes, manage your team, and enjoy quality playing time with the best facilities in your area.</p>
           </div>
-          <div class="col-lg-2 col-md-4 mb-4 mb-lg-0 order-lg-1 order-md-2">
-            <h4 class="footer-heading-color fw-bold font-sans-serif mb-3 mb-lg-4">Company</h4>
-            <ul class="list-unstyled mb-0">
-              <li class="mb-2"><a class="link-900 fs-1 fw-medium text-decoration-none" href="#!">About</a></li>
-              <li class="mb-2"><a class="link-900 fs-1 fw-medium text-decoration-none" href="#!">Careers</a></li>
-              <li class="mb-2"><a class="link-900 fs-1 fw-medium text-decoration-none" href="#!">Mobile App</a></li>
+          
+          <div class="col-lg-2 col-md-3 col-6 mb-4 mb-lg-0 order-lg-1 order-md-2">
+            <h5 class="footer-heading-color fw-bold font-sans-serif mb-4">Company</h5>
+            <ul class="list-unstyled mb-0 footer-links">
+              <li><a class="link-900 fs-6 fw-medium text-decoration-none" href="#!">About Us</a></li>
+              <li><a class="link-900 fs-6 fw-medium text-decoration-none" href="#!">Careers</a></li>
+              <li><a class="link-900 fs-6 fw-medium text-decoration-none" href="#!">Mobile App</a></li>
+              <li><a class="link-900 fs-6 fw-medium text-decoration-none" href="#!">Blog</a></li>
             </ul>
           </div>
-          <div class="col-lg-2 col-md-4 mb-4 mb-lg-0 order-lg-2 order-md-3">
-            <h4 class="footer-heading-color fw-bold font-sans-serif mb-3 mb-lg-4">Contact</h4>
-            <ul class="list-unstyled mb-0">
-              <li class="mb-2"><a class="link-900 fs-1 fw-medium text-decoration-none" href="#!">Help/FAQ</a></li>
-              <li class="mb-2"><a class="link-900 fs-1 fw-medium text-decoration-none" href="#!">Press</a></li>
-              <li class="mb-2"><a class="link-900 fs-1 fw-medium text-decoration-none" href="#!">Partners</a></li>
+          
+          <div class="col-lg-2 col-md-3 col-6 mb-4 mb-lg-0 order-lg-2 order-md-3">
+            <h5 class="footer-heading-color fw-bold font-sans-serif mb-4">Support</h5>
+            <ul class="list-unstyled mb-0 footer-links">
+              <li><a class="link-900 fs-6 fw-medium text-decoration-none" href="#!">Help Center</a></li>
+              <li><a class="link-900 fs-6 fw-medium text-decoration-none" href="#!">Contact Us</a></li>
+              <li><a class="link-900 fs-6 fw-medium text-decoration-none" href="#!">Partners</a></li>
+              <li><a class="link-900 fs-6 fw-medium text-decoration-none" href="#!">FAQ</a></li>
             </ul>
           </div>
-          <div class="col-lg-2 col-md-4 mb-4 mb-lg-0 order-lg-3 order-md-4">
-            <h4 class="footer-heading-color fw-bold font-sans-serif mb-3 mb-lg-4">Services</h4>
-            <ul class="list-unstyled mb-0">
-              <li class="mb-2"><a class="link-900 fs-1 fw-medium text-decoration-none" href="#!">Turf Booking</a></li>
-              <li class="mb-2"><a class="link-900 fs-1 fw-medium text-decoration-none" href="#!">Team Management</a></li>
-              <li class="mb-2"><a class="link-900 fs-1 fw-medium text-decoration-none" href="#!">Tournament Hosting</a></li>
+          
+          <div class="col-lg-2 col-md-3 col-6 mb-4 mb-lg-0 order-lg-3 order-md-4">
+            <h5 class="footer-heading-color fw-bold font-sans-serif mb-4">Services</h5>
+            <ul class="list-unstyled mb-0 footer-links">
+              <li><a class="link-900 fs-6 fw-medium text-decoration-none" href="#!">Turf Booking</a></li>
+              <li><a class="link-900 fs-6 fw-medium text-decoration-none" href="#!">Team Management</a></li>
+              <li><a class="link-900 fs-6 fw-medium text-decoration-none" href="#!">Tournaments</a></li>
+              <li><a class="link-900 fs-6 fw-medium text-decoration-none" href="#!">Events</a></li>
             </ul>
           </div>
-          <div class="col-lg-3 col-md-5 col-12 mb-4 mb-md-6 mb-lg-0 order-lg-4 order-md-1">
+          
+          <div class="col-lg-2 col-md-3 col-12 mb-4 mb-md-6 mb-lg-0 order-lg-4 order-md-1">
+            <h5 class="fw-bold font-sans-serif text-secondary mb-4">Follow Us</h5>
             <div class="icon-group mb-4"> 
-              <a class="text-decoration-none icon-item shadow-social" id="facebook" href="#!"><i class="fab fa-facebook-f"></i></a>
-              <a class="text-decoration-none icon-item shadow-social" id="instagram" href="#!"><i class="fab fa-instagram"></i></a>
-              <a class="text-decoration-none icon-item shadow-social" id="twitter" href="#!"><i class="fab fa-twitter"></i></a>
+              <a class="text-decoration-none icon-item shadow-social bg-primary text-white" id="facebook" href="#!">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a class="text-decoration-none icon-item shadow-social bg-danger text-white" id="instagram" href="#!">
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a class="text-decoration-none icon-item shadow-social bg-info text-white" id="twitter" href="#!">
+                <i class="fab fa-twitter"></i>
+              </a>
             </div>
-            <h4 class="fw-medium font-sans-serif text-secondary mb-3">Download our app</h4>
-            <div class="d-flex align-items-center"> 
-              <a href="#!"><img class="me-2" src="{{ url_for('static', filename='img/play-store.png') }}" alt="play store" /></a>
-              <a href="#!"><img src="{{ url_for('static', filename='img/apple-store.png') }}" alt="apple store" /></a>
+            
+            <h6 class="fw-medium font-sans-serif text-secondary mb-3">Download App</h6>
+            <div class="app-download-section d-flex flex-column gap-2"> 
+              <a href="#!" class="d-block">
+                <img src="{{ url_for('static', filename='img/play-store.png') }}" alt="Google Play Store" class="img-fluid" />
+              </a>
+              <a href="#!" class="d-block">
+                <img src="{{ url_for('static', filename='img/apple-store.png') }}" alt="Apple App Store" class="img-fluid" />
+              </a>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <div class="py-5 text-center">
-      <p class="mb-0 text-secondary fs--1 fw-medium">© 2025 TurfTime. All rights reserved.</p>
+    <div class="copyright-section text-center">
+      <div class="container">
+        <p class="mb-0 text-secondary fs-6 fw-medium">© 2025 TurfTime. All rights reserved. Made with ❤️ for sports enthusiasts.</p>
+      </div>
     </div>
   </main>
 
   <!-- JavaScripts -->
   <script src="{{ url_for('static', filename='vendors/@popperjs/popper.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='vendors/bootstrap/bootstrap.min.js') }}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Verify Bootstrap is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof bootstrap === 'undefined') {
+        console.error('Bootstrap is not loaded!');
+      } else {
+        console.log('Bootstrap loaded successfully');
+      }
+    });
+  </script>
   <script src="{{ url_for('static', filename='vendors/is/is.min.js') }}"></script>
   <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
   <script src="{{ url_for('static', filename='vendors/fontawesome/all.min.js') }}"></script>
@@ -221,5 +674,181 @@
   </script>
 
   {% block additional_js %}{% endblock %}
+  
+  <!-- Enhanced dropdown initialization with animations -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Check if Bootstrap is loaded
+      if (typeof bootstrap !== 'undefined') {
+        // Initialize all dropdowns with enhanced settings
+        var dropdownElementList = document.querySelectorAll('.dropdown-toggle');
+        dropdownElementList.forEach(function(element) {
+          new bootstrap.Dropdown(element, {
+            boundary: 'viewport',
+            offset: [0, 8]
+          });
+        });
+        
+        // Enhanced hover dropdowns on desktop with smooth animations
+        if (window.innerWidth >= 992) {
+          document.querySelectorAll('.navbar .nav-item.dropdown').forEach(function(item) {
+            let hoverTimeout;
+            
+            item.addEventListener('mouseenter', function() {
+              clearTimeout(hoverTimeout);
+              const dropdown = bootstrap.Dropdown.getInstance(this.querySelector('.dropdown-toggle'));
+              if (dropdown) {
+                dropdown.show();
+              }
+            });
+            
+            item.addEventListener('mouseleave', function() {
+              const dropdown = bootstrap.Dropdown.getInstance(this.querySelector('.dropdown-toggle'));
+              hoverTimeout = setTimeout(() => {
+                if (dropdown) dropdown.hide();
+              }, 300);
+            });
+          });
+        }
+        
+        // Add click animation to buttons
+        document.querySelectorAll('.btn').forEach(function(btn) {
+          btn.addEventListener('click', function(e) {
+            let ripple = document.createElement('span');
+            ripple.style.position = 'absolute';
+            ripple.style.borderRadius = '50%';
+            ripple.style.background = 'rgba(255, 255, 255, 0.6)';
+            ripple.style.transform = 'scale(0)';
+            ripple.style.animation = 'ripple 0.6s linear';
+            ripple.style.left = (e.clientX - e.target.offsetLeft) + 'px';
+            ripple.style.top = (e.clientY - e.target.offsetTop) + 'px';
+            
+            this.appendChild(ripple);
+            
+            setTimeout(() => {
+              ripple.remove();
+            }, 600);
+          });
+        });
+        
+      } else {
+        console.error('Bootstrap JS is not loaded properly');
+      }
+    });
+    
+    // Add ripple animation keyframes
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes ripple {
+        to {
+          transform: scale(4);
+          opacity: 0;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+  </script>
+
+  <!-- Smooth scroll behavior for navigation links -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Add smooth hover effects to navigation items
+      const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+      navLinks.forEach(link => {
+        link.addEventListener('mouseenter', function() {
+          this.style.transform = 'translateY(-1px)';
+        });
+        
+        link.addEventListener('mouseleave', function() {
+          this.style.transform = 'translateY(0)';
+        });
+      });
+      
+      // Enhanced button hover effects
+      const buttons = document.querySelectorAll('.btn');
+      buttons.forEach(button => {
+        button.addEventListener('mouseenter', function() {
+          this.style.transform = 'translateY(-2px) scale(1.02)';
+        });
+        
+        button.addEventListener('mouseleave', function() {
+          this.style.transform = 'translateY(0) scale(1)';
+        });
+      });
+    });
+  </script>
+  <script>
+  // Complete dropdown fix
+  document.addEventListener('DOMContentLoaded', function() {
+    // First, remove all previous dropdown initializations
+    document.querySelectorAll('.dropdown-toggle').forEach(function(el) {
+      const instance = bootstrap.Dropdown.getInstance(el);
+      if (instance) {
+        instance.dispose();
+      }
+    });
+    
+    // Override conflicting CSS rules
+    const finalStyle = document.createElement('style');
+    finalStyle.textContent = `
+      /* Reset dropdown styling to Bootstrap defaults */
+      .dropdown-menu {
+        display: none !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+        list-style-type: none !important;
+      }
+      
+      .dropdown-menu.show {
+        display: block !important;
+      }
+      
+      /* Remove bullet points */
+      .dropdown-menu li {
+        list-style-type: none !important;
+      }
+      
+      /* Fix dropdown item appearance */
+      .dropdown-item {
+        display: block;
+        width: 100%;
+        padding: 0.5rem 1rem;
+        clear: both;
+        text-align: inherit;
+        white-space: nowrap;
+        background-color: transparent;
+        border: 0;
+      }
+    `;
+    document.head.appendChild(finalStyle);
+    
+    // Initialize with core Bootstrap behavior
+    document.querySelectorAll('.dropdown-toggle').forEach(function(el) {
+      new bootstrap.Dropdown(el, {
+        boundary: 'viewport'
+      });
+    });
+    
+    // Simple hover functionality for desktop 
+    if (window.innerWidth >= 992) {
+      document.querySelectorAll('.navbar .nav-item.dropdown').forEach(function(dropdown) {
+        dropdown.addEventListener('mouseenter', function() {
+          const toggle = this.querySelector('.dropdown-toggle');
+          const instance = bootstrap.Dropdown.getInstance(toggle);
+          if (instance) instance.show();
+        });
+        
+        dropdown.addEventListener('mouseleave', function() {
+          const toggle = this.querySelector('.dropdown-toggle');
+          const instance = bootstrap.Dropdown.getInstance(toggle);
+          if (instance) instance.hide();
+        });
+      });
+    }
+  });
+</script>
 </body>
+
 </html>

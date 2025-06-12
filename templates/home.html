@@ -9,7 +9,7 @@
                      url('{{ url_for("static", filename="img/hero/turf-hero-bg.jpg") }}');
     background-size: cover;
     background-position: center;
-    min-height: 600px;
+    min-height: 700px;
     display: flex;
     align-items: center;
   }
@@ -41,14 +41,22 @@
 <!-- Hero Section -->
 <section class="hero-section">
   <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-md-10">
-        <div class="text-white">
-          <h1 class="display-3 fw-bold mb-4">Book Your Perfect Turf</h1>
-          <p class="lead mb-5">Find and book the best sports turfs near you. Whether it's football, cricket, or tennis, we've got you covered.</p>
-          <div class="d-flex flex-wrap">
-            <a href="{{ url_for('user.view_turfs') }}" class="btn btn-success btn-lg me-3 mb-3">Find a Turf</a>
-            <a href="{{ url_for('auth.register') }}" class="btn btn-outline-light btn-lg mb-3">Register Now</a>
+    <div class="row justify-content-center">
+      <div class="col-lg-10 col-md-12">
+        <div class="text-white text-center text-lg-start">
+          <h1 class="display-2 fw-bold mb-5">
+            <i class="fas fa-futbol me-3"></i>Book Your Perfect Turf
+          </h1>
+          <p class="lead mb-5 fs-4">
+            Find and book the best sports turfs near you. Whether it's football, cricket, or tennis, we've got you covered with premium facilities and instant booking.
+          </p>
+          <div class="d-flex flex-wrap justify-content-center justify-content-lg-start gap-4 mt-5">
+            <a href="{{ url_for('user.view_turfs') }}" class="btn btn-success btn-lg px-5 py-3 fs-5">
+              <i class="fas fa-search me-2"></i>Find a Turf
+            </a>
+            <a href="{{ url_for('auth.register') }}" class="btn btn-outline-light btn-lg px-5 py-3 fs-5">
+              <i class="fas fa-user-plus me-2"></i>Register Now
+            </a>
           </div>
         </div>
       </div>
@@ -57,46 +65,56 @@
 </section>
 
 <!-- Features Section -->
-<section class="py-5">
+<section class="py-5 my-5">
   <div class="container py-5">
-    <div class="text-center mb-5">
-      <h2 class="fw-bold mb-3">Why Choose TurfTime?</h2>
-      <p class="text-muted">The easiest way to book and manage your sports grounds</p>
+    <div class="text-center mb-5 pb-4">
+      <h2 class="display-4 fw-bold mb-4">
+        <i class="fas fa-star text-success me-3"></i>Why Choose TurfTime?
+      </h2>
+      <p class="text-muted fs-5 px-lg-5">
+        The easiest way to book and manage your sports grounds with advanced features and seamless experience
+      </p>
     </div>
     
-    <div class="row g-4">
+    <div class="row g-5 mt-4">
       <div class="col-lg-4 col-md-6">
-        <div class="card shadow-sm h-100 feature-card">
-          <div class="card-body text-center p-4">
-            <div class="bg-success bg-opacity-10 rounded-circle p-3 d-inline-flex mb-3">
-              <i class="fas fa-search text-success fa-2x"></i>
+        <div class="card shadow-sm h-100 feature-card border-0">
+          <div class="card-body text-center p-5">
+            <div class="bg-success bg-opacity-10 rounded-circle p-4 d-inline-flex mb-4">
+              <i class="fas fa-search text-success fa-3x"></i>
             </div>
-            <h4 class="mb-3">Easy Booking</h4>
-            <p class="text-muted mb-0">Find and book your favorite turf in just a few clicks, anytime and anywhere.</p>
+            <h4 class="mb-4 fw-bold">Easy Booking</h4>
+            <p class="text-muted mb-0 fs-6 lh-lg">
+              Find and book your favorite turf in just a few clicks, anytime and anywhere with our intuitive platform.
+            </p>
           </div>
         </div>
       </div>
       
       <div class="col-lg-4 col-md-6">
-        <div class="card shadow-sm h-100 feature-card">
-          <div class="card-body text-center p-4">
-            <div class="bg-success bg-opacity-10 rounded-circle p-3 d-inline-flex mb-3">
-              <i class="fas fa-calendar-check text-success fa-2x"></i>
+        <div class="card shadow-sm h-100 feature-card border-0">
+          <div class="card-body text-center p-5">
+            <div class="bg-success bg-opacity-10 rounded-circle p-4 d-inline-flex mb-4">
+              <i class="fas fa-calendar-check text-success fa-3x"></i>
             </div>
-            <h4 class="mb-3">Real-time Availability</h4>
-            <p class="text-muted mb-0">Check real-time availability and book your slot without any hassle.</p>
+            <h4 class="mb-4 fw-bold">Real-time Availability</h4>
+            <p class="text-muted mb-0 fs-6 lh-lg">
+              Check real-time availability and book your slot without any hassle. Get instant confirmations.
+            </p>
           </div>
         </div>
       </div>
       
       <div class="col-lg-4 col-md-6">
-        <div class="card shadow-sm h-100 feature-card">
-          <div class="card-body text-center p-4">
-            <div class="bg-success bg-opacity-10 rounded-circle p-3 d-inline-flex mb-3">
-              <i class="fas fa-hand-holding-usd text-success fa-2x"></i>
+        <div class="card shadow-sm h-100 feature-card border-0">
+          <div class="card-body text-center p-5">
+            <div class="bg-success bg-opacity-10 rounded-circle p-4 d-inline-flex mb-4">
+              <i class="fas fa-shield-alt text-success fa-3x"></i>
             </div>
-            <h4 class="mb-3">Transparent Pricing</h4>
-            <p class="text-muted mb-0">No hidden charges. Pay only for what you book with secure payment options.</p>
+            <h4 class="mb-4 fw-bold">Secure Payments</h4>
+            <p class="text-muted mb-0 fs-6 lh-lg">
+              No hidden charges. Pay securely with multiple payment options and get instant receipts.
+            </p>
           </div>
         </div>
       </div>
@@ -105,46 +123,68 @@
 </section>
 
 <!-- How It Works Section -->
-<section class="py-5 bg-light">
+<section class="py-5 my-5 bg-light">
   <div class="container py-5">
-    <div class="text-center mb-5">
-      <h2 class="fw-bold mb-3">How It Works</h2>
-      <p class="text-muted">Book your favorite turf in 3 simple steps</p>
+    <div class="text-center mb-5 pb-4">
+      <h2 class="display-4 fw-bold mb-4">
+        <i class="fas fa-cogs text-success me-3"></i>How It Works
+      </h2>
+      <p class="text-muted fs-5 px-lg-5">
+        Book your favorite turf in 3 simple steps and start playing within minutes
+      </p>
     </div>
     
-    <div class="row g-4">
+    <div class="row g-5 mt-4">
       <div class="col-md-4">
         <div class="card border-0 bg-transparent">
-          <div class="card-body text-center">
-            <div class="rounded-circle bg-white shadow d-flex align-items-center justify-content-center mx-auto mb-4" style="width: 100px; height: 100px;">
-              <h3 class="fw-bold text-success m-0">1</h3>
+          <div class="card-body text-center p-4">
+            <div class="rounded-circle bg-white shadow d-flex align-items-center justify-content-center mx-auto mb-5" 
+                 style="width: 120px; height: 120px;">
+              <div class="text-center">
+                <h2 class="fw-bold text-success m-0 mb-2">1</h2>
+                <i class="fas fa-map-marked-alt text-success fa-2x"></i>
+              </div>
             </div>
-            <h4 class="mb-3">Find a Turf</h4>
-            <p class="text-muted">Browse through a wide selection of turfs and select the one that suits your needs.</p>
+            <h4 class="mb-4 fw-bold">Find a Turf</h4>
+            <p class="text-muted fs-6 lh-lg px-2">
+              Browse through a wide selection of premium turfs and select the one that perfectly suits your sporting needs.
+            </p>
           </div>
         </div>
       </div>
       
       <div class="col-md-4">
         <div class="card border-0 bg-transparent">
-          <div class="card-body text-center">
-            <div class="rounded-circle bg-white shadow d-flex align-items-center justify-content-center mx-auto mb-4" style="width: 100px; height: 100px;">
-              <h3 class="fw-bold text-success m-0">2</h3>
+          <div class="card-body text-center p-4">
+            <div class="rounded-circle bg-white shadow d-flex align-items-center justify-content-center mx-auto mb-5" 
+                 style="width: 120px; height: 120px;">
+              <div class="text-center">
+                <h2 class="fw-bold text-success m-0 mb-2">2</h2>
+                <i class="fas fa-clock text-success fa-2x"></i>
+              </div>
             </div>
-            <h4 class="mb-3">Book a Slot</h4>
-            <p class="text-muted">Select your preferred date and time slot for booking the turf.</p>
+            <h4 class="mb-4 fw-bold">Book a Slot</h4>
+            <p class="text-muted fs-6 lh-lg px-2">
+              Select your preferred date and time slot for booking the turf with real-time availability updates.
+            </p>
           </div>
         </div>
       </div>
       
       <div class="col-md-4">
         <div class="card border-0 bg-transparent">
-          <div class="card-body text-center">
-            <div class="rounded-circle bg-white shadow d-flex align-items-center justify-content-center mx-auto mb-4" style="width: 100px; height: 100px;">
-              <h3 class="fw-bold text-success m-0">3</h3>
+          <div class="card-body text-center p-4">
+            <div class="rounded-circle bg-white shadow d-flex align-items-center justify-content-center mx-auto mb-5" 
+                 style="width: 120px; height: 120px;">
+              <div class="text-center">
+                <h2 class="fw-bold text-success m-0 mb-2">3</h2>
+                <i class="fas fa-running text-success fa-2x"></i>
+              </div>
             </div>
-            <h4 class="mb-3">Play & Enjoy</h4>
-            <p class="text-muted">Show up at the turf with your friends and enjoy your game.</p>
+            <h4 class="mb-4 fw-bold">Play & Enjoy</h4>
+            <p class="text-muted fs-6 lh-lg px-2">
+              Show up at the turf with your friends, enjoy your game, and create unforgettable sporting memories.
+            </p>
           </div>
         </div>
       </div>
@@ -153,24 +193,31 @@
 </section>
 
 <!-- Featured Turfs Section -->
-<section class="py-5">
+<section class="py-5 my-5">
   <div class="container py-5">
-    <div class="text-center mb-5">
-      <h2 class="fw-bold mb-3">Featured Turfs</h2>
-      <p class="text-muted">Explore some of our popular turfs</p>
+    <div class="text-center mb-5 pb-4">
+      <h2 class="display-4 fw-bold mb-4">
+        <i class="fas fa-trophy text-success me-3"></i>Featured Turfs
+      </h2>
+      <p class="text-muted fs-5 px-lg-5">
+        Explore some of our most popular and highly-rated sports facilities
+      </p>
     </div>
     
-    <div class="row g-4">
+    <div class="row g-5 mt-4">
       <div class="col-lg-4 col-md-6">
-        <div class="card shadow-sm h-100">
-          <img src="{{ url_for('static', filename='img/hero/turf-soccer.jpeg') }}" class="card-img-top featured-turf-img" alt="Football Turf">
+        <div class="card shadow-sm h-100 border-0">
+          <img src="{{ url_for('static', filename='img/hero/turf-soccer.jpeg') }}" 
+               class="card-img-top featured-turf-img" alt="Football Turf">
           <div class="card-body p-4">
-            <div class="d-flex justify-content-between align-items-center mb-2">
-              <h5 class="card-title mb-0">Green Field Arena</h5>
-              <span class="badge bg-success">₹800/hr</span>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h5 class="card-title mb-0 fw-bold">
+                <i class="fas fa-futbol text-success me-2"></i>Green Field Arena
+              </h5>
+              <span class="badge bg-success fs-6 px-3 py-2">₹800/hr</span>
             </div>
-            <p class="card-text small text-muted mb-3">
-              <i class="fas fa-map-marker-alt me-2"></i>Andheri West, Mumbai
+            <p class="card-text small text-muted mb-4">
+              <i class="fas fa-map-marker-alt me-2 text-success"></i>Andheri West, Mumbai
             </p>
             <div class="d-flex justify-content-between align-items-center">
               <div>
@@ -179,24 +226,29 @@
                 <i class="fas fa-star text-warning"></i>
                 <i class="fas fa-star text-warning"></i>
                 <i class="fas fa-star-half-alt text-warning"></i>
-                <span class="ms-2 small">(48 reviews)</span>
+                <span class="ms-2 small fw-semibold">(48 reviews)</span>
               </div>
-              <a href="{{ url_for('auth.login') }}" class="btn btn-sm btn-outline-success">Book Now</a>
+              <a href="{{ url_for('auth.login') }}" class="btn btn-success px-4 py-2">
+                <i class="fas fa-calendar-plus me-2"></i>Book Now
+              </a>
             </div>
           </div>
         </div>
       </div>
       
       <div class="col-lg-4 col-md-6">
-        <div class="card shadow-sm h-100">
-          <img src="{{ url_for('static', filename='img/hero/turf-hero-bg.jpg') }}" class="card-img-top featured-turf-img" alt="Cricket Turf">
+        <div class="card shadow-sm h-100 border-0">
+          <img src="{{ url_for('static', filename='img/hero/turf-hero-bg.jpg') }}" 
+               class="card-img-top featured-turf-img" alt="Cricket Turf">
           <div class="card-body p-4">
-            <div class="d-flex justify-content-between align-items-center mb-2">
-              <h5 class="card-title mb-0">Soccer City</h5>
-              <span class="badge bg-success">₹1000/hr</span>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h5 class="card-title mb-0 fw-bold">
+                <i class="fas fa-futbol text-success me-2"></i>Soccer City
+              </h5>
+              <span class="badge bg-success fs-6 px-3 py-2">₹1000/hr</span>
             </div>
-            <p class="card-text small text-muted mb-3">
-              <i class="fas fa-map-marker-alt me-2"></i>Bandra East, Mumbai
+            <p class="card-text small text-muted mb-4">
+              <i class="fas fa-map-marker-alt me-2 text-success"></i>Bandra East, Mumbai
             </p>
             <div class="d-flex justify-content-between align-items-center">
               <div>
@@ -205,24 +257,29 @@
                 <i class="fas fa-star text-warning"></i>
                 <i class="fas fa-star text-warning"></i>
                 <i class="far fa-star text-warning"></i>
-                <span class="ms-2 small">(36 reviews)</span>
+                <span class="ms-2 small fw-semibold">(36 reviews)</span>
               </div>
-              <a href="{{ url_for('auth.login') }}" class="btn btn-sm btn-outline-success">Book Now</a>
+              <a href="{{ url_for('auth.login') }}" class="btn btn-success px-4 py-2">
+                <i class="fas fa-calendar-plus me-2"></i>Book Now
+              </a>
             </div>
           </div>
         </div>
       </div>
       
       <div class="col-lg-4 col-md-6">
-        <div class="card shadow-sm h-100">
-          <img src="{{ url_for('static', filename='img/steps/booking-img.jpg') }}" class="card-img-top featured-turf-img" alt="Tennis Court">
+        <div class="card shadow-sm h-100 border-0">
+          <img src="{{ url_for('static', filename='img/steps/booking-img.jpg') }}" 
+               class="card-img-top featured-turf-img" alt="Tennis Court">
           <div class="card-body p-4">
-            <div class="d-flex justify-content-between align-items-center mb-2">
-              <h5 class="card-title mb-0">Premier League Ground</h5>
-              <span class="badge bg-success">₹750/hr</span>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h5 class="card-title mb-0 fw-bold">
+                <i class="fas fa-trophy text-success me-2"></i>Premier League Ground
+              </h5>
+              <span class="badge bg-success fs-6 px-3 py-2">₹750/hr</span>
             </div>
-            <p class="card-text small text-muted mb-3">
-              <i class="fas fa-map-marker-alt me-2"></i>Powai, Mumbai
+            <p class="card-text small text-muted mb-4">
+              <i class="fas fa-map-marker-alt me-2 text-success"></i>Powai, Mumbai
             </p>
             <div class="d-flex justify-content-between align-items-center">
               <div>
@@ -231,67 +288,100 @@
                 <i class="fas fa-star text-warning"></i>
                 <i class="fas fa-star text-warning"></i>
                 <i class="fas fa-star text-warning"></i>
-                <span class="ms-2 small">(52 reviews)</span>
+                <span class="ms-2 small fw-semibold">(52 reviews)</span>
               </div>
-              <a href="{{ url_for('auth.login') }}" class="btn btn-sm btn-outline-success">Book Now</a>
+              <a href="{{ url_for('auth.login') }}" class="btn btn-success px-4 py-2">
+                <i class="fas fa-calendar-plus me-2"></i>Book Now
+              </a>
             </div>
           </div>
         </div>
       </div>
     </div>
     
-    <div class="text-center mt-5">
-      <a href="{{ url_for('auth.login') }}" class="btn btn-success px-4 py-2">View All Turfs</a>
+    <div class="text-center mt-5 pt-4">
+      <a href="{{ url_for('auth.login') }}" class="btn btn-success btn-lg px-5 py-3 fs-5">
+        <i class="fas fa-th-large me-2"></i>View All Turfs
+      </a>
     </div>
   </div>
 </section>
 
 <!-- Owner CTA Section -->
-<section class="py-5 bg-success text-white">
+<section class="py-5 my-5 bg-success text-white">
   <div class="container py-5">
-    <div class="row align-items-center">
+    <div class="row align-items-center g-5">
       <div class="col-lg-7 mb-4 mb-lg-0">
-        <h2 class="fw-bold mb-3">Own a Turf? List it with us!</h2>
-        <p class="lead mb-4">Join our platform to increase visibility, manage bookings efficiently and grow your business.</p>
-        <ul class="list-unstyled mb-4">
-          <li class="mb-2"><i class="fas fa-check-circle me-2"></i>Reach thousands of potential customers</li>
-          <li class="mb-2"><i class="fas fa-check-circle me-2"></i>Easy booking management system</li>
-          <li class="mb-2"><i class="fas fa-check-circle me-2"></i>Detailed analytics and reporting</li>
+        <h2 class="display-5 fw-bold mb-4">
+          <i class="fas fa-handshake me-3"></i>Own a Turf? List it with us!
+        </h2>
+        <p class="lead mb-5 fs-5 lh-lg">
+          Join our platform to increase visibility, manage bookings efficiently and grow your business with our comprehensive management tools.
+        </p>
+        <ul class="list-unstyled mb-5 fs-6">
+          <li class="mb-3 d-flex align-items-center">
+            <i class="fas fa-check-circle me-3 fa-lg"></i>
+            <span>Reach thousands of potential customers daily</span>
+          </li>
+          <li class="mb-3 d-flex align-items-center">
+            <i class="fas fa-check-circle me-3 fa-lg"></i>
+            <span>Advanced booking management system with analytics</span>
+          </li>
+          <li class="mb-3 d-flex align-items-center">
+            <i class="fas fa-check-circle me-3 fa-lg"></i>
+            <span>Detailed revenue analytics and business insights</span>
+          </li>
+          <li class="mb-3 d-flex align-items-center">
+            <i class="fas fa-check-circle me-3 fa-lg"></i>
+            <span>24/7 customer support and technical assistance</span>
+          </li>
         </ul>
-        <a href="{{ url_for('auth.register') }}" class="btn btn-light text-success px-4 py-2">Register as Owner</a>
+        <a href="{{ url_for('auth.register') }}" class="btn btn-light text-success btn-lg px-5 py-3 fs-5">
+          <i class="fas fa-store me-2"></i>Register as Owner
+        </a>
       </div>
       <div class="col-lg-5">
-        <img src="{{ url_for('static', filename='img/steps/booking-img.jpg') }}" alt="Turf Owner" class="img-fluid rounded shadow">
+        <img src="{{ url_for('static', filename='img/steps/booking-img.jpg') }}" 
+             alt="Turf Owner" class="img-fluid rounded shadow-lg">
       </div>
     </div>
   </div>
 </section>
 
 <!-- Testimonials Section -->
-<section class="py-5">
+<section class="py-5 my-5">
   <div class="container py-5">
-    <div class="text-center mb-5">
-      <h2 class="fw-bold mb-3">What Our Users Say</h2>
-      <p class="text-muted">Trusted by thousands of sports enthusiasts</p>
+    <div class="text-center mb-5 pb-4">
+      <h2 class="display-4 fw-bold mb-4">
+        <i class="fas fa-comments text-success me-3"></i>What Our Users Say
+      </h2>
+      <p class="text-muted fs-5 px-lg-5">
+        Trusted by thousands of sports enthusiasts and turf owners across the country
+      </p>
     </div>
     
-    <div class="row g-4">
+    <div class="row g-5 mt-4">
       <div class="col-md-4">
-        <div class="card shadow-sm h-100">
-          <div class="card-body p-4">
+        <div class="card shadow-sm h-100 border-0">
+          <div class="card-body p-5">
             <div class="mb-4">
-              <i class="fas fa-star text-warning"></i>
-              <i class="fas fa-star text-warning"></i>
-              <i class="fas fa-star text-warning"></i>
-              <i class="fas fa-star text-warning"></i>
-              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning fa-lg"></i>
+              <i class="fas fa-star text-warning fa-lg"></i>
+              <i class="fas fa-star text-warning fa-lg"></i>
+              <i class="fas fa-star text-warning fa-lg"></i>
+              <i class="fas fa-star text-warning fa-lg"></i>
             </div>
-            <p class="card-text mb-4">"TurfTime made booking a turf for our weekly football matches super easy. The interface is user-friendly and the booking process is smooth!"</p>
+            <p class="card-text mb-5 fs-6 lh-lg fst-italic">
+              "TurfTime made booking a turf for our weekly football matches super easy. The interface is user-friendly and the booking process is incredibly smooth!"
+            </p>
             <div class="d-flex align-items-center">
-              <img src="{{ url_for('static', filename='img/category/icon1.png') }}" class="testimonial-img me-3" alt="User">
+              <img src="{{ url_for('static', filename='img/category/icon1.png') }}" 
+                   class="testimonial-img me-3" alt="User">
               <div>
-                <h6 class="mb-0">Rahul Sharma</h6>
-                <small class="text-muted">Football Player</small>
+                <h6 class="mb-1 fw-bold">Rahul Sharma</h6>
+                <small class="text-muted">
+                  <i class="fas fa-futbol me-1"></i>Football Player
+                </small>
               </div>
             </div>
           </div>
@@ -299,21 +389,26 @@
       </div>
       
       <div class="col-md-4">
-        <div class="card shadow-sm h-100">
-          <div class="card-body p-4">
+        <div class="card shadow-sm h-100 border-0">
+          <div class="card-body p-5">
             <div class="mb-4">
-              <i class="fas fa-star text-warning"></i>
-              <i class="fas fa-star text-warning"></i>
-              <i class="fas fa-star text-warning"></i>
-              <i class="fas fa-star text-warning"></i>
-              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning fa-lg"></i>
+              <i class="fas fa-star text-warning fa-lg"></i>
+              <i class="fas fa-star text-warning fa-lg"></i>
+              <i class="fas fa-star text-warning fa-lg"></i>
+              <i class="fas fa-star text-warning fa-lg"></i>
             </div>
-            <p class="card-text mb-4">"As a turf owner, this platform has significantly increased my bookings. The dashboard makes it easy to manage all appointments in one place."</p>
+            <p class="card-text mb-5 fs-6 lh-lg fst-italic">
+              "As a turf owner, this platform has significantly increased my bookings. The dashboard makes it easy to manage all appointments in one place."
+            </p>
             <div class="d-flex align-items-center">
-              <img src="{{ url_for('static', filename='img/category/icon2.png') }}" class="testimonial-img me-3" alt="User">
+              <img src="{{ url_for('static', filename='img/category/icon2.png') }}" 
+                   class="testimonial-img me-3" alt="User">
               <div>
-                <h6 class="mb-0">Priya Patel</h6>
-                <small class="text-muted">Turf Owner</small>
+                <h6 class="mb-1 fw-bold">Priya Patel</h6>
+                <small class="text-muted">
+                  <i class="fas fa-store me-1"></i>Turf Owner
+                </small>
               </div>
             </div>
           </div>
@@ -321,21 +416,26 @@
       </div>
       
       <div class="col-md-4">
-        <div class="card shadow-sm h-100">
-          <div class="card-body p-4">
+        <div class="card shadow-sm h-100 border-0">
+          <div class="card-body p-5">
             <div class="mb-4">
-              <i class="fas fa-star text-warning"></i>
-              <i class="fas fa-star text-warning"></i>
-              <i class="fas fa-star text-warning"></i>
-              <i class="fas fa-star text-warning"></i>
-              <i class="fas fa-star-half-alt text-warning"></i>
+              <i class="fas fa-star text-warning fa-lg"></i>
+              <i class="fas fa-star text-warning fa-lg"></i>
+              <i class="fas fa-star text-warning fa-lg"></i>
+              <i class="fas fa-star text-warning fa-lg"></i>
+              <i class="fas fa-star-half-alt text-warning fa-lg"></i>
             </div>
-            <p class="card-text mb-4">"I love how I can check availability in real-time and book instantly. No more calling multiple places to find an available slot!"</p>
+            <p class="card-text mb-5 fs-6 lh-lg fst-italic">
+              "I love how I can check availability in real-time and book instantly. No more calling multiple places to find an available slot!"
+            </p>
             <div class="d-flex align-items-center">
-              <img src="{{ url_for('static', filename='img/category/icon3.png') }}" class="testimonial-img me-3" alt="User">
+              <img src="{{ url_for('static', filename='img/category/icon3.png') }}" 
+                   class="testimonial-img me-3" alt="User">
               <div>
-                <h6 class="mb-0">Amit Desai</h6>
-                <small class="text-muted">Cricket Enthusiast</small>
+                <h6 class="mb-1 fw-bold">Amit Desai</h6>
+                <small class="text-muted">
+                  <i class="fas fa-baseball-ball me-1"></i>Cricket Enthusiast
+                </small>
               </div>
             </div>
           </div>
