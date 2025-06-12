@@ -21,8 +21,8 @@ def send_email(subject, recipients, template, **kwargs):
     try:
         app = current_app._get_current_object()
         
-        print(f"📧 Sending email to {recipients}")
-        print(f"📧 Subject: {subject}")
+        print(f" Sending email to {recipients}")
+        print(f" Subject: {subject}")
         
         # Create message with Flask-Mail
         msg = Message(
@@ -34,21 +34,21 @@ def send_email(subject, recipients, template, **kwargs):
         
         # Try using Flask-Mail first
         try:
-            print(f"📧 Using Flask-Mail with server: {app.config['MAIL_SERVER']}:{app.config['MAIL_PORT']}")
+            print(f" Using Flask-Mail with server: {app.config['MAIL_SERVER']}:{app.config['MAIL_PORT']}")
             
             # Optional debug logging of mail configuration
-            print(f"📧 SSL Enabled: {app.config.get('MAIL_USE_SSL', False)}")
-            print(f"📧 TLS Enabled: {app.config.get('MAIL_USE_TLS', False)}")
-            print(f"📧 Sending as: {app.config['MAIL_DEFAULT_SENDER']}")
+            print(f" SSL Enabled: {app.config.get('MAIL_USE_SSL', False)}")
+            print(f" TLS Enabled: {app.config.get('MAIL_USE_TLS', False)}")
+            print(f" Sending as: {app.config['MAIL_DEFAULT_SENDER']}")
             
             # Send email
             mail.send(msg)
-            print(f"✅ Email successfully sent to {recipients} using Flask-Mail")
+            print(f" Email successfully sent to {recipients} using Flask-Mail")
             return True
             
         except Exception as flask_mail_error:
-            print(f"❌ Flask-Mail error: {str(flask_mail_error)}")
-            print("📧 Trying fallback with direct SMTP...")
+            print(f" Flask-Mail error: {str(flask_mail_error)}")
+            print(" Trying fallback with direct SMTP...")
             
             # Get email config from app for direct SMTP
             smtp_server = app.config['MAIL_SERVER']
@@ -70,10 +70,10 @@ def send_email(subject, recipients, template, **kwargs):
             # Connect to SMTP server
             try:
                 if use_ssl:
-                    print(f"📧 Connecting to {smtp_server}:{port} using SSL")
+                    print(f" Connecting to {smtp_server}:{port} using SSL")
                     smtp = smtplib.SMTP_SSL(smtp_server, port)
                 else:
-                    print(f"📧 Connecting to {smtp_server}:{port}")
+                    print(f" Connecting to {smtp_server}:{port}")
                     smtp = smtplib.SMTP(smtp_server, port)
                     if app.config.get('MAIL_USE_TLS', False):
                         smtp.starttls()
@@ -82,25 +82,25 @@ def send_email(subject, recipients, template, **kwargs):
                 smtp.set_debuglevel(1)
                 
                 # Login with credentials
-                print(f"📧 Logging in as {username}")
+                print(f" Logging in as {username}")
                 smtp.login(username, password)
                 
                 # Send email
-                print(f"📧 Sending email to {recipients}")
+                print(f" Sending email to {recipients}")
                 smtp.sendmail(sender, recipients, mime_msg.as_string())
                 
                 # Close connection
                 smtp.quit()
-                print(f"✅ Email successfully sent to {recipients} using direct SMTP")
+                print(f" Email successfully sent to {recipients} using direct SMTP")
                 return True
                 
             except Exception as smtp_error:
-                print(f"❌ Direct SMTP error: {str(smtp_error)}")
+                print(f" Direct SMTP error: {str(smtp_error)}")
                 traceback.print_exc()
                 return False
                 
     except Exception as e:
-        print(f"❌ Failed to send email: {str(e)}")
+        print(f" Failed to send email: {str(e)}")
         traceback.print_exc()
         return False
 
@@ -133,9 +133,9 @@ def send_booking_confirmation_email(booking):
     )
     
     if success:
-        print(f"✅ Booking confirmation email sent to {booking.user.email}")
+        print(f" Booking confirmation email sent to {booking.user.email}")
     else:
-        print(f"❌ Failed to send booking confirmation email to {booking.user.email}")
+        print(f" Failed to send booking confirmation email to {booking.user.email}")
     
     return success
 
@@ -168,9 +168,9 @@ def send_booking_notification_to_owner(booking):
     )
     
     if success:
-        print(f"✅ Booking notification email sent to owner {booking.turf.owner.email}")
+        print(f" Booking notification email sent to owner {booking.turf.owner.email}")
     else:
-        print(f"❌ Failed to send booking notification email to owner {booking.turf.owner.email}")
+        print(f" Failed to send booking notification email to owner {booking.turf.owner.email}")
     
     return success
 
@@ -183,31 +183,42 @@ def send_cancellation_notification_to_user(booking):
     subject = f"Booking Cancellation - {booking.turf.name}"
     recipients = [booking.user.email]
     
-    print(f"Preparing cancellation email for {booking.user.email}")
+    print(f"DEBUG: Preparing cancellation email for user {booking.user.email}")
+    print(f"DEBUG: User ID: {booking.user.id}, Username: {booking.user.username}")
+    print(f"DEBUG: Turf name: {booking.turf.name}")
     
     # Format the date and time for email
     booking_date = booking.booking_date.strftime('%A, %d %B %Y')
     start_time = booking.start_time.strftime('%I:%M %p')
     end_time = booking.end_time.strftime('%I:%M %p')
     
-    success = send_email(
-        subject=subject,
-        recipients=recipients,
-        template='emails/booking_cancellation.html',
-        booking=booking,
-        booking_date=booking_date,
-        start_time=start_time,
-        end_time=end_time,
-        user=booking.user,
-        turf=booking.turf
-    )
+    print(f"DEBUG: Formatted date/time - Date: {booking_date}, Time: {start_time} to {end_time}")
     
-    if success:
-        print(f"✅ Cancellation email sent to {booking.user.email}")
-    else:
-        print(f"❌ Failed to send cancellation email to {booking.user.email}")
-    
-    return success
+    try:
+        print(f"DEBUG: Attempting to send cancellation email with template 'emails/booking_cancellation.html'")
+        success = send_email(
+            subject=subject,
+            recipients=recipients,
+            template='emails/booking_cancellation.html',
+            booking=booking,
+            booking_date=booking_date,
+            start_time=start_time,
+            end_time=end_time,
+            user=booking.user,
+            turf=booking.turf
+        )
+        
+        if success:
+            print(f" Cancellation email sent to {booking.user.email}")
+        else:
+            print(f" Failed to send cancellation email to {booking.user.email}")
+        
+        return success
+    except Exception as e:
+        print(f" EXCEPTION during cancellation email sending: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        return False
 
 def send_cancellation_notification_to_owner(booking):
     """Send booking cancellation notification to turf owner"""
@@ -238,8 +249,8 @@ def send_cancellation_notification_to_owner(booking):
     )
     
     if success:
-        print(f"✅ Cancellation notification email sent to owner {booking.turf.owner.email}")
+        print(f" Cancellation notification email sent to owner {booking.turf.owner.email}")
     else:
-        print(f"❌ Failed to send cancellation notification email to owner {booking.turf.owner.email}")
+        print(f" Failed to send cancellation notification email to owner {booking.turf.owner.email}")
     
     return success
