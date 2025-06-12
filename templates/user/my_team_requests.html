@@ -1,0 +1,187 @@
+{% extends "base.html" %}
+
+{% block title %}My Team Requests{% endblock %}
+
+{% block content %}
+<div class="page-header text-center">
+  <div class="container">
+    <h1 class="text-white display-4 fw-bold">My Team Requests</h1>
+  </div>
+</div>
+
+<div class="container mb-7">
+  <!-- Received Requests Section -->
+  <div class="card shadow mb-5">
+    <div class="card-header bg-success text-white">
+      <h4 class="mb-0">Requests to Join Your Teams</h4>
+    </div>
+    <div class="card-body p-4">
+      {% if received_requests %}
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Requester</th>
+                <th>Booking Info</th>
+                <th>Message</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for request in received_requests %}
+                <tr>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <div class="bg-light rounded-circle me-2 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                        <i class="fas fa-user text-secondary"></i>
+                      </div>
+                      <div>
+                        <h6 class="mb-0">{{ request.requester.username }}</h6>
+                        <small class="text-muted">Requested {{ request.created_at.strftime('%d %b, %Y') }}</small>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <p class="mb-1"><strong>{{ request.booking.turf.name }}</strong></p>
+                    <small class="text-muted">{{ request.booking.booking_date.strftime('%d %b, %Y') }}</small><br>
+                    <small class="text-muted">{{ request.booking.start_time.strftime('%I:%M %p') }} - {{ request.booking.end_time.strftime('%I:%M %p') }}</small>
+                  </td>
+                  <td>
+                    <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#messageModal-{{ request.id }}">
+                      View Message
+                    </button>
+                    
+                    <!-- Message Modal -->
+                    <div class="modal fade" id="messageModal-{{ request.id }}" tabindex="-1" aria-labelledby="messageModalLabel-{{ request.id }}" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="messageModalLabel-{{ request.id }}">Message from {{ request.requester.username }}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            {{ request.message|nl2br }}
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    {% if request.status == 'pending' %}
+                      <span class="badge bg-warning text-dark">Pending</span>
+                    {% elif request.status == 'accepted' %}
+                      <span class="badge bg-success">Accepted</span>
+                    {% elif request.status == 'rejected' %}
+                      <span class="badge bg-danger">Rejected</span>
+                    {% endif %}
+                  </td>
+                  <td>
+                    {% if request.status == 'pending' %}
+                      <div class="d-flex">
+                        <form method="POST" action="{{ url_for('user.respond_team_request', request_id=request.id, action='accept') }}" class="me-2">
+                          <button type="submit" class="btn btn-sm btn-success">Accept</button>
+                        </form>
+                        <form method="POST" action="{{ url_for('user.respond_team_request', request_id=request.id, action='reject') }}">
+                          <button type="submit" class="btn btn-sm btn-danger">Reject</button>
+                        </form>
+                      </div>
+                    {% endif %}
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% else %}
+        <div class="text-center py-4">
+          <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
+          <p class="lead">No requests to join your teams yet.</p>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Sent Requests Section -->
+  <div class="card shadow">
+    <div class="card-header bg-light">
+      <h4 class="mb-0">Teams You've Requested to Join</h4>
+    </div>
+    <div class="card-body p-4">
+      {% if sent_requests %}
+        <div class="row">
+          {% for request in sent_requests %}
+            <div class="col-lg-6 mb-4">
+              <div class="card h-100">
+                <div class="card-header d-flex justify-content-between">
+                  <h5 class="mb-0">{{ request.booking.turf.name }}</h5>
+                  {% if request.status == 'pending' %}
+                    <span class="badge bg-warning text-dark">Pending</span>
+                  {% elif request.status == 'accepted' %}
+                    <span class="badge bg-success">Accepted</span>
+                  {% elif request.status == 'rejected' %}
+                    <span class="badge bg-danger">Rejected</span>
+                  {% endif %}
+                </div>
+                <div class="card-body">
+                  <p class="mb-1">
+                    <i class="fas fa-user me-2 text-success"></i>
+                    <strong>Organizer:</strong> {{ request.booking.user.username }}
+                  </p>
+                  <p class="mb-1">
+                    <i class="fas fa-calendar me-2 text-success"></i>
+                    <strong>Date:</strong> {{ request.booking.booking_date.strftime('%A, %d %b, %Y') }}
+                  </p>
+                  <p class="mb-1">
+                    <i class="fas fa-clock me-2 text-success"></i>
+                    <strong>Time:</strong> {{ request.booking.start_time.strftime('%I:%M %p') }} - {{ request.booking.end_time.strftime('%I:%M %p') }}
+                  </p>
+                  <p class="mb-1">
+                    <i class="fas fa-map-marker-alt me-2 text-success"></i>
+                    <strong>Location:</strong> {{ request.booking.turf.location }}
+                  </p>
+                  
+                  {% if request.status == 'accepted' %}
+                    <div class="alert alert-success mt-3">
+                      <i class="fas fa-check-circle me-2"></i>
+                      Your request has been accepted! You are now part of this team.
+                    </div>
+                  {% elif request.status == 'rejected' %}
+                    <div class="alert alert-danger mt-3">
+                      <i class="fas fa-times-circle me-2"></i>
+                      Your request has been rejected.
+                    </div>
+                  {% endif %}
+                </div>
+                <div class="card-footer bg-white border-top-0">
+                  <small class="text-muted">Requested on {{ request.created_at.strftime('%d %b, %Y at %I:%M %p') }}</small>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="text-center py-4">
+          <i class="fas fa-paper-plane fa-3x text-muted mb-3"></i>
+          <p class="lead">You haven't requested to join any teams yet.</p>
+          <a href="{{ url_for('user.find_teams') }}" class="btn btn-success">
+            <i class="fas fa-search me-2"></i>Find Teams to Join
+          </a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block additional_js %}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Handle nl2br for message display
+    // Note: This is already handled by the Jinja filter
+  });
+</script>
+{% endblock %}

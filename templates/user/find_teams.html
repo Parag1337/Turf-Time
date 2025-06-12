@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block title %}Find Teams{% endblock %}
+
+{% block content %}
+<div class="page-header text-center">
+  <div class="container">
+    <h1 class="text-white display-4 fw-bold">Find Teams to Join</h1>
+    <p class="text-white-50 lead">Connect with other players and join their bookings</p>
+  </div>
+</div>
+
+<div class="container mb-7">
+  <div class="card shadow mb-5">
+    <div class="card-body p-4">
+      <div class="d-flex align-items-center justify-content-between mb-4">
+        <h3 class="mb-0">Public Bookings</h3>
+        <a href="{{ url_for('user.my_team_requests') }}" class="btn btn-outline-success">
+          <i class="fas fa-list me-2"></i>My Team Requests
+        </a>
+      </div>
+      
+      {% if bookings %}
+        <div class="row">
+          {% for booking in bookings %}
+            <div class="col-lg-6 mb-4">
+              <div class="card booking-card h-100">
+                <div class="card-header d-flex justify-content-between align-items-center bg-light">
+                  <h5 class="mb-0">{{ booking.turf.name }}</h5>
+                  <span class="badge bg-success">{{ booking.booking_date.strftime('%a, %d %b') }}</span>
+                </div>
+                
+                <div class="card-body">
+                  <div class="mb-3">
+                    <p class="mb-1">
+                      <i class="fas fa-user me-2 text-success"></i>
+                      <strong>Organizer:</strong> {{ booking.user.username }}
+                    </p>
+                    <p class="mb-1">
+                      <i class="fas fa-clock me-2 text-success"></i>
+                      <strong>Time:</strong> {{ booking.start_time.strftime('%I:%M %p') }} - {{ booking.end_time.strftime('%I:%M %p') }}
+                    </p>
+                    <p class="mb-1">
+                      <i class="fas fa-map-marker-alt me-2 text-success"></i>
+                      <strong>Location:</strong> {{ booking.turf.location }}
+                    </p>
+                    {% if booking.max_players > 0 %}
+                    <p class="mb-1">
+                      <i class="fas fa-users me-2 text-success"></i>
+                      <strong>Max Players:</strong> {{ booking.max_players }}
+                    </p>
+                    {% endif %}
+                  </div>
+                  
+                  {% if booking.notes %}
+                  <div class="mb-3">
+                    <h6 class="mb-2">Notes from organizer:</h6>
+                    <div class="p-3 bg-light rounded">
+                      {{ booking.notes }}
+                    </div>
+                  </div>
+                  {% endif %}
+                  
+                  <div class="d-grid mt-3">
+                    <a href="{{ url_for('user.join_team', booking_id=booking.id) }}" class="btn btn-success">
+                      <i class="fas fa-handshake me-2"></i>Request to Join
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="text-center py-5">
+          <i class="fas fa-search fa-3x text-muted mb-3"></i>
+          <h4 class="mb-3">No Public Bookings Found</h4>
+          <p class="text-muted mb-4">There are currently no public bookings available to join.</p>
+          <a href="{{ url_for('user.view_turfs') }}" class="btn btn-success btn-lg">
+            <i class="fas fa-plus me-2"></i>Book Your Own Turf
+          </a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

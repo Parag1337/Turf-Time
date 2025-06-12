@@ -40,6 +40,14 @@ class BookingForm(FlaskForm):
     booking_date = DateField('Booking Date', validators=[DataRequired()], format='%Y-%m-%d')
     start_time = TimeField('Start Time', validators=[DataRequired()], format='%H:%M')
     end_time = TimeField('End Time', validators=[DataRequired()], format='%H:%M')
+    
+    # Player finding fields
+    public_booking = BooleanField('Make this booking public for team finding')
+    max_players = SelectField('Maximum number of players', choices=[
+        (0, 'No limit'), (2, '2'), (4, '4'), (6, '6'), (8, '8'), (10, '10'), (12, '12')
+    ], coerce=int)
+    notes = TextAreaField('Notes for other players (e.g., skill level, game type)')
+    
     submit = SubmitField('Confirm Booking')
     
     def validate_booking_date(self, booking_date):
@@ -61,3 +69,7 @@ class FilterBookingsForm(FlaskForm):
     date_from = DateField('From Date', format='%Y-%m-%d', validators=[])
     date_to = DateField('To Date', format='%Y-%m-%d', validators=[])
     submit = SubmitField('Filter')
+
+class TeamRequestForm(FlaskForm):
+    message = TextAreaField('Message (Introduce yourself, mention your skill level, etc.)', validators=[DataRequired()])
+    submit = SubmitField('Send Request')

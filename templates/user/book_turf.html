@@ -93,6 +93,36 @@
               {% endfor %}
             </div>
             
+            <!-- Team Finding Section -->
+            <div class="card mb-4 border-success">
+              <div class="card-header bg-success bg-opacity-10">
+                <h5 class="mb-0 text-success">
+                  <i class="fas fa-users me-2"></i>Team Finding Options
+                </h5>
+              </div>
+              <div class="card-body">
+                <div class="form-check mb-3">
+                  {{ form.public_booking(class="form-check-input") }}
+                  {{ form.public_booking.label(class="form-check-label fw-medium") }}
+                  <div class="form-text">Make your booking visible to other players who are looking for a team</div>
+                </div>
+                
+                <div class="mb-3" id="teamOptionsSection" style="display: none;">
+                  <div class="mb-3">
+                    {{ form.max_players.label(class="form-label fw-medium") }}
+                    {{ form.max_players(class="form-select") }}
+                    <div class="form-text">How many players do you want in your team?</div>
+                  </div>
+                  
+                  <div class="mb-3">
+                    {{ form.notes.label(class="form-label fw-medium") }}
+                    {{ form.notes(class="form-control", rows=3) }}
+                    <div class="form-text">Add details about skill level, game type, or any other relevant information</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
             <div class="alert alert-info">
               <div class="d-flex align-items-center">
                 <i class="fas fa-info-circle me-2"></i>
@@ -109,4 +139,27 @@
     </div>
   </div>
 </div>
+{% endblock %}
+
+{% block additional_js %}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const publicBookingCheckbox = document.getElementById('public_booking');
+    const teamOptionsSection = document.getElementById('teamOptionsSection');
+    
+    // Initial state check
+    if (publicBookingCheckbox.checked) {
+      teamOptionsSection.style.display = 'block';
+    }
+    
+    // Toggle visibility when checkbox is clicked
+    publicBookingCheckbox.addEventListener('change', function() {
+      if (this.checked) {
+        teamOptionsSection.style.display = 'block';
+      } else {
+        teamOptionsSection.style.display = 'none';
+      }
+    });
+  });
+</script>
 {% endblock %}

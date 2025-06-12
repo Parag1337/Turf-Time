@@ -71,6 +71,31 @@
                           <span>{{ duration }} hour(s)</span>
                         </div>
                         
+                        {% if booking.public_booking %}
+                        <div class="alert alert-info mt-3 mb-3">
+                          <div class="d-flex align-items-center">
+                            <i class="fas fa-users me-2"></i>
+                            <div>
+                              <strong>Team Finding Active</strong>
+                              <div>
+                                <small>
+                                  {% if booking.max_players > 0 %}
+                                    Looking for up to {{ booking.max_players }} players
+                                  {% else %}
+                                    Open for team requests
+                                  {% endif %}
+                                </small>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="d-grid mb-3">
+                          <a href="{{ url_for('user.my_team_requests') }}" class="btn btn-outline-success btn-sm">
+                            <i class="fas fa-user-friends me-1"></i>View Team Requests
+                          </a>
+                        </div>
+                        {% endif %}
+                        
                         <div class="d-flex justify-content-between align-items-center mt-4">
                           <div class="price-display">₹{{ booking.total_price }}</div>
                           <form method="POST" action="{{ url_for('user.cancel_booking', booking_id=booking.id) }}">

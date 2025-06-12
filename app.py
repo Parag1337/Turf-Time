@@ -41,6 +41,13 @@ def create_app(config_class=Config):
     app.register_blueprint(user_bp)
     app.register_blueprint(owner_bp)
     
+    # Custom Jinja2 filters
+    @app.template_filter('nl2br')
+    def nl2br_filter(text):
+        if not text:
+            return ""
+        return text.replace('\n', '<br>')
+    
     @app.route('/')
     def index():
         if current_user.is_authenticated:

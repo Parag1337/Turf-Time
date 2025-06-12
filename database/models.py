@@ -15,9 +15,14 @@ class User(db.Model, UserMixin):
     role = db.Column(db.String(20), nullable=False)  # 'user' or 'owner'
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     
+    # Profile fields
+    bio = db.Column(db.Text)
+    phone = db.Column(db.String(20))
+    
     # Relationships
     bookings = db.relationship('Booking', backref='user', lazy=True)
     turfs = db.relationship('Turf', backref='owner', lazy=True)
+    # Note: team_requests relationship is defined in the TeamRequest model
     
     def set_password(self, password):
         self.password = generate_password_hash(password)
@@ -63,5 +68,30 @@ class Booking(db.Model):
     status = db.Column(db.String(20), default='confirmed')  # 'confirmed', 'cancelled', 'completed'
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     
+    # Player finding system fields
+    public_booking = db.Column(db.Boolean, default=False)
+    max_players = db.Column(db.Integer, default=0)  # 0 means no limit set
+    notes = db.Column(db.Text)
+    
+    # Relationships
+    team_requests = db.relationship('TeamRequest', backref='booking', lazy=True)
+    
     def __repr__(self):
         return f'<Booking {self.id}>'
+
+
+class TeamRequest(db.Model):
+    __tablename__ = 'team_requests'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    booking_id = db.Column(db.Integer, db.ForeignKey('bookings.id'), nullable=False)
+    requester_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    status = db.Column(db.String(20), default='pending')  # 'pending', 'accepted', 'rejected'
+    message = db.Column(db.Text)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    
+    # Relationship with User (requester)
+    requester = db.relationship('User', backref='team_requests')
+    
+    def __repr__(self):
+        return f'<TeamRequest {self.id}>'

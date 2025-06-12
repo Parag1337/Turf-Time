@@ -105,6 +105,16 @@
                 <a class="nav-link" href="{{ url_for('user.my_bookings') }}">My Bookings</a>
               </li>
               <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="teamDropdown" role="button" 
+                   data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="fas fa-users me-1"></i>Teams
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="teamDropdown">
+                  <li><a class="dropdown-item" href="{{ url_for('user.find_teams') }}">Find Teams</a></li>
+                  <li><a class="dropdown-item" href="{{ url_for('user.my_team_requests') }}">My Team Requests</a></li>
+                </ul>
+              </li>
+              <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" 
                    data-bs-toggle="dropdown" aria-expanded="false">
                   <i class="fas fa-user-circle me-1"></i>{{ current_user.username }}
