@@ -34,7 +34,7 @@ class TurfForm(FlaskForm):
     description = TextAreaField('Description', validators=[DataRequired()])
     price_per_hour = FloatField('Price per Hour (₹)', validators=[DataRequired()])
     image = FileField('Upload Image')
-    submit = SubmitField('Add Turf')
+    submit = SubmitField('Save Turf')
 
 class BookingForm(FlaskForm):
     booking_date = DateField('Booking Date', validators=[DataRequired()], format='%Y-%m-%d')

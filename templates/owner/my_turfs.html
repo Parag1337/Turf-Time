@@ -36,11 +36,10 @@
               </div>
               <p class="card-text small text-muted mb-2">
                 <i class="fas fa-map-marker-alt me-2"></i>{{ turf.location }}
-              </p>
-              <p class="card-text mb-3">{{ turf.description|truncate(100) }}</p>
+              </p>              <p class="card-text mb-3">{{ turf.description|truncate(100) }}</p>
               <div class="d-flex justify-content-between align-items-center">
                 <span class="text-muted small">{{ turf.bookings|length }} bookings</span>
-                <a href="#" class="btn btn-outline-success btn-sm">Edit</a>
+                <a href="{{ url_for('owner.edit_turf', turf_id=turf.id) }}" class="btn btn-outline-success btn-sm">Edit</a>
               </div>
             </div>
           </div>

@@ -106,6 +106,49 @@ def add_turf():
     
     return render_template('owner/add_turf.html', title='Add Turf', form=form)
 
+@owner_bp.route('/edit_turf/<int:turf_id>', methods=['GET', 'POST'])
+@owner_required
+def edit_turf(turf_id):
+    # Get the turf by ID and check if it belongs to the current user
+    turf = Turf.query.get_or_404(turf_id)
+    
+    if turf.owner_id != current_user.id:
+        flash("You don't have permission to edit this turf.", "danger")
+        return redirect(url_for('owner.my_turfs'))
+    
+    # Create form and populate with existing turf data
+    form = TurfForm(obj=turf)
+    
+    if form.validate_on_submit():
+        # Update turf details
+        turf.name = form.name.data
+        turf.location = form.location.data
+        turf.description = form.description.data
+        turf.price_per_hour = form.price_per_hour.data
+        
+        # Handle image upload if a new image is provided
+        if form.image.data and form.image.data.filename:
+            filename = secure_filename(form.image.data.filename)
+            # Create uploads folder if it doesn't exist
+            upload_folder = os.path.join('static', 'uploads', 'turfs')
+            os.makedirs(upload_folder, exist_ok=True)
+            
+            # Save the file
+            filepath = os.path.join(upload_folder, filename)
+            form.image.data.save(filepath)
+            
+            # Store the path relative to static folder using forward slashes for URL compatibility
+            turf.image_url = 'uploads/turfs/' + filename
+        
+        # Save changes to database
+        db.session.commit()
+        
+        flash(f'{turf.name} updated successfully!', 'success')
+        return redirect(url_for('owner.my_turfs'))
+    
+    # For GET requests, render the form with turf data
+    return render_template('owner/add_turf.html', title='Edit Turf', form=form, turf=turf, is_edit=True)
+
 @owner_bp.route('/view_bookings')
 @owner_required
 def view_bookings():

@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
-{% block title %}Add New Turf{% endblock %}
+{% block title %}{{ 'Edit Turf' if is_edit else 'Add New Turf' }}{% endblock %}
 
 {% block content %}
 <div class="page-header text-center">
   <div class="container">
-    <h1 class="text-white display-4 fw-bold">Add New Turf</h1>
+    <h1 class="text-white display-4 fw-bold">{{ 'Edit Turf' if is_edit else 'Add New Turf' }}</h1>
   </div>
 </div>
 
@@ -16,8 +16,7 @@
         <div class="card-header bg-success text-white p-3">
           <h4 class="mb-0">Turf Details</h4>
         </div>
-        <div class="card-body p-5">
-          <form method="POST" action="{{ url_for('owner.add_turf') }}" enctype="multipart/form-data">
+        <div class="card-body p-5">          <form method="POST" action="{{ url_for('owner.edit_turf', turf_id=turf.id) if is_edit else url_for('owner.add_turf') }}" enctype="multipart/form-data">
             {{ form.hidden_tag() }}
             
             <div class="row">
@@ -53,18 +52,26 @@
                 <div class="invalid-feedback">{{ error }}</div>
               {% endfor %}
             </div>
-            
-            <div class="mb-4">
+              <div class="mb-4">
               {{ form.image.label(class="form-label fw-medium") }}
               {{ form.image(class="form-control" + (" is-invalid" if form.image.errors else "")) }}
               {% for error in form.image.errors %}
                 <div class="invalid-feedback">{{ error }}</div>
               {% endfor %}
-              <small class="form-text text-muted">Upload an image of your turf (optional)</small>
+              <small class="form-text text-muted">
+                {% if is_edit and turf.image_url %}
+                  Current image: <a href="{{ url_for('static', filename=turf.image_url) }}" target="_blank">View</a>. Upload a new image to replace it (optional)
+                {% else %}
+                  Upload an image of your turf (optional)
+                {% endif %}
+              </small>
             </div>
-            
-            <div class="d-grid gap-2 mt-4">
-              {{ form.submit(class="btn btn-success btn-lg") }}
+              <div class="d-grid gap-2 mt-4">
+              {% if is_edit %}
+                {{ form.submit(class="btn btn-success btn-lg", value="Update Turf") }}
+              {% else %}
+                {{ form.submit(class="btn btn-success btn-lg") }}
+              {% endif %}
             </div>
           </form>
         </div>
