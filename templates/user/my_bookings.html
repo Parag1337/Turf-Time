@@ -4,102 +4,861 @@
 
 {% block additional_css %}
 <link href="{{ url_for('static', filename='css/booking-styles.css') }}" rel="stylesheet">
+<style>
+  /* Content container styling */
+  .booking-container {
+    max-width: 1140px;
+    margin: 0 auto;
+  }
+  
+  /* Fix table layout issues */
+  .table-responsive {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    margin-bottom: 1rem !important;
+  }
+  
+  .table {
+    width: 100% !important;
+    margin-bottom: 0 !important;
+    table-layout: fixed !important;
+    min-width: 800px !important;
+  }
+  
+  /* Define consistent column widths */
+  .table th:nth-child(1),
+  .table td:nth-child(1) {
+    width: 35% !important;
+    min-width: 280px !important;
+  }
+  
+  .table th:nth-child(2),
+  .table td:nth-child(2) {
+    width: 12% !important;
+    min-width: 100px !important;
+  }
+  
+  .table th:nth-child(3),
+  .table td:nth-child(3) {
+    width: 15% !important;
+    min-width: 120px !important;
+  }
+  
+  .table th:nth-child(4),
+  .table td:nth-child(4) {
+    width: 10% !important;
+    min-width: 80px !important;
+  }
+  
+  .table th:nth-child(5),
+  .table td:nth-child(5) {
+    width: 10% !important;
+    min-width: 80px !important;
+  }
+  
+  .table th:nth-child(6),
+  .table td:nth-child(6) {
+    width: 18% !important;
+    min-width: 120px !important;
+  }
+  
+  /* Fix tab navigation */
+  .nav-tabs {
+    border-bottom: 0 !important;
+    margin-bottom: 1rem !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    padding-left: 0 !important;
+    list-style: none !important;
+  }
+  
+  /* Fix tab content */
+  .tab-content > .tab-pane {
+    display: none;
+  }
+  
+  .tab-content > .active {
+    display: block !important;
+  }
+  
+  /* Fix container width */
+  .card-body {
+    padding: 1.5rem !important;
+  }
+    /* Fix colored tab indicators */
+  .nav-link .indicator {
+    opacity: 0.5;
+  }
+  
+  .nav-link.active .indicator {
+    opacity: 1;
+  }
+  
+  /* Tab count styling */
+  .tab-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #6c757d;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    min-width: 24px;
+    height: 24px;
+    padding: 0 6px;
+  }
+  
+  .nav-link.active .tab-count {
+    color: #495057;
+    background-color: #e9ecef;
+  }
+
+  /* Modern Action Buttons Styling */
+  .action-buttons {
+    white-space: nowrap !important;
+    text-align: center !important;
+    position: relative;
+  }
+    /* Modern More Button */
+  .more-btn {
+    background: linear-gradient(135deg, #40e44e 0%, #227849 100%);
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+  
+  .more-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(48, 191, 98, 0.4);
+    background: linear-gradient(135deg, #1b8015 0%, #667eea 100%);
+  }
+  
+  .more-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
+  }
+  
+  .more-btn.active {
+    background: linear-gradient(135deg, #1b8015 0%, #667eea 100%);
+    box-shadow: 0 4px 12px rgba(48, 191, 98, 0.4);
+  }
+    /* Hover Actions Container */
+  .hover-actions {
+    position: absolute;
+    top: calc(100% + 5px);
+    right: 0;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    padding: 8px 0;
+    min-width: 180px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 1000;
+    border: 1px solid rgba(0,0,0,0.06);
+  }
+  
+  .action-buttons {
+    position: relative;
+  }
+  
+  .action-buttons:hover .hover-actions {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+    .hover-action-item {
+    display: block;
+    padding: 10px 16px;
+    color: #374151;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    border-radius: 6px;
+    margin: 0 6px;
+    width: calc(100% - 12px);
+  }
+  
+  .hover-action-item:hover {
+    background: #f8fafc;
+    color: #1f2937;
+    text-decoration: none;
+  }
+  
+  .hover-action-item.danger:hover {
+    background: #fef2f2;
+    color: #dc2626;
+  }
+  
+  .hover-action-item i {
+    width: 16px;
+    margin-right: 8px;
+    text-align: center;
+  }
+    /* Modern View Button - Not used in cancelled tab anymore */
+  .view-btn {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    border: none;
+    color: white;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  
+  .view-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+    color: white;
+    text-decoration: none;
+  }
+  
+  .view-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.3);
+  }
+    /* Book Again Button for Past and Cancelled Bookings */
+  .book-again-btn {
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    border: none;
+    color: white;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: auto;
+    min-width: 120px;
+    opacity: 1 !important;
+    visibility: visible !important;
+    z-index: 5;
+  }
+  
+  .book-again-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+    background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+    color: white;
+    text-decoration: none;
+  }
+  
+  .book-again-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+  }
+    /* Ensure Book Again button is visible in the cancelled tab */
+  #cancelled .book-again-btn {
+    opacity: 1 !important;
+    visibility: visible !important;
+    position: relative !important; 
+    z-index: 10 !important;
+    display: inline-flex !important;
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%) !important;
+    color: white !important;
+  }
+
+  /* Fix text truncation and alignment */
+  .text-truncate-custom {
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+  }
+  
+  .turf-details {
+    min-width: 0 !important;
+    flex: 1 !important;
+  }
+  
+  .turf-image {
+    flex-shrink: 0 !important;
+    width: 60px !important;
+    height: 60px !important;
+  }
+
+  /* Cancelled row styling */
+  .cancelled-row {
+    opacity: 0.75;
+  }
+  
+  .cancelled-row .book-again-btn {
+    opacity: 1 !important;
+    visibility: visible !important;
+    position: relative !important;
+    z-index: 10 !important;
+  }
+  
+  .cancelled-row .action-buttons {
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  /* Mobile responsive fixes */
+  @media (max-width: 768px) {
+    .table {
+      min-width: 600px !important;
+    }
+    
+    .table th:nth-child(1),
+    .table td:nth-child(1) {
+      width: 45% !important;
+      min-width: 250px !important;
+    }
+    
+    .table th:nth-child(5),
+    .table td:nth-child(5) {
+      width: 15% !important;
+    }
+    
+    .table th:nth-child(6),
+    .table td:nth-child(6) {
+      width: 25% !important;
+      min-width: 100px !important;
+    }
+    
+    .nav-tabs {
+      flex-direction: row !important;
+      overflow-x: auto !important;
+      white-space: nowrap !important;
+    }
+    
+    .nav-item {
+      flex-shrink: 0 !important;
+    }
+    
+    .nav-link {
+      padding: 0.75rem 1rem !important;
+    }
+    
+    .more-btn, .view-btn, .book-again-btn {
+      padding: 6px 12px !important;
+      font-size: 0.8rem !important;
+    }
+    
+    .hover-actions {
+      min-width: 150px !important;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .table {
+      min-width: 500px !important;
+    }
+    
+    .table th:nth-child(1),
+    .table td:nth-child(1) {
+      width: 50% !important;
+      min-width: 200px !important;
+    }
+    
+    .turf-image {
+      width: 50px !important;
+      height: 50px !important;
+    }
+    
+    .more-btn, .view-btn, .book-again-btn {
+      padding: 6px 10px !important;
+      font-size: 0.75rem !important;
+    }
+  }
+
+  /* Special styling just for cancelled tab action buttons */
+  #cancelled .action-buttons {
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+  
+  #cancelled .action-buttons .book-again-btn {
+    display: inline-flex !important;
+    background-color: #3b82f6 !important;
+    color: white !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    position: relative !important;
+    z-index: 100 !important;
+  }
+</style>
 {% endblock %}
 
 {% block content %}
 <div class="page-header text-center">
   <div class="container">
     <h1 class="text-white display-4 fw-bold">My Bookings</h1>
+    <p class="text-white-50 lead">Manage and track your turf reservations</p>
   </div>
 </div>
 
-<div class="container mb-7 content-container">
+<div class="container mb-7">
   <div class="card shadow">
     <div class="card-body p-4">
-      <div class="booking-tabs">
-        <ul class="nav nav-tabs" id="bookingTab" role="tablist">
-          <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="upcoming-tab" data-bs-toggle="tab" data-bs-target="#upcoming" type="button" role="tab" aria-controls="upcoming" aria-selected="true">
+      <!-- Booking Statistics -->
+      <div class="row mb-4">
+        <div class="col-md-4">
+          <div class="card bg-primary text-white">
+            <div class="card-body text-center py-3">
+              <h4 class="mb-1">{{ bookings|selectattr('status', 'eq', 'confirmed')|selectattr('booking_date', 'ge', now().date())|list|length }}</h4>
+              <small>Upcoming Bookings</small>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card bg-success text-white">
+            <div class="card-body text-center py-3">
+              <h4 class="mb-1">{{ bookings|selectattr('booking_date', 'lt', now().date())|selectattr('status', 'ne', 'cancelled')|list|length }}</h4>
+              <small>Completed Bookings</small>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card bg-danger text-white">
+            <div class="card-body text-center py-3">
+              <h4 class="mb-1">{{ bookings|selectattr('status', 'eq', 'cancelled')|list|length }}</h4>
+              <small>Cancelled Bookings</small>
+            </div>
+          </div>
+        </div>
+      </div>      <div class="booking-container">
+        <div class="booking-tabs mt-4">
+          <ul class="nav nav-tabs border-0" id="bookingTab" role="tablist">          <li class="nav-item flex-grow-0" role="presentation">
+            <button class="nav-link active d-flex align-items-center px-4 py-3" id="upcoming-tab" data-bs-toggle="tab" data-bs-target="#upcoming" type="button" role="tab">
+              <span class="indicator bg-primary me-2" style="width: 4px; height: 16px; border-radius: 2px; display: inline-block;"></span>
               <i class="fas fa-calendar-day me-2"></i>Upcoming
+              <span class="tab-count ms-2">{{ bookings|selectattr('status', 'eq', 'confirmed')|selectattr('booking_date', 'ge', now().date())|list|length }}</span>
             </button>
           </li>
-          <li class="nav-item" role="presentation">
-            <button class="nav-link" id="past-tab" data-bs-toggle="tab" data-bs-target="#past" type="button" role="tab" aria-controls="past" aria-selected="false">
+          <li class="nav-item flex-grow-0" role="presentation">
+            <button class="nav-link d-flex align-items-center px-4 py-3" id="past-tab" data-bs-toggle="tab" data-bs-target="#past" type="button" role="tab">
+              <span class="indicator bg-success me-2" style="width: 4px; height: 16px; border-radius: 2px; display: inline-block;"></span>
               <i class="fas fa-history me-2"></i>Past
+              <span class="tab-count ms-2">{{ bookings|selectattr('booking_date', 'lt', now().date())|selectattr('status', 'ne', 'cancelled')|list|length }}</span>
             </button>
           </li>
-          <li class="nav-item" role="presentation">
-            <button class="nav-link" id="cancelled-tab" data-bs-toggle="tab" data-bs-target="#cancelled" type="button" role="tab" aria-controls="cancelled" aria-selected="false">
+          <li class="nav-item flex-grow-0" role="presentation">
+            <button class="nav-link d-flex align-items-center px-4 py-3" id="cancelled-tab" data-bs-toggle="tab" data-bs-target="#cancelled" type="button" role="tab">
+              <span class="indicator bg-danger me-2" style="width: 4px; height: 16px; border-radius: 2px; display: inline-block;"></span>
               <i class="fas fa-ban me-2"></i>Cancelled
+              <span class="tab-count ms-2">{{ bookings|selectattr('status', 'eq', 'cancelled')|list|length }}</span>
             </button>
           </li>
         </ul>
       </div>
       
-      <div class="tab-content" id="bookingTabContent">
+      <div class="tab-content mt-4" id="bookingTabContent">
+        <!-- Upcoming Bookings Tab -->
         <div class="tab-pane fade show active" id="upcoming" role="tabpanel" aria-labelledby="upcoming-tab">
-          {% if bookings|selectattr('status', 'eq', 'confirmed')|selectattr('booking_date', 'ge', now().date())|list %}
+          {% set upcoming_bookings = bookings|selectattr('status', 'eq', 'confirmed')|selectattr('booking_date', 'ge', now().date())|list %}
+          {% if upcoming_bookings %}
             <div class="table-responsive">
-              <table class="table table-hover">
-                <thead>
+              <table class="table table-hover align-middle">
+                <thead class="table-light">
                   <tr>
-                    <th>Turf Name</th>
-                    <th>Date</th>
-                    <th>Time</th>
-                    <th>Duration</th>
-                    <th>Total Price</th>
-                    <th>Actions</th>
+                    <th scope="col" class="border-0">Turf Details</th>
+                    <th scope="col" class="border-0 d-none d-md-table-cell">Date</th>
+                    <th scope="col" class="border-0 d-none d-lg-table-cell">Time</th>
+                    <th scope="col" class="border-0 d-none d-xl-table-cell">Duration</th>
+                    <th scope="col" class="border-0">Price</th>
+                    <th scope="col" class="border-0">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {% for booking in bookings %}
-                    {% if booking.status == 'confirmed' and booking.booking_date >= now().date() %}
-                      <tr>
-                        <td>
-                          <div class="d-flex align-items-center">
-                            <img src="{{ booking.turf.image_url or url_for('static', filename='img/dest/turf1.jpg') }}" class="rounded me-3" width="50" height="50" style="object-fit: cover;">
-                            <div>
-                              <h6 class="mb-0">{{ booking.turf.name }}</h6>
-                              <small class="text-muted">{{ booking.turf.location }}</small>
+                  {% for booking in upcoming_bookings %}
+                    <tr class="border-bottom">
+                      <td class="py-3">
+                        <div class="d-flex align-items-start">
+                          <img src="{{ booking.turf.image_url or url_for('static', filename='img/dest/turf1.jpg') }}" 
+                               class="rounded me-3 turf-image" 
+                               style="object-fit: cover;" 
+                               alt="{{ booking.turf.name }}">
+                          <div class="turf-details">
+                            <h6 class="mb-1 text-truncate-custom">{{ booking.turf.name }}</h6>
+                            <div class="small text-muted">
+                              <i class="fas fa-map-marker-alt me-1"></i>
+                              <span class="text-truncate-custom d-inline-block" style="max-width: 150px;">{{ booking.turf.location }}</span>
                             </div>
+                            <!-- Mobile-only info -->
+                            <div class="d-md-none mt-2">
+                              <div class="small">
+                                <i class="fas fa-calendar me-1"></i>{{ booking.booking_date.strftime('%d %b, %Y') }}
+                              </div>
+                              <div class="small">
+                                <i class="fas fa-clock me-1"></i>{{ booking.start_time.strftime('%I:%M %p') }} - {{ booking.end_time.strftime('%I:%M %p') }}
+                              </div>
+                            </div>
+                            {% if booking.public_booking %}
+                              <div class="mt-1">
+                                <span class="badge bg-info">
+                                  <i class="fas fa-users me-1"></i>Team Finding
+                                </span>
+                              </div>
+                            {% endif %}
                           </div>
-                        </td>
-                        <td>{{ booking.booking_date.strftime('%d %b, %Y') }}</td>
-                        <td>{{ booking.start_time.strftime('%I:%M %p') }} - {{ booking.end_time.strftime('%I:%M %p') }}</td>
-                        <td>
-                          {% set duration = ((booking.end_time.hour * 60 + booking.end_time.minute) - (booking.start_time.hour * 60 + booking.start_time.minute)) / 60 %}
-                          {{ duration }} hour(s)
-                        </td>
-                        <td>₹{{ booking.total_price }}</td>
-                        <td>
-                          <form method="POST" action="{{ url_for('user.cancel_booking', booking_id=booking.id) }}" style="display:inline;">
-                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to cancel this booking?')">Cancel</button>
+                        </div>
+                      </td>
+                      <td class="d-none d-md-table-cell">
+                        <div class="fw-medium">{{ booking.booking_date.strftime('%d %b') }}</div>
+                        <div class="small text-muted">{{ booking.booking_date.strftime('%Y') }}</div>
+                      </td>
+                      <td class="d-none d-lg-table-cell">
+                        <div class="small">
+                          <div>{{ booking.start_time.strftime('%I:%M %p') }}</div>
+                          <div class="text-muted">{{ booking.end_time.strftime('%I:%M %p') }}</div>
+                        </div>
+                      </td>
+                      <td class="d-none d-xl-table-cell">
+                        {% set duration = ((booking.end_time.hour * 60 + booking.end_time.minute) - (booking.start_time.hour * 60 + booking.start_time.minute)) / 60 %}
+                        <span class="badge bg-light text-dark">{{ duration|int }} hr{{ 's' if duration != 1 else '' }}</span>
+                      </td>
+                      <td>
+                        <div class="fw-bold text-success">₹{{ booking.total_price }}</div>
+                      </td>                      <td class="action-buttons">
+                        <button class="more-btn" type="button" aria-expanded="false">
+                          <i class="fas fa-ellipsis-h"></i>
+                          <span>More</span>
+                        </button>
+                        <div class="hover-actions">
+                          {% if booking.public_booking %}
+                            <a class="hover-action-item" href="{{ url_for('user.my_team_requests') }}">
+                              <i class="fas fa-user-friends"></i>Team Requests
+                            </a>
+                          {% endif %}
+                          <form method="POST" action="{{ url_for('user.cancel_booking', booking_id=booking.id) }}" class="d-inline">
+                            <button type="submit" class="hover-action-item danger" onclick="return confirm('Are you sure you want to cancel this booking?')">
+                              <i class="fas fa-times-circle"></i>Cancel Booking
+                            </button>
                           </form>
-                        </td>
-                      </tr>
-                    {% endif %}
+                        </div>
+                      </td>
+                    </tr>
                   {% endfor %}
                 </tbody>
               </table>
             </div>
           {% else %}
-            <div class="text-center py-4">
-              <i class="fas fa-calendar-times fa-3x text-muted mb-3"></i>
-              <p class="lead">You don't have any upcoming bookings.</p>
-              <a href="{{ url_for('user.view_turfs') }}" class="btn btn-success">Book a Turf Now</a>
+            <div class="text-center py-5">
+              <div class="mb-4">
+                <i class="fas fa-calendar-times fa-4x text-muted"></i>
+              </div>
+              <h5 class="mb-3">No Upcoming Bookings</h5>
+              <p class="text-muted mb-4">You don't have any upcoming bookings. Start by booking your favorite turf!</p>
+              <a href="{{ url_for('user.view_turfs') }}" class="btn btn-success btn-lg">
+                <i class="fas fa-search me-2"></i>Find Available Turfs
+              </a>
             </div>
           {% endif %}
         </div>
         
+        <!-- Past Bookings Tab -->
         <div class="tab-pane fade" id="past" role="tabpanel" aria-labelledby="past-tab">
-          <!-- Similar structure as above but for past bookings -->
+          {% set past_bookings = bookings|selectattr('booking_date', 'lt', now().date())|selectattr('status', 'ne', 'cancelled')|list %}
+          {% if past_bookings %}
+            <div class="table-responsive">
+              <table class="table table-hover align-middle">
+                <thead class="table-light">
+                  <tr>
+                    <th scope="col" class="border-0">Turf Details</th>
+                    <th scope="col" class="border-0 d-none d-md-table-cell">Date</th>
+                    <th scope="col" class="border-0 d-none d-lg-table-cell">Time</th>
+                    <th scope="col" class="border-0 d-none d-xl-table-cell">Duration</th>
+                    <th scope="col" class="border-0">Price</th>
+                    <th scope="col" class="border-0">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for booking in past_bookings|reverse %}
+                    <tr class="border-bottom">
+                      <td class="py-3">
+                        <div class="d-flex align-items-start">
+                          <img src="{{ booking.turf.image_url or url_for('static', filename='img/dest/turf1.jpg') }}" 
+                               class="rounded me-3 turf-image" 
+                               style="object-fit: cover;" 
+                               alt="{{ booking.turf.name }}">
+                          <div class="turf-details">
+                            <h6 class="mb-1 text-truncate-custom">{{ booking.turf.name }}</h6>
+                            <div class="small text-muted">
+                              <i class="fas fa-map-marker-alt me-1"></i>
+                              <span class="text-truncate-custom d-inline-block" style="max-width: 150px;">{{ booking.turf.location }}</span>
+                            </div>
+                            <div class="mt-1">
+                              <span class="badge bg-success">Completed</span>
+                            </div>
+                            <!-- Mobile-only info -->
+                            <div class="d-md-none mt-2">
+                              <div class="small">
+                                <i class="fas fa-calendar me-1"></i>{{ booking.booking_date.strftime('%d %b, %Y') }}
+                              </div>
+                              <div class="small">
+                                <i class="fas fa-clock me-1"></i>{{ booking.start_time.strftime('%I:%M %p') }} - {{ booking.end_time.strftime('%I:%M %p') }}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="d-none d-md-table-cell">
+                        <div class="fw-medium">{{ booking.booking_date.strftime('%d %b') }}</div>
+                        <div class="small text-muted">{{ booking.booking_date.strftime('%Y') }}</div>
+                      </td>
+                      <td class="d-none d-lg-table-cell">
+                        <div class="small">
+                          <div>{{ booking.start_time.strftime('%I:%M %p') }}</div>
+                          <div class="text-muted">{{ booking.end_time.strftime('%I:%M %p') }}</div>
+                        </div>
+                      </td>
+                      <td class="d-none d-xl-table-cell">
+                        {% set duration = ((booking.end_time.hour * 60 + booking.end_time.minute) - (booking.start_time.hour * 60 + booking.start_time.minute)) / 60 %}
+                        <span class="badge bg-light text-dark">{{ duration|int }} hr{{ 's' if duration != 1 else '' }}</span>
+                      </td>
+                      <td>
+                        <div class="fw-bold text-success">₹{{ booking.total_price }}</div>
+                      </td>
+                      <td class="action-buttons">
+                        <a href="{{ url_for('user.book_turf', turf_id=booking.turf.id) }}" class="book-again-btn">
+                          <i class="fas fa-redo"></i>
+                          <span class="d-none d-sm-inline">Book Again</span>
+                        </a>
+                      </td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          {% else %}
+            <div class="text-center py-5">
+              <div class="mb-4">
+                <i class="fas fa-history fa-4x text-muted"></i>
+              </div>
+              <h5 class="mb-3">No Past Bookings</h5>
+              <p class="text-muted mb-4">You don't have any booking history yet.</p>
+              <a href="{{ url_for('user.view_turfs') }}" class="btn btn-success btn-lg">
+                <i class="fas fa-search me-2"></i>Find Available Turfs
+              </a>
+            </div>
+          {% endif %}
         </div>
         
+        <!-- Cancelled Bookings Tab -->
         <div class="tab-pane fade" id="cancelled" role="tabpanel" aria-labelledby="cancelled-tab">
-          <!-- Similar structure as above but for cancelled bookings -->
+          {% set cancelled_bookings = bookings|selectattr('status', 'eq', 'cancelled')|list %}
+          {% if cancelled_bookings %}
+            <div class="table-responsive">
+              <table class="table table-hover align-middle">
+                <thead class="table-light">
+                  <tr>
+                    <th scope="col" class="border-0">Turf Details</th>
+                    <th scope="col" class="border-0 d-none d-md-table-cell">Date</th>
+                    <th scope="col" class="border-0 d-none d-lg-table-cell">Time</th>
+                    <th scope="col" class="border-0 d-none d-xl-table-cell">Duration</th>
+                    <th scope="col" class="border-0">Price</th>
+                    <th scope="col" class="border-0">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for booking in cancelled_bookings|reverse %}
+                    <tr class="border-bottom cancelled-row">
+                      <td class="py-3">
+                        <div class="d-flex align-items-start">
+                          <div class="position-relative">
+                            <img src="{{ booking.turf.image_url or url_for('static', filename='img/dest/turf1.jpg') }}" 
+                                 class="rounded me-3 turf-image" 
+                                 style="object-fit: cover; filter: grayscale(50%);" 
+                                 alt="{{ booking.turf.name }}">
+                            <div class="position-absolute top-50 start-50 translate-middle">
+                              <i class="fas fa-ban text-danger"></i>
+                            </div>
+                          </div>
+                          <div class="turf-details">
+                            <h6 class="mb-1 text-truncate-custom text-muted">{{ booking.turf.name }}</h6>
+                            <div class="small text-muted">
+                              <i class="fas fa-map-marker-alt me-1"></i>
+                              <span class="text-truncate-custom d-inline-block" style="max-width: 150px;">{{ booking.turf.location }}</span>
+                            </div>
+                            <div class="mt-1">
+                              <span class="badge bg-danger">Cancelled</span>
+                            </div>
+                            <!-- Mobile-only info -->
+                            <div class="d-md-none mt-2">
+                              <div class="small text-muted">
+                                <i class="fas fa-calendar me-1"></i>{{ booking.booking_date.strftime('%d %b, %Y') }}
+                              </div>
+                              <div class="small text-muted">
+                                <i class="fas fa-clock me-1"></i>{{ booking.start_time.strftime('%I:%M %p') }} - {{ booking.end_time.strftime('%I:%M %p') }}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="d-none d-md-table-cell text-muted">
+                        <div>{{ booking.booking_date.strftime('%d %b') }}</div>
+                        <div class="small">{{ booking.booking_date.strftime('%Y') }}</div>
+                      </td>
+                      <td class="d-none d-lg-table-cell text-muted">
+                        <div class="small">
+                          <div>{{ booking.start_time.strftime('%I:%M %p') }}</div>
+                          <div>{{ booking.end_time.strftime('%I:%M %p') }}</div>
+                        </div>
+                      </td>
+                      <td class="d-none d-xl-table-cell">
+                        {% set duration = ((booking.end_time.hour * 60 + booking.end_time.minute) - (booking.start_time.hour * 60 + booking.start_time.minute)) / 60 %}
+                        <span class="badge bg-light text-muted">{{ duration|int }} hr{{ 's' if duration != 1 else '' }}</span>
+                      </td>                      <td>
+                        <div class="fw-bold text-muted">₹{{ booking.total_price }}</div>
+                      </td>                      <td class="action-buttons">
+                        <a href="{{ url_for('user.book_turf', turf_id=booking.turf.id) }}" class="book-again-btn cancelled-book-again">
+                          <i class="fas fa-redo"></i>
+                          <span class="d-none d-sm-inline">Book Again</span>
+                        </a>
+                      </td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          {% else %}
+            <div class="text-center py-5">
+              <div class="mb-4">
+                <i class="fas fa-ban fa-4x text-danger opacity-50"></i>
+              </div>
+              <h5 class="mb-3">No Cancelled Bookings</h5>
+              <p class="text-muted mb-4">You don't have any cancelled bookings yet.</p>
+              <a href="{{ url_for('user.view_turfs') }}" class="btn btn-success btn-lg">
+                <i class="fas fa-search me-2"></i>Find Available Turfs
+              </a>
+            </div>
+          {% endif %}
         </div>
       </div>
     </div>
+    </div>
   </div>
 </div>
+{% endblock %}
+
+{% block additional_js %}
+<script>  document.addEventListener('DOMContentLoaded', function() {
+    // Ensure "Book Again" buttons are visible in the cancelled tab
+    function makeBookAgainButtonsVisible() {
+      const bookAgainButtons = document.querySelectorAll('#cancelled .book-again-btn');
+      bookAgainButtons.forEach(button => {
+        button.style.opacity = '1';
+        button.style.visibility = 'visible';
+        button.style.display = 'inline-flex';
+        button.style.position = 'relative';
+        button.style.zIndex = '10';
+      });
+    }
+    
+    // Apply immediately on page load
+    makeBookAgainButtonsVisible();
+    
+    // Initialize Bootstrap tabs
+    var tabs = document.querySelectorAll('[data-bs-toggle="tab"]');
+    tabs.forEach(function(tab) {
+      tab.addEventListener('click', function(event) {
+        event.preventDefault();
+        var target = document.querySelector(this.getAttribute('data-bs-target'));
+        
+        // Hide all tab panes
+        document.querySelectorAll('.tab-pane').forEach(function(pane) {
+          pane.classList.remove('show', 'active');
+        });
+        
+        // Deactivate all tabs
+        document.querySelectorAll('.nav-link').forEach(function(tabLink) {
+          tabLink.classList.remove('active');
+        });
+          // Activate the selected tab and show content
+        this.classList.add('active');
+        target.classList.add('show', 'active');
+        
+        // If cancelled tab is selected, ensure buttons are visible
+        if (this.id === 'cancelled-tab') {
+          const bookAgainButtons = document.querySelectorAll('#cancelled .book-again-btn');
+          bookAgainButtons.forEach(button => {
+            button.style.opacity = '1';
+            button.style.visibility = 'visible';
+            button.style.display = 'inline-flex';
+            button.style.position = 'relative';
+            button.style.zIndex = '10';
+          });
+        }
+      });
+    });
+    
+    // Fix dropdown behavior for action buttons
+    const moreButtons = document.querySelectorAll('.more-btn');
+    const hoverActions = document.querySelectorAll('.hover-actions');
+    
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(event) {
+      if (!event.target.closest('.action-buttons')) {
+        hoverActions.forEach(dropdown => {
+          dropdown.style.opacity = '0';
+          dropdown.style.visibility = 'hidden';
+          dropdown.style.transform = 'translateY(-10px)';
+        });
+      }
+    });
+      // Toggle dropdown on button click
+    moreButtons.forEach(button => {
+      button.addEventListener('click', function(event) {
+        event.stopPropagation();
+        const dropdown = this.nextElementSibling;
+        
+        // Close all other dropdowns first
+        hoverActions.forEach(otherDropdown => {
+          if (otherDropdown !== dropdown) {
+            otherDropdown.style.opacity = '0';
+            otherDropdown.style.visibility = 'hidden';
+            otherDropdown.style.transform = 'translateY(-10px)';
+          }
+        });
+        
+        // Toggle current dropdown
+        if (dropdown.style.visibility === 'visible') {
+          dropdown.style.opacity = '0';
+          dropdown.style.visibility = 'hidden';
+          dropdown.style.transform = 'translateY(-10px)';
+        } else {
+          dropdown.style.opacity = '1';
+          dropdown.style.visibility = 'visible';
+          dropdown.style.transform = 'translateY(0)';
+        }
+      });
+    });
+  });
+</script>
 {% endblock %}

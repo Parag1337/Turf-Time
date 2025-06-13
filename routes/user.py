@@ -28,12 +28,33 @@ def dashboard():
 @user_bp.route('/view_turfs')
 @login_required
 def view_turfs():
-    # Get all available turfs
-    turfs = Turf.query.all()
+    # Get query parameters for filtering
+    search = request.args.get('search', '')
+    price_range = request.args.get('price', '')
+    date_str = request.args.get('date', '')
+    
+    # Start with all turfs query
+    query = Turf.query
+    
+    # Apply filters if provided
+    if search:
+        query = query.filter(Turf.name.ilike(f'%{search}%') | Turf.location.ilike(f'%{search}%'))
+    
+    if price_range:
+        if price_range == '0-500':
+            query = query.filter(Turf.price_per_hour <= 500)
+        elif price_range == '500-1000':
+            query = query.filter(Turf.price_per_hour > 500, Turf.price_per_hour <= 1000)
+        elif price_range == '1000+':
+            query = query.filter(Turf.price_per_hour > 1000)
+    
+    # Get filtered turfs
+    turfs = query.all()
     
     return render_template('user/view_turfs.html', 
                           title='Available Turfs', 
-                          turfs=turfs)
+                          turfs=turfs,
+                          now=datetime.now)
 
 @user_bp.route('/my_bookings')
 @login_required

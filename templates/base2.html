@@ -335,12 +335,11 @@
 
 <body>
   <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
-    <div class="container">
-      <a class="navbar-brand fw-bolder text-success" href="{{ url_for('index') }}">
-        <i class="fas fa-futbol"></i>TurfTime
-      </a>
-      
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+  <div class="container">
+    <a class="navbar-brand fw-bolder d-flex align-items-center" href="{{ url_for('index') }}">
+      <img src="{{ url_for('static', filename='img/logo (2).png') }}" alt="Turf Time" height="60" class="me-2">
+    </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
               aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>

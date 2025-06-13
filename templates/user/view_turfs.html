@@ -1,84 +1,309 @@
-<!-- filepath: updated_view_turfs.html -->
 {% extends "base.html" %}
 
 {% block title %}Available Turfs{% endblock %}
 
 {% block content %}
+<!-- Enhanced Hero Section with Green Background -->
 <div class="page-header text-center">
-  <div class="container">
-    <h1 class="text-white display-4 fw-bold">Available Turfs</h1>
-    <p class="text-white-50 lead">Find and book the perfect turf for your game</p>
+  <div class="container py-5">
+    <h1 class="text-white display-2 fw-bold mb-3">Available Turfs</h1>
+    <p class="text-white-75 lead fs-4 mb-4">Find and book the perfect turf for your game</p>
   </div>
 </div>
 
-<div class="container mb-7">
-  <div class="card shadow mb-5">
+<div class="container py-5">
+  <!-- Enhanced Filter Card with Modern Design -->
+  <div class="card border-0 shadow-lg mb-5 animate-slide-up">
     <div class="card-body p-4">
+      <div class="d-flex align-items-center mb-4">
+        <div class="bg-success bg-gradient rounded-circle p-2 me-3">
+          <i class="fas fa-filter text-white"></i>
+        </div>
+        <h5 class="mb-0 fw-bold text-dark">Filter & Search</h5>
+      </div>
+      
       <form method="GET" action="{{ url_for('user.view_turfs') }}">
-        <div class="row">
-          <div class="col-md-4 mb-3 mb-md-0">
+        <div class="row g-3">
+          <div class="col-lg-4 col-md-6">
+            <label class="form-label fw-semibold text-secondary small">SEARCH TURFS</label>
             <div class="input-group">
-              <span class="input-group-text bg-light border-0"><i class="fas fa-search"></i></span>
-              <input type="text" name="search" class="form-control" placeholder="Search by name or location">
+              <span class="input-group-text bg-light border-end-0">
+                <i class="fas fa-search text-success"></i>
+              </span>
+              <input type="text" name="search" class="form-control border-start-0 ps-0" 
+                     placeholder="Search by name or location..." 
+                     value="{{ request.args.get('search', '') }}">
             </div>
           </div>
-          <div class="col-md-3 mb-3 mb-md-0">
+          
+          <div class="col-lg-3 col-md-6">
+            <label class="form-label fw-semibold text-secondary small">PRICE RANGE</label>
             <select name="price" class="form-select">
               <option value="">All Price Ranges</option>
-              <option value="0-500">₹0 - ₹500</option>
-              <option value="500-1000">₹500 - ₹1000</option>
-              <option value="1000+">₹1000+</option>
+              <option value="0-500" {{ 'selected' if request.args.get('price') == '0-500' }}>₹0 - ₹500</option>
+              <option value="500-1000" {{ 'selected' if request.args.get('price') == '500-1000' }}>₹500 - ₹1000</option>
+              <option value="1000+" {{ 'selected' if request.args.get('price') == '1000+' }}>₹1000+</option>
             </select>
           </div>
-          <div class="col-md-3 mb-3 mb-md-0">
-            <input type="date" name="date" class="form-control">
+            <div class="col-lg-3 col-md-6">
+            <label class="form-label fw-semibold text-secondary small">SELECT DATE</label>
+            <input type="date" name="date" class="form-control" 
+                   value="{{ request.args.get('date', '') }}" 
+                   min="{{ now().strftime('%Y-%m-%d') }}">
           </div>
-          <div class="col-md-2">
-            <button type="submit" class="btn btn-success w-100">Filter</button>
+          
+          <div class="col-lg-2 col-md-6">
+            <label class="form-label opacity-0">Filter</label>
+            <div class="d-grid">
+              <button type="submit" class="btn btn-success btn-lg fw-semibold">
+                <i class="fas fa-search me-2"></i>Search
+              </button>
+            </div>
           </div>
         </div>
+        
+        <!-- Active Filters Display -->
+        {% if request.args.get('search') or request.args.get('price') or request.args.get('date') %}
+        <div class="mt-3 pt-3 border-top">
+          <div class="d-flex align-items-center flex-wrap gap-2">
+            <span class="text-muted small fw-semibold">Active Filters:</span>
+            {% if request.args.get('search') %}
+            <span class="badge bg-success bg-opacity-10 text-success border border-success">
+              <i class="fas fa-search me-1"></i>{{ request.args.get('search') }}
+            </span>
+            {% endif %}
+            {% if request.args.get('price') %}
+            <span class="badge bg-success bg-opacity-10 text-success border border-success">
+              <i class="fas fa-tag me-1"></i>₹{{ request.args.get('price') }}
+            </span>
+            {% endif %}
+            {% if request.args.get('date') %}
+            <span class="badge bg-success bg-opacity-10 text-success border border-success">
+              <i class="fas fa-calendar me-1"></i>{{ request.args.get('date') }}
+            </span>
+            {% endif %}
+            <a href="{{ url_for('user.view_turfs') }}" class="btn btn-outline-secondary btn-sm ms-2">
+              <i class="fas fa-times me-1"></i>Clear All
+            </a>
+          </div>
+        </div>
+        {% endif %}
       </form>
     </div>
   </div>
 
-  <div class="row">
+  <!-- Results Header -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h4 class="fw-bold mb-1">
+        {% if turfs %}
+          {{ turfs|length }} Turf{{ 's' if turfs|length != 1 }} Found
+        {% else %}
+          No Turfs Found
+        {% endif %}
+      </h4>
+      <p class="text-muted mb-0">Book your perfect playing field</p>
+    </div>
+    
+    {% if turfs %}
+    <div class="dropdown">
+      <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+        <i class="fas fa-sort me-2"></i>Sort By
+      </button>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="#"><i class="fas fa-tag me-2"></i>Price: Low to High</a></li>
+        <li><a class="dropdown-item" href="#"><i class="fas fa-tag me-2"></i>Price: High to Low</a></li>
+        <li><a class="dropdown-item" href="#"><i class="fas fa-star me-2"></i>Most Popular</a></li>
+        <li><a class="dropdown-item" href="#"><i class="fas fa-map-marker-alt me-2"></i>Nearest First</a></li>
+      </ul>
+    </div>
+    {% endif %}
+  </div>
+
+  <!-- Turf Cards Grid -->
+  <div class="row g-4">
     {% if turfs %}
       {% for turf in turfs %}
-        <div class="col-lg-4 col-md-6 mb-4">
-          <div class="card shadow h-100">
-            {% if turf.image_url %}
-              <img src="{{ url_for('static', filename=turf.image_url.replace('\\', '/')) }}" 
-                   class="card-img-top" alt="{{ turf.name }}" style="height: 200px; object-fit: cover;"
-                   onerror="this.onerror=null; this.src='{{ url_for('static', filename='img/hero/turf-soccer.jpeg') }}'">
-            {% else %}
-              <img src="{{ url_for('static', filename='img/hero/turf-soccer.jpeg') }}"
-                   class="card-img-top" alt="{{ turf.name }}" style="height: 200px; object-fit: cover;">
+        <div class="col-xl-4 col-lg-6 col-md-6">
+          <div class="card border-0 shadow-sm h-100 turf-card position-relative overflow-hidden">
+            <!-- Popular Badge -->
+            {% if loop.index <= 3 %}
+            <div class="position-absolute top-0 end-0 z-index-10">
+              <span class="badge bg-warning text-dark px-3 py-2 rounded-start-0 rounded-end-0 rounded-bottom-3">
+                <i class="fas fa-star me-1"></i>Popular
+              </span>
+            </div>
             {% endif %}
-            <div class="card-body p-4">
-              <div class="d-flex justify-content-between align-items-center mb-2">
-                <h5 class="card-title mb-0">{{ turf.name }}</h5>
-                <span class="badge bg-success">₹{{ turf.price_per_hour }}/hr</span>
+            
+            <!-- Turf Image with Overlay -->
+            <div class="position-relative overflow-hidden">              {% if turf.image_url %}
+                <img src="{{ url_for('static', filename=turf.image_url.replace('\\', '/')) }}" 
+                     class="card-img-top turf-image" alt="{{ turf.name }}" 
+                     style="height: 350px; width: 100%; object-fit: cover; object-position: center;"
+                     onerror="this.onerror=null; this.src='{{ url_for('static', filename='img/hero/turf-soccer.jpeg') }}'">
+              {% else %}
+                <img src="{{ url_for('static', filename='img/hero/turf-soccer.jpeg') }}"
+                     class="card-img-top turf-image" alt="{{ turf.name }}" 
+                     style="height: 350px; width: 100%; object-fit: cover; object-position: center;">
+              {% endif %}
+              
+              <!-- Price Badge on Image -->
+              <div class="position-absolute bottom-0 start-0 m-3">
+                <span class="badge bg-success bg-gradient px-3 py-2 fs-6 fw-bold">
+                  ₹{{ turf.price_per_hour }}<span class="fw-normal">/hr</span>
+                </span>
               </div>
-              <p class="card-text small text-muted mb-2">
-                <i class="fas fa-map-marker-alt me-2"></i>{{ turf.location }}
+              
+              <!-- Availability Status -->
+              <div class="position-absolute top-0 start-0 m-3">
+                <span class="badge bg-success bg-opacity-90 text-white px-3 py-2">
+                  <i class="fas fa-circle me-1" style="font-size: 0.5rem;"></i>Available
+                </span>
+              </div>
+            </div>
+            
+            <!-- Card Body -->
+            <div class="card-body p-4 d-flex flex-column">
+              <div class="mb-3">
+                <h5 class="card-title fw-bold mb-2 text-dark">{{ turf.name }}</h5>
+                <div class="d-flex align-items-center text-muted mb-2">
+                  <i class="fas fa-map-marker-alt me-2 text-success"></i>
+                  <span class="small">{{ turf.location }}</span>
+                </div>
+              </div>
+              
+              <p class="card-text text-muted mb-3 flex-grow-1">
+                {{ turf.description|truncate(120) }}
               </p>
-              <p class="card-text mb-3">{{ turf.description|truncate(100) }}</p>
-              <div class="d-grid">
-                <a href="{{ url_for('user.book_turf', turf_id=turf.id) }}" class="btn btn-success">Book Now</a>
+              
+              <!-- Amenities/Features (if available) -->
+              <div class="mb-3">
+                <div class="d-flex flex-wrap gap-1">
+                  <span class="badge bg-light text-dark border">
+                    <i class="fas fa-futbol me-1"></i>Football
+                  </span>
+                  <span class="badge bg-light text-dark border">
+                    <i class="fas fa-lightbulb me-1"></i>Floodlights
+                  </span>
+                  <span class="badge bg-light text-dark border">
+                    <i class="fas fa-parking me-1"></i>Parking
+                  </span>
+                </div>
+              </div>
+              
+              <!-- Action Buttons -->
+              <div class="d-grid gap-2">
+                <a href="{{ url_for('user.book_turf', turf_id=turf.id) }}" 
+                   class="btn btn-success btn-lg fw-semibold">
+                  <i class="fas fa-calendar-check me-2"></i>Book Now
+                </a>
+                <button class="btn btn-outline-success btn-sm" data-bs-toggle="modal" data-bs-target="#turfModal{{ turf.id }}">
+                  <i class="fas fa-eye me-2"></i>View Details
+                </button>
               </div>
             </div>
           </div>
         </div>
       {% endfor %}
     {% else %}
+      <!-- No Results State -->
       <div class="col-12">
-        <div class="card shadow text-center p-5">
-          <i class="fas fa-exclamation-circle text-muted mb-3" style="font-size: 3rem;"></i>
-          <h4 class="mb-3">No Turfs Found</h4>
-          <p class="mb-4">There are no turfs available at the moment. Please check back later.</p>
+        <div class="card border-0 shadow-sm text-center py-5">
+          <div class="card-body">
+            <div class="mb-4">
+              <i class="fas fa-search text-muted opacity-50" style="font-size: 4rem;"></i>
+            </div>
+            <h4 class="fw-bold mb-3 text-dark">No Turfs Found</h4>
+            <p class="text-muted mb-4 fs-5">
+              We couldn't find any turfs matching your criteria.<br>
+              Try adjusting your filters or search terms.
+            </p>
+            <div class="d-flex gap-3 justify-content-center flex-wrap">
+              <a href="{{ url_for('user.view_turfs') }}" class="btn btn-success">
+                <i class="fas fa-refresh me-2"></i>View All Turfs
+              </a>
+              <button class="btn btn-outline-success" onclick="window.history.back()">
+                <i class="fas fa-arrow-left me-2"></i>Go Back
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     {% endif %}
   </div>
+  
+  <!-- Load More Button (if pagination is implemented) -->
+  {% if turfs and turfs|length >= 12 %}
+  <div class="text-center mt-5">
+    <button class="btn btn-outline-success btn-lg px-5">
+      <i class="fas fa-plus me-2"></i>Load More Turfs
+    </button>
+    </div>
+  {% endif %}
 </div>
+
+<!-- Custom Styles -->
+<style>
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-in;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.turf-card {
+  transition: all 0.3s ease;
+  border-radius: 1rem;
+}
+
+.turf-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1) !important;
+}
+
+.turf-image {
+  display: block;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  transition: transform 0.5s ease;
+}
+
+.turf-card:hover .turf-image {
+  transform: scale(1.05);
+}
+
+.page-header {
+  background: linear-gradient(135deg, #22c15e 0%, #198754 100%);
+  padding: 8rem 0;
+  background-image: url('{{ url_for("static", filename="img/hero/turf-hero-bg.jpg") }}');
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: overlay;
+  position: relative;
+}
+
+.z-index-10 {
+  z-index: 10;
+}
+
+.bg-opacity-90 {
+  background-color: rgba(var(--bs-success-rgb), 0.9) !important;
+}
+
+.text-white-75 {
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+</style>
+
 {% endblock %}

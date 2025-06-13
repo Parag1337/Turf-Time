@@ -26,6 +26,7 @@
   <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet" />
   <link href="{{ url_for('static', filename='css/custom.css') }}" rel="stylesheet" />
   <link href="{{ url_for('static', filename='css/enhanced.css') }}" rel="stylesheet" />
+  <link href="{{ url_for('static', filename='css/logo-fix.css') }}" rel="stylesheet" />
 
   <style>
     .bg-turf-hero {
@@ -447,6 +448,71 @@
     .btn-success:focus {
       animation: pulse 2s infinite;
     }
+    
+    /* Fix for booking tables */
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+    }
+    
+    /* Fix for nav tabs */
+    .nav-tabs {
+      list-style-type: none !important;
+      padding-left: 0 !important;
+      display: flex !important;
+      flex-wrap: wrap !important;
+      border-bottom: 1px solid #dee2e6 !important;
+      margin-bottom: 1rem !important;
+    }
+    
+    .nav-tabs .nav-item {
+      margin-bottom: -1px !important;
+      list-style-type: none !important;
+      display: block !important;
+    }
+    
+    .nav-link {
+      border: 1px solid transparent !important;
+      border-top-left-radius: 0.25rem !important;
+      border-top-right-radius: 0.25rem !important;
+      display: block !important;
+      padding: 0.5rem 1rem !important;
+    }
+    
+    .nav-link.active {
+      color: #495057 !important;
+      background-color: #fff !important;
+      border-color: #dee2e6 #dee2e6 #fff !important;
+    }
+    
+    /* Fix for cards and containers */
+    .container-fluid {
+      width: 100% !important;
+      padding-right: 15px !important;
+      padding-left: 15px !important;
+      margin-right: auto !important;
+      margin-left: auto !important;
+    }
+    
+    /* Fix for tables */
+    .table {
+      width: 100% !important;
+      max-width: 100% !important;
+      margin-bottom: 1rem !important;
+    }
+    
+    /* Fix for booking cards */
+    .card {
+      width: 100% !important;
+    }
+    
+    /* Fix for mobile view */
+    @media (max-width: 768px) {
+      .container, .container-fluid {
+        padding-right: 10px !important;
+        padding-left: 10px !important;
+      }
+    }
   </style>
 
   {% block additional_css %}{% endblock %}
@@ -459,9 +525,8 @@
   <main class="main" id="top">
     <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3 d-block bg-white shadow-sm" data-navbar-on-scroll="data-navbar-on-scroll">
       <div class="container">
-        <a class="navbar-brand py-2" href="{{ url_for('index') }}">
-          <img src="{{ url_for('static', filename='img/logo.svg') }}" height="28" alt="logo" />
-          <span class="fw-bold fs-3 ms-3 text-primary">TurfTime</span>
+        <a class="navbar-brand d-flex align-items-center" href="{{ url_for('index') }}">
+          <img src="{{ url_for('static', filename='img/logo (2).png') }}" alt="Turf Time" class="turf-logo me-2">
         </a>
         
         <button class="navbar-toggler border-0 p-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -570,11 +635,10 @@
     <!-- Footer -->
     <section class="footer-section pb-0 pb-lg-4">
       <div class="container">
-        <div class="row g-4">
-          <div class="col-lg-4 col-md-6 col-12 mb-4 mb-md-6 mb-lg-0 order-0"> 
-            <div class="d-flex align-items-center mb-4">
-              <img class="me-3" src="{{ url_for('static', filename='img/logo.svg') }}" width="32" alt="logo" />
-              <h4 class="mb-0 text-success fw-bold fs-4">TurfTime</h4>
+        <div class="row">
+          <div class="col-lg-3 col-md-7 col-12 mb-4 mb-md-6 mb-lg-0 order-0">
+            <div class="d-flex align-items-center mb-3">
+              <img src="{{ url_for('static', filename='img/logo (2).png') }}" alt="Turf Time" class="turf-logo mb-3">
             </div>
             <p class="fs-6 text-secondary mb-0 fw-medium lh-lg pe-lg-4">Book your favorite sports turf in minutes, manage your team, and enjoy quality playing time with the best facilities in your area.</p>
           </div>
@@ -844,6 +908,107 @@
           const toggle = this.querySelector('.dropdown-toggle');
           const instance = bootstrap.Dropdown.getInstance(toggle);
           if (instance) instance.hide();
+        });
+      });
+    }
+  });
+</script>
+<!-- Final dropdown fix - add before closing body tag -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Remove all previous conflicting styles
+    const fixStyle = document.createElement('style');
+    fixStyle.textContent = `
+      /* Reset all dropdown styling */
+      .dropdown-menu {
+        display: none !important;
+        position: absolute !important;
+        transform: none !important;
+        transition: none !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        z-index: 1030 !important;
+        margin-top: 0.125rem !important;
+        border: 1px solid rgba(0,0,0,.15) !important;
+        border-radius: 0.25rem !important;
+        background-color: white !important;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+        padding: 0.5rem 0 !important;
+        min-width: 10rem !important;
+        list-style: none !important;
+      }
+      
+      .dropdown-menu.show {
+        display: block !important;
+      }
+      
+      .dropdown-item {
+        display: block !important;
+        width: 100% !important;
+        clear: both !important;
+        text-align: inherit !important;
+        padding: 0.5rem 1rem !important;
+        background: none !important;
+        border: 0 !important;
+      }
+      
+      .dropdown-item:hover {
+        background-color: #f8f9fa !important;
+        color: #16181b !important;
+      }
+      
+      /* Bootstrap cleanup */
+      .dropdown, .dropend, .dropstart, .dropup {
+        position: relative !important;
+      }
+      
+      /* Remove all custom animations that might conflict */
+      .dropdown-toggle::after {
+        transition: none !important;
+      }
+    `;
+    document.head.appendChild(fixStyle);
+    
+    // Dispose all existing dropdown instances
+    document.querySelectorAll('.dropdown-toggle').forEach(function(el) {
+      const instance = bootstrap.Dropdown.getInstance(el);
+      if (instance) {
+        instance.dispose();
+      }
+    });
+    
+    // Initialize fresh instances with default settings
+    document.querySelectorAll('.dropdown-toggle').forEach(function(el) {
+      new bootstrap.Dropdown(el, {
+        boundary: 'viewport',
+        reference: 'toggle'
+      });
+    });
+    
+    // Handle desktop hover
+    if (window.innerWidth >= 992) {
+      document.querySelectorAll('.nav-item.dropdown, .dropdown').forEach(function(dropdown) {
+        const menu = dropdown.querySelector('.dropdown-menu');
+        const toggle = dropdown.querySelector('.dropdown-toggle');
+        
+        // Show menu on hover
+        dropdown.addEventListener('mouseenter', function() {
+          clearTimeout(this.hideTimeout);
+          
+          const instance = bootstrap.Dropdown.getInstance(toggle);
+          if (instance) {
+            instance.show();
+          }
+        });
+        
+        // Hide after delay when mouse leaves
+        dropdown.addEventListener('mouseleave', function() {
+          this.hideTimeout = setTimeout(() => {
+            const instance = bootstrap.Dropdown.getInstance(toggle);
+            if (instance) {
+              instance.hide();
+            }
+          }, 150);
         });
       });
     }
