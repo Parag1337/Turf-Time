@@ -227,3 +227,63 @@ def send_cancellation_notification_to_owner(booking):
         print(f" Failed to send cancellation notification email to owner {booking.turf.owner.email}")
     
     return success
+
+def send_team_request_notification(team_request):
+    """Send email notification to booking owner when someone requests to join their team"""
+    booking = team_request.booking
+    requester = team_request.requester
+    
+    try:
+        # Only send if the booking owner has an email
+        if booking.user and booking.user.email:
+            subject = f"New Team Join Request for {booking.turf.name}"
+            recipients = [booking.user.email]
+            
+            # Send the email
+            success = send_email(
+                subject=subject,
+                recipients=recipients,
+                template='emails/team_request_notification.html',
+                booking=booking,
+                requester=requester,
+                message=team_request.message,
+                current_year=datetime.utcnow().year
+            )
+            
+            return success
+        return False
+    except Exception as e:
+        print(f"Error sending team request notification: {e}")
+        import traceback
+        traceback.print_exc()
+        return False
+
+
+def send_team_request_accepted_notification(team_request):
+    """Send email notification to requester when their team join request is accepted"""
+    booking = team_request.booking
+    requester = team_request.requester
+    
+    try:
+        # Only send if the requester has an email
+        if requester and requester.email:
+            subject = f"Your Team Request for {booking.turf.name} has been ACCEPTED!"
+            recipients = [requester.email]
+            
+            # Send the email
+            success = send_email(
+                subject=subject,
+                recipients=recipients,
+                template='emails/team_request_accepted.html',
+                booking=booking,
+                requester=requester,
+                current_year=datetime.utcnow().year
+            )
+            
+            return success
+        return False
+    except Exception as e:
+        print(f"Error sending team request accepted notification: {e}")
+        import traceback
+        traceback.print_exc()
+        return False

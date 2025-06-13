@@ -34,6 +34,16 @@ try:
                 print(f"  Error: {str(e)}")
         
         try:
+            print("- Adding 'current_players' column to bookings table...")
+            db.session.execute(text("ALTER TABLE bookings ADD COLUMN current_players INT DEFAULT 1"))
+            print("  Column added successfully")
+        except Exception as e:
+            if "Duplicate column name" in str(e):
+                print("  Column 'current_players' already exists, skipping")
+            else:
+                print(f"  Error: {str(e)}")
+        
+        try:
             print("- Adding 'notes' column to bookings table...")
             db.session.execute(text("ALTER TABLE bookings ADD COLUMN notes TEXT"))
             print("  Column added successfully")

@@ -71,6 +71,7 @@ class Booking(db.Model):
     # Player finding system fields
     public_booking = db.Column(db.Boolean, default=False)
     max_players = db.Column(db.Integer, default=0)  # 0 means no limit set
+    current_players = db.Column(db.Integer, default=1)  # Default is 1 (the booking creator)
     notes = db.Column(db.Text)
     
     # Relationships

@@ -7,7 +7,9 @@ from utils.email_utils import (
     send_booking_confirmation_email,
     send_booking_notification_to_owner,
     send_cancellation_notification_to_user,
-    send_cancellation_notification_to_owner
+    send_cancellation_notification_to_owner,
+    send_team_request_notification,
+    send_team_request_accepted_notification
 )
 import logging
 
@@ -246,8 +248,7 @@ def join_team(booking_id):
     existing_request = TeamRequest.query.filter_by(
         booking_id=booking.id,
         requester_id=current_user.id
-    ).first()
-    
+    ).first()    
     if existing_request:
         flash("You have already sent a request to join this team.", "info")
         return redirect(url_for('user.find_teams'))
@@ -264,7 +265,14 @@ def join_team(booking_id):
         db.session.add(team_request)
         db.session.commit()
         
-        flash("Request sent successfully! You'll be notified when the organizer responds.", "success")
+        # Send email notification to the booking owner
+        email_sent = send_team_request_notification(team_request)
+        
+        if email_sent:
+            flash("Request sent successfully! You'll be notified when the organizer responds. A notification email has been sent to the organizer.", "success")
+        else:
+            flash("Request sent successfully! You'll be notified when the organizer responds. (Note: Email notification could not be sent)", "success")
+            
         return redirect(url_for('user.my_team_requests'))
     
     return render_template('user/join_team.html',
@@ -302,7 +310,19 @@ def respond_team_request(request_id, action):
     if action == 'accept':
         team_request.status = 'accepted'
         db.session.commit()
-        flash(f"You've accepted the request from {team_request.requester.username} to join your team.", "success")
+        
+        # Calculate and update current_players
+        booking = team_request.booking
+        booking.current_players = booking.current_players + 1 if booking.current_players else 2  # 1 for owner + 1 for new player
+        db.session.commit()
+        
+        # Send email notification to the requester
+        email_sent = send_team_request_accepted_notification(team_request)
+        
+        success_message = f"You've accepted the request from {team_request.requester.username} to join your team."
+        if email_sent:
+            success_message += " A confirmation email has been sent to the player."
+        flash(success_message, "success")
     
     elif action == 'reject':
         team_request.status = 'rejected'
