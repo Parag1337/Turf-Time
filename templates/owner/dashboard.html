@@ -4,13 +4,340 @@
 
 {% block additional_css %}
 <link href="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.css" rel="stylesheet">
+<style>
+  :root {
+    --primary-green: #2E7D32;
+    --secondary-green: #4CAF50;
+    --light-green: #C8E6C9;
+    --success-green: #66BB6A;
+    --accent-green: #388E3C;
+    --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    --card-hover-shadow: 0 12px 48px rgba(0, 0, 0, 0.15);
+    --border-radius: 16px;
+  }
+
+  .page-header {
+    background: linear-gradient(135deg, var(--primary-green) 0%, var(--secondary-green) 50%, var(--success-green) 100%);
+    position: relative;
+    overflow: hidden;
+    padding: 4rem 0;
+  }
+
+  .page-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+    opacity: 0.5;
+  }
+
+  .page-header .container {
+    position: relative;
+    z-index: 2;
+  }
+
+  .stat-card {
+    background: linear-gradient(145deg, #ffffff, #f8f9fa);
+    border: none;
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--secondary-green), var(--success-green));
+  }
+
+  .stat-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--card-hover-shadow);
+  }
+
+  .stat-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, rgba(76,175,80,0.1), rgba(76,175,80,0.2));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .stat-icon::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+    transform: rotate(-45deg);
+    animation: shimmer 3s infinite;
+  }
+
+  @keyframes shimmer {
+    0% { transform: translateX(-100%) translateY(-100%) rotate(-45deg); }
+    100% { transform: translateX(100%) translateY(100%) rotate(-45deg); }
+  }
+
+  .stat-icon i {
+    font-size: 28px;
+    color: var(--secondary-green);
+    z-index: 1;
+  }
+
+  .stat-number {
+    font-size: 2.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .main-card {
+    background: #ffffff;
+    border: none;
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+    overflow: hidden;
+  }
+
+  .card-header-custom {
+    background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+    color: white;
+    padding: 1.5rem;
+    border: none;
+    position: relative;
+  }
+
+  .card-header-custom::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  }
+
+  .quick-action-item {
+    border: none;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    background: linear-gradient(135deg, #ffffff, #f8f9fa);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .quick-action-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--secondary-green), var(--success-green));
+    transform: scaleY(0);
+    transition: transform 0.3s ease;
+  }
+
+  .quick-action-item:hover {
+    background: linear-gradient(135deg, #f8f9fa, #e8f5e8);
+    transform: translateX(8px);
+  }
+
+  .quick-action-item:hover::before {
+    transform: scaleY(1);
+  }
+
+  .quick-action-icon {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, rgba(76,175,80,0.1), rgba(76,175,80,0.2));
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    transition: all 0.3s ease;
+  }
+
+  .quick-action-item:hover .quick-action-icon {
+    transform: scale(1.1);
+    background: linear-gradient(135deg, rgba(76,175,80,0.2), rgba(76,175,80,0.3));
+  }
+
+  .earnings-chart-container {
+    position: relative;
+    height: 350px;
+    padding: 1.5rem;
+  }
+
+  .table-modern {
+    border-collapse: separate;
+    border-spacing: 0;
+  }
+
+  .table-modern thead th {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    border: none;
+    padding: 1rem;
+    font-weight: 600;
+    color: var(--primary-green);
+  }
+
+  .table-modern tbody tr {
+    transition: all 0.2s ease;
+  }
+
+  .table-modern tbody tr:hover {
+    background: linear-gradient(135deg, #f8f9fa, #e8f5e8);
+    transform: scale(1.01);
+  }
+
+  .table-modern tbody td {
+    padding: 1rem;
+    border: none;
+    border-bottom: 1px solid #e9ecef;
+  }
+
+  .status-badge {
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-weight: 500;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .status-confirmed {
+    background: linear-gradient(135deg, #4CAF50, #66BB6A);
+    color: white;
+  }
+
+  .status-cancelled {
+    background: linear-gradient(135deg, #f44336, #ef5350);
+    color: white;
+  }
+
+  .status-completed {
+    background: linear-gradient(135deg, #2196F3, #42A5F5);
+    color: white;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 3rem;
+    color: #6c757d;
+  }
+
+  .empty-state i {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    opacity: 0.3;
+  }
+
+  .dropdown-menu {
+    border: none;
+    box-shadow: var(--card-shadow);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .dropdown-item {
+    padding: 0.75rem 1.5rem;
+    transition: all 0.2s ease;
+  }
+
+  .dropdown-item:hover {
+    background: linear-gradient(135deg, var(--light-green), rgba(76,175,80,0.1));
+    color: var(--primary-green);
+  }
+
+  .btn-custom {
+    background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+    border: none;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    color: white;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+
+  .btn-custom:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(76,175,80,0.3);
+  }
+
+  .chart-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0;
+  }
+
+  /* Responsive improvements */
+  @media (max-width: 768px) {
+    .stat-card {
+      margin-bottom: 1rem;
+    }
+    
+    .stat-number {
+      font-size: 2rem;
+    }
+    
+    .quick-action-item {
+      padding: 1rem;
+    }
+    
+    .table-responsive {
+      border-radius: var(--border-radius);
+    }
+  }
+
+  /* Animation for cards on load */
+  .stat-card, .main-card {
+    animation: fadeInUp 0.6s ease-out;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Stagger animation for cards */
+  .stat-card:nth-child(1) { animation-delay: 0.1s; }
+  .stat-card:nth-child(2) { animation-delay: 0.2s; }
+  .stat-card:nth-child(3) { animation-delay: 0.3s; }
+  .stat-card:nth-child(4) { animation-delay: 0.4s; }
+</style>
 {% endblock %}
 
 {% block content %}
 <div class="page-header text-center">
   <div class="container">
     <h1 class="text-white display-4 fw-bold">Owner Dashboard</h1>
-    <p class="text-white-50 lead">Manage your turfs and bookings</p>
+    <p class="text-white-50 lead">Manage your turfs and grow your business</p>
   </div>
 </div>
 
@@ -18,102 +345,110 @@
   <!-- Statistics Cards -->
   <div class="row mb-5">
     <div class="col-md-3 mb-4">
-      <div class="card shadow text-center h-100">
+      <div class="card stat-card text-center h-100">
         <div class="card-body">
-          <div style="width:70px;height:70px;background:rgba(76,175,80,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;">
-            <i class="fas fa-futbol" style="font-size:24px;color:#4CAF50;"></i>
+          <div class="stat-icon">
+            <i class="fas fa-futbol"></i>
           </div>
-          <h5 class="fw-bold text-secondary">Total Turfs</h5>
-          <h2 class="display-4 fw-bold text-success">{{ turfs|length }}</h2>
+          <h5 class="fw-bold text-secondary mb-2">Total Turfs</h5>
+          <h2 class="stat-number">{{ turfs|length }}</h2>
         </div>
       </div>
     </div>
     
     <div class="col-md-3 mb-4">
-      <div class="card shadow text-center h-100">
+      <div class="card stat-card text-center h-100">
         <div class="card-body">
-          <div style="width:70px;height:70px;background:rgba(76,175,80,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;">
-            <i class="fas fa-calendar-check" style="font-size:24px;color:#4CAF50;"></i>
+          <div class="stat-icon">
+            <i class="fas fa-calendar-check"></i>
           </div>
-          <h5 class="fw-bold text-secondary">Total Bookings</h5>
-          <h2 class="display-4 fw-bold text-success">{{ total_bookings }}</h2>
+          <h5 class="fw-bold text-secondary mb-2">Total Bookings</h5>
+          <h2 class="stat-number">{{ total_bookings }}</h2>
         </div>
       </div>
     </div>
     
     <div class="col-md-3 mb-4">
-      <div class="card shadow text-center h-100">
+      <div class="card stat-card text-center h-100">
         <div class="card-body">
-          <div style="width:70px;height:70px;background:rgba(76,175,80,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;">
-            <i class="fas fa-clock" style="font-size:24px;color:#4CAF50;"></i>
+          <div class="stat-icon">
+            <i class="fas fa-clock"></i>
           </div>
-          <h5 class="fw-bold text-secondary">Upcoming</h5>
-          <h2 class="display-4 fw-bold text-success">{{ upcoming_bookings }}</h2>
+          <h5 class="fw-bold text-secondary mb-2">Upcoming</h5>
+          <h2 class="stat-number">{{ upcoming_bookings }}</h2>
         </div>
       </div>
     </div>
     
     <div class="col-md-3 mb-4">
-      <div class="card shadow text-center h-100">
+      <div class="card stat-card text-center h-100">
         <div class="card-body">
-          <div style="width:70px;height:70px;background:rgba(76,175,80,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;">
-            <i class="fas fa-rupee-sign" style="font-size:24px;color:#4CAF50;"></i>
+          <div class="stat-icon">
+            <i class="fas fa-rupee-sign"></i>
           </div>
-          <h5 class="fw-bold text-secondary">Monthly Earnings</h5>
-          <h2 class="display-4 fw-bold text-success">₹{{ monthly_earnings }}</h2>
+          <h5 class="fw-bold text-secondary mb-2">Monthly Earnings</h5>
+          <h2 class="stat-number">₹{{ monthly_earnings }}</h2>
         </div>
       </div>
     </div>
   </div>
 
   <div class="row mb-5">
-    <div class="col-md-8 mb-4">
-      <div class="card shadow">
-        <div class="card-header bg-success text-white d-flex justify-content-between align-items-center p-3">
-          <h4 class="mb-0">Earnings Overview</h4>
+    <div class="col-lg-8 mb-4">
+      <div class="card main-card">
+        <div class="card-header card-header-custom d-flex justify-content-between align-items-center">
+          <h4 class="chart-title">Earnings Overview</h4>
           <div class="dropdown">
-            <button class="btn btn-sm btn-light dropdown-toggle" type="button" id="earningsDropdown" data-bs-toggle="dropdown">
-              This Month
+            <button class="btn btn-custom dropdown-toggle" type="button" id="earningsDropdown" data-bs-toggle="dropdown">
+              <i class="fas fa-calendar-alt me-2"></i>This Month
             </button>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">This Week</a></li>
-              <li><a class="dropdown-item" href="#">This Month</a></li>
-              <li><a class="dropdown-item" href="#">Last 3 Months</a></li>
-              <li><a class="dropdown-item" href="#">This Year</a></li>
+              <li><a class="dropdown-item" href="#"><i class="fas fa-calendar-week me-2"></i>This Week</a></li>
+              <li><a class="dropdown-item" href="#"><i class="fas fa-calendar-alt me-2"></i>This Month</a></li>
+              <li><a class="dropdown-item" href="#"><i class="fas fa-calendar me-2"></i>Last 3 Months</a></li>
+              <li><a class="dropdown-item" href="#"><i class="fas fa-calendar-check me-2"></i>This Year</a></li>
             </ul>
           </div>
         </div>
-        <div class="card-body">
-          <canvas id="earningsChart" height="300"></canvas>
+        <div class="card-body earnings-chart-container">
+          <canvas id="earningsChart"></canvas>
         </div>
       </div>
     </div>
     
-    <div class="col-md-4 mb-4">
-      <div class="card shadow">
-        <div class="card-header bg-success text-white p-3">
-          <h4 class="mb-0">Quick Actions</h4>
+    <div class="col-lg-4 mb-4">
+      <div class="card main-card">
+        <div class="card-header card-header-custom">
+          <h4 class="chart-title">
+            <i class="fas fa-bolt me-2"></i>Quick Actions
+          </h4>
         </div>
         <div class="card-body p-0">
           <div class="list-group list-group-flush">
-            <a href="{{ url_for('owner.add_turf') }}" class="list-group-item list-group-item-action d-flex align-items-center p-3">
-              <i class="fas fa-plus-circle text-success me-3"></i>
+            <a href="{{ url_for('owner.add_turf') }}" class="list-group-item list-group-item-action quick-action-item d-flex align-items-center">
+              <div class="quick-action-icon">
+                <i class="fas fa-plus-circle text-success"></i>
+              </div>
               <div>
-                <h5 class="mb-1">Add New Turf</h5>
+                <h5 class="mb-1 fw-bold">Add New Turf</h5>
                 <p class="mb-0 text-muted small">List a new sports field</p>
               </div>
             </a>
-            <a href="{{ url_for('owner.my_turfs') }}" class="list-group-item list-group-item-action d-flex align-items-center p-3">
-              <i class="fas fa-tasks text-success me-3"></i>
+            <a href="{{ url_for('owner.my_turfs') }}" class="list-group-item list-group-item-action quick-action-item d-flex align-items-center">
+              <div class="quick-action-icon">
+                <i class="fas fa-tasks text-success"></i>
+              </div>
               <div>
-                <h5 class="mb-1">Manage Turfs</h5>
+                <h5 class="mb-1 fw-bold">Manage Turfs</h5>
                 <p class="mb-0 text-muted small">Update details, pricing, etc.</p>
               </div>
             </a>
-            <a href="{{ url_for('owner.view_bookings') }}" class="list-group-item list-group-item-action d-flex align-items-center p-3">
-              <i class="fas fa-calendar-alt text-success me-3"></i>
+            <a href="{{ url_for('owner.view_bookings') }}" class="list-group-item list-group-item-action quick-action-item d-flex align-items-center">
+              <div class="quick-action-icon">
+                <i class="fas fa-calendar-alt text-success"></i>
+              </div>
               <div>
-                <h5 class="mb-1">View All Bookings</h5>
+                <h5 class="mb-1 fw-bold">View All Bookings</h5>
                 <p class="mb-0 text-muted small">Check upcoming and past bookings</p>
               </div>
             </a>
@@ -123,39 +458,41 @@
     </div>
   </div>
 
-  <div class="card shadow">
-    <div class="card-header bg-success text-white p-3">
-      <h4 class="mb-0">Upcoming Bookings</h4>
+  <div class="card main-card">
+    <div class="card-header card-header-custom">
+      <h4 class="chart-title">
+        <i class="fas fa-calendar-check me-2"></i>Upcoming Bookings
+      </h4>
     </div>
-    <div class="card-body">
+    <div class="card-body p-0">
       {% if bookings %}
         <div class="table-responsive">
-          <table class="table table-hover">
+          <table class="table table-modern mb-0">
             <thead>
               <tr>
-                <th>Turf Name</th>
-                <th>Booked By</th>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Amount</th>
-                <th>Status</th>
+                <th><i class="fas fa-futbol me-2"></i>Turf Name</th>
+                <th><i class="fas fa-user me-2"></i>Booked By</th>
+                <th><i class="fas fa-calendar me-2"></i>Date</th>
+                <th><i class="fas fa-clock me-2"></i>Time</th>
+                <th><i class="fas fa-rupee-sign me-2"></i>Amount</th>
+                <th><i class="fas fa-info-circle me-2"></i>Status</th>
               </tr>
             </thead>
             <tbody>
               {% for booking in bookings %}
               <tr>
-                <td>{{ booking.turf.name }}</td>
+                <td class="fw-bold">{{ booking.turf.name }}</td>
                 <td>{{ booking.user.username }}</td>
                 <td>{{ booking.booking_date.strftime('%d %b, %Y') }}</td>
                 <td>{{ booking.start_time.strftime('%I:%M %p') }} - {{ booking.end_time.strftime('%I:%M %p') }}</td>
-                <td>₹{{ booking.total_price }}</td>
+                <td class="fw-bold">₹{{ booking.total_price }}</td>
                 <td>
                   {% if booking.status == 'confirmed' %}
-                    <span class="badge bg-success">Confirmed</span>
+                    <span class="status-badge status-confirmed">Confirmed</span>
                   {% elif booking.status == 'cancelled' %}
-                    <span class="badge bg-danger">Cancelled</span>
+                    <span class="status-badge status-cancelled">Cancelled</span>
                   {% elif booking.status == 'completed' %}
-                    <span class="badge bg-info">Completed</span>
+                    <span class="status-badge status-completed">Completed</span>
                   {% endif %}
                 </td>
               </tr>
@@ -164,9 +501,10 @@
           </table>
         </div>
       {% else %}
-        <div class="text-center py-4">
-          <i class="fas fa-calendar-times fa-3x text-muted mb-3"></i>
-          <p class="lead">No upcoming bookings found.</p>
+        <div class="empty-state">
+          <i class="fas fa-calendar-times"></i>
+          <h5 class="fw-bold mb-2">No Upcoming Bookings</h5>
+          <p class="text-muted">Your upcoming bookings will appear here once customers start booking your turfs.</p>
         </div>
       {% endif %}
     </div>
@@ -178,41 +516,127 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  // Sample data for the earnings chart
+  // Enhanced earnings chart with gradient and better styling
   const ctx = document.getElementById('earningsChart').getContext('2d');
+  
+  // Create gradient for the chart
+  const gradient = ctx.createLinearGradient(0, 0, 0, 300);
+  gradient.addColorStop(0, 'rgba(76, 175, 80, 0.4)');
+  gradient.addColorStop(1, 'rgba(76, 175, 80, 0.05)');
+  
   const earningsChart = new Chart(ctx, {
     type: 'line',
     data: {
       labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
       datasets: [{
-        label: 'Earnings',
+        label: 'Earnings (₹)',
         data: [12000, 19000, 15000, {{ monthly_earnings }}],
-        backgroundColor: 'rgba(76, 175, 80, 0.2)',
+        backgroundColor: gradient,
         borderColor: '#4CAF50',
-        borderWidth: 2,
+        borderWidth: 3,
         tension: 0.4,
-        fill: true
+        fill: true,
+        pointBackgroundColor: '#4CAF50',
+        pointBorderColor: '#ffffff',
+        pointBorderWidth: 3,
+        pointRadius: 6,
+        pointHoverRadius: 8,
+        pointHoverBackgroundColor: '#4CAF50',
+        pointHoverBorderColor: '#ffffff',
+        pointHoverBorderWidth: 3
       }]
     },
     options: {
       responsive: true,
       maintainAspectRatio: false,
+      interaction: {
+        intersect: false,
+        mode: 'index'
+      },
       plugins: {
         legend: {
           display: false
-        }
-      },
-      scales: {
-        y: {
-          beginAtZero: true,
-          ticks: {
-            callback: function(value) {
-              return '₹' + value;
+        },
+        tooltip: {
+          backgroundColor: 'rgba(0, 0, 0, 0.8)',
+          titleColor: '#ffffff',
+          bodyColor: '#ffffff',
+          borderColor: '#4CAF50',
+          borderWidth: 1,
+          cornerRadius: 8,
+          displayColors: false,
+          callbacks: {
+            label: function(context) {
+              return 'Earnings: ₹' + context.parsed.y.toLocaleString();
             }
           }
         }
+      },
+      scales: {
+        x: {
+          grid: {
+            display: false
+          },
+          ticks: {
+            color: '#6c757d',
+            font: {
+              weight: '500'
+            }
+          }
+        },
+        y: {
+          beginAtZero: true,
+          grid: {
+            color: 'rgba(0, 0, 0, 0.1)',
+            borderDash: [5, 5]
+          },
+          ticks: {
+            color: '#6c757d',
+            font: {
+              weight: '500'
+            },
+            callback: function(value) {
+              return '₹' + value.toLocaleString();
+            }
+          }
+        }
+      },
+      elements: {
+        point: {
+          hoverRadius: 8
+        }
       }
     }
+  });
+
+  // Add animation to statistics cards
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, observerOptions);
+
+  // Observe all cards for animation
+  document.querySelectorAll('.stat-card, .main-card').forEach(card => {
+    observer.observe(card);
+  });
+
+  // Add click animations to quick action items
+  document.querySelectorAll('.quick-action-item').forEach(item => {
+    item.addEventListener('click', function(e) {
+      this.style.transform = 'translateX(12px) scale(0.98)';
+      setTimeout(() => {
+        this.style.transform = '';
+      }, 150);
+    });
   });
 });
 </script>

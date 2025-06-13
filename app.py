@@ -1,6 +1,7 @@
 from flask import Flask, render_template, redirect, url_for
 from flask_login import LoginManager, current_user
 from flask_mail import Mail
+from flask_moment import Moment
 from datetime import datetime
 from config import Config
 from database.models import db, User
@@ -9,6 +10,7 @@ from database.models import db, User
 login_manager = LoginManager()
 login_manager.login_view = 'auth.login'
 mail = Mail()
+moment = Moment()
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -26,11 +28,11 @@ class FakeUser:
 def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(config_class)
-    
-    # Initialize extensions with app
+      # Initialize extensions with app
     db.init_app(app)
-    login_manager.init_app(app)    # Initialize Flask-Mail
+    login_manager.init_app(app)
     mail.init_app(app)
+    moment.init_app(app)
     
     # Register blueprints
     from routes.auth import auth_bp
