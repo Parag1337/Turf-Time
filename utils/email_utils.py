@@ -287,3 +287,32 @@ def send_team_request_accepted_notification(team_request):
         import traceback
         traceback.print_exc()
         return False
+
+def send_team_request_rejected_notification(team_request):
+    """Send email notification to requester when their team join request is rejected"""
+    booking = team_request.booking
+    requester = team_request.requester
+    
+    try:
+        # Only send if the requester has an email
+        if requester and requester.email:
+            subject = f"Team Request for {booking.turf.name} - Request Declined"
+            recipients = [requester.email]
+            
+            # Send the email
+            success = send_email(
+                subject=subject,
+                recipients=recipients,
+                template='emails/team_request_rejected.html',
+                booking=booking,
+                requester=requester,
+                current_year=datetime.utcnow().year
+            )
+            
+            return success
+        return False
+    except Exception as e:
+        print(f"Error sending team request rejection notification: {e}")
+        import traceback
+        traceback.print_exc()
+        return False

@@ -119,10 +119,9 @@
               <div class="hero-content text-center py-8 px-4">
                 <h5 class="text-white fw-bold mb-3 text-uppercase letter-spacing-3 text-shadow animate-on-scroll">Welcome to TurfTime</h5>
                 <h1 class="hero-title display-3 fw-bold text-white mb-4 text-shadow animate-on-scroll animate-delay-1">Find & Book <span class="text-success text-gradient">Sports Fields</span> in Seconds</h1>
-                <p class="lead text-white mb-5 text-shadow mx-auto animate-on-scroll animate-delay-2">Discover and reserve the perfect turf for your game. No more hassle, just play.</p>
-                  <div class="hero-buttons d-flex flex-wrap justify-content-center gap-5 mb-5 animate-on-scroll animate-delay-3">
-                    <button class="btn btn-success btn-lg primary-btn-shadow px-5 py-3 me-3">Find Turf Now</button>
-                    <button class="btn btn-outline-light btn-lg py-3 ms-3" style="padding-left: 30px; padding-right: 30px;">How It Works</button>
+                <p class="lead text-white mb-5 text-shadow mx-auto animate-on-scroll animate-delay-2">Discover and reserve the perfect turf for your game. No more hassle, just play.</p>                <div class="hero-buttons d-flex flex-wrap justify-content-center gap-5 mb-5 animate-on-scroll animate-delay-3">
+                    <a href="{{ url_for('auth.register') }}" class="btn btn-success btn-lg primary-btn-shadow px-5 py-3 me-3">Find Turf Now</a>
+                    <button onclick="document.getElementById('how-it-works').scrollIntoView({behavior: 'smooth'})" class="btn btn-outline-light btn-lg py-3 ms-3" style="padding-left: 30px; padding-right: 30px;">How It Works</button>
                 </div>
                 
                 <div class="hero-stats-container mt-5 animate-on-scroll">
@@ -353,13 +352,12 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-6 d-flex justify-content-center align-items-start">
-              <div class="card position-relative shadow" style="max-width: 420px; border-radius: 15px;">
+            <div class="col-lg-6 d-flex justify-content-center align-items-start">              <div class="card position-relative shadow" style="max-width: 420px; border-radius: 15px;">
                 <div class="card-header bg-success text-white p-4 rounded-top">
                   <h4 class="mb-0">Book Your Turf Now</h4>
                 </div>
                 <div class="card-body p-4">
-                  <form>
+                  <form action="{{ url_for('auth.register') }}" method="get">
                     <div class="mb-3">
                       <label for="sportType" class="form-label fw-medium">Sport Type</label>
                       <select class="form-select" id="sportType">
@@ -396,9 +394,7 @@
                         <option value="5">6:00 PM - 7:00 PM</option>
                         <option value="6">7:00 PM - 8:00 PM</option>
                         <option value="7">8:00 PM - 9:00 PM</option>
-                        <option value="8">9:00 PM - 10:00 PM</option>
-                      </select>
-                    </div>
+                        <option value="8">9:00 PM - 10:00 PM</option>                      </select>                    </div>
                     <button type="submit" class="btn btn-success btn-lg w-100">Check Availability</button>
                   </form>
                 </div>

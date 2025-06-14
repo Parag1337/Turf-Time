@@ -9,7 +9,8 @@ from utils.email_utils import (
     send_cancellation_notification_to_user,
     send_cancellation_notification_to_owner,
     send_team_request_notification,
-    send_team_request_accepted_notification
+    send_team_request_accepted_notification,
+    send_team_request_rejected_notification
 )
 import logging
 
@@ -310,8 +311,7 @@ def respond_team_request(request_id, action):
     if action == 'accept':
         team_request.status = 'accepted'
         db.session.commit()
-        
-        # Calculate and update current_players
+          # Calculate and update current_players
         booking = team_request.booking
         booking.current_players = booking.current_players + 1 if booking.current_players else 2  # 1 for owner + 1 for new player
         db.session.commit()
@@ -327,6 +327,13 @@ def respond_team_request(request_id, action):
     elif action == 'reject':
         team_request.status = 'rejected'
         db.session.commit()
-        flash(f"You've rejected the request from {team_request.requester.username}.", "info")
+        
+        # Send email notification to the requester
+        email_sent = send_team_request_rejected_notification(team_request)
+        
+        success_message = f"You've rejected the request from {team_request.requester.username}."
+        if email_sent:
+            success_message += " A notification email has been sent to the player."
+        flash(success_message, "info")
     
     return redirect(url_for('user.my_team_requests'))

@@ -392,22 +392,13 @@
       </div>
     </div>
   </div>
-
   <div class="row mb-5">
     <div class="col-lg-8 mb-4">
       <div class="card main-card">
         <div class="card-header card-header-custom d-flex justify-content-between align-items-center">
-          <h4 class="chart-title">Earnings Overview</h4>
-          <div class="dropdown">
-            <button class="btn btn-custom dropdown-toggle" type="button" id="earningsDropdown" data-bs-toggle="dropdown">
-              <i class="fas fa-calendar-alt me-2"></i>This Month
-            </button>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#"><i class="fas fa-calendar-week me-2"></i>This Week</a></li>
-              <li><a class="dropdown-item" href="#"><i class="fas fa-calendar-alt me-2"></i>This Month</a></li>
-              <li><a class="dropdown-item" href="#"><i class="fas fa-calendar me-2"></i>Last 3 Months</a></li>
-              <li><a class="dropdown-item" href="#"><i class="fas fa-calendar-check me-2"></i>This Year</a></li>
-            </ul>
+          <h4 class="chart-title">Earnings Overview (Last 7 Days)</h4>
+          <div class="badge rounded-pill bg-success text-white">
+            <i class="fas fa-chart-line me-1"></i>Real-time Data
           </div>
         </div>
         <div class="card-body earnings-chart-container">
@@ -509,6 +500,24 @@
       {% endif %}
     </div>
   </div>
+
+  <!-- Booking Status Chart -->
+  <div class="row mb-5">
+    <div class="col-lg-12 mb-4">
+      <div class="card main-card">
+        <div class="card-header card-header-custom">
+          <h4 class="chart-title">
+            <i class="fas fa-chart-pie me-2"></i>Booking Status Overview
+          </h4>
+        </div>
+        <div class="card-body">
+          <div class="position-relative" style="height: 400px;">
+            <canvas id="bookingStatusChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock %}
 
@@ -527,10 +536,10 @@ document.addEventListener('DOMContentLoaded', function() {
   const earningsChart = new Chart(ctx, {
     type: 'line',
     data: {
-      labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+      labels: {{ booking_dates|tojson }},
       datasets: [{
         label: 'Earnings (₹)',
-        data: [12000, 19000, 15000, {{ monthly_earnings }}],
+        data: {{ daily_earnings|tojson }},
         backgroundColor: gradient,
         borderColor: '#4CAF50',
         borderWidth: 3,
@@ -604,6 +613,54 @@ document.addEventListener('DOMContentLoaded', function() {
       elements: {
         point: {
           hoverRadius: 8
+        }
+      }
+    }
+  });
+  
+  // Booking status chart
+  const bookingStatusCtx = document.getElementById('bookingStatusChart').getContext('2d');
+  
+  // Get booking status counts from Flask template
+  const confirmedCount = {{ bookings|selectattr('status', 'equalto', 'confirmed')|list|length }};
+  const cancelledCount = {{ bookings|selectattr('status', 'equalto', 'cancelled')|list|length }};
+  const completedCount = {{ bookings|selectattr('status', 'equalto', 'completed')|list|length }};
+  
+  const bookingStatusChart = new Chart(bookingStatusCtx, {
+    type: 'doughnut',
+    data: {
+      labels: ['Confirmed', 'Cancelled', 'Completed'],
+      datasets: [{
+        data: [confirmedCount, cancelledCount, completedCount],
+        backgroundColor: ['#4caf50', '#f44336', '#2196f3'],
+        borderColor: '#ffffff',
+        borderWidth: 2,
+        hoverOffset: 10
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      cutout: '65%',
+      plugins: {
+        legend: {
+          position: 'bottom',
+          labels: {
+            padding: 15,
+            usePointStyle: true,
+            font: {
+              size: 12
+            }
+          }
+        },
+        tooltip: {
+          callbacks: {
+            label: function(context) {
+              const total = context.dataset.data.reduce((acc, val) => acc + val, 0);
+              const percentage = Math.round((context.raw / total) * 100);
+              return `${context.label}: ${context.raw} (${percentage}%)`;
+            }
+          }
         }
       }
     }

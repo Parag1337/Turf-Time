@@ -37,7 +37,9 @@ def dashboard():
                               bookings=[], 
                               total_bookings=0, 
                               upcoming_bookings=0, 
-                              monthly_earnings=0)
+                              monthly_earnings=0,
+                              daily_earnings=[],
+                              booking_dates=[])
     
     bookings = Booking.query.filter(Booking.turf_id.in_(turf_ids)).all()
     
@@ -52,13 +54,25 @@ def dashboard():
                         and b.booking_date <= today
                         and b.status != 'cancelled')
     
+    # Calculate daily earnings for the last 7 days
+    daily_earnings = []
+    booking_dates = []
+    for i in range(6, -1, -1):  # 6 days ago to today (7 days)
+        date = today - timedelta(days=i)
+        earnings = sum(b.total_price for b in bookings 
+                      if b.booking_date == date and b.status != 'cancelled')
+        daily_earnings.append(earnings)
+        booking_dates.append(date.strftime('%d %b'))  # Format: '01 Jan'
+    
     return render_template('owner/dashboard.html', 
                           title='Owner Dashboard', 
                           turfs=turfs, 
                           bookings=bookings, 
                           total_bookings=len(bookings), 
                           upcoming_bookings=upcoming_bookings, 
-                          monthly_earnings=monthly_earnings)
+                          monthly_earnings=monthly_earnings,
+                          daily_earnings=daily_earnings,
+                          booking_dates=booking_dates)
 
 @owner_bp.route('/my_turfs')
 @owner_required
