@@ -422,16 +422,15 @@ MAIL_USE_TLS=True
 
 ---
 
-
 ## 🙌 Acknowledgements
 
-- Flask documentation and community
+- Flask documentation
+    
 - Bootstrap 5 open-source components
+    
 - Chart.js for stunning analytics
+    
 - WTForms & Flask-WTF for secure form handling
+    
 - Community contributors and testers
-- [Font Awesome](https://fontawesome.com/) for icons
-- [MySQL Community Edition](https://www.mysql.com/products/community/)
-
----
-
+    
