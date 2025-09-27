@@ -7,7 +7,7 @@ load_dotenv()
 
 class Config:
     # Check if required environment variables are set
-    required_vars = ['SECRET_KEY', 'DB_USERNAME', 'DB_PASSWORD', 'MAIL_PASSWORD']
+    required_vars = ['SECRET_KEY', 'DB_USERNAME', 'DB_PASSWORD', 'MAIL_USERNAME', 'MAIL_PASSWORD']
     missing_vars = [var for var in required_vars if not os.environ.get(var)]
     
     if missing_vars:
